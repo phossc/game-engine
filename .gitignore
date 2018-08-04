@@ -1,0 +1,11 @@
+/build/
+
+# C++ completion
+/compile_commands.json
+
+# macOS Finder
+.DS_Store
+
+# Visual Studio
+/.vs/
+/CMakeSettings.json
