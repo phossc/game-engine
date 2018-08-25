@@ -28,3 +28,4 @@ BraceWrapping:
   SplitEmptyRecord: true
   SplitEmptyNamespace: true
 
+...
