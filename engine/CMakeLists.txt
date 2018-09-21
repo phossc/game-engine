@@ -8,6 +8,11 @@ target_compile_options(engine PUBLIC $<$<CXX_COMPILER_ID:MSVC>:/W4>)
 
 target_sources(engine
     PRIVATE
+        "include/engine/core/ecs.hpp"
+        "include/engine/core/entity.hpp"
+        "include/engine/core/entity_id.hpp"
         "include/engine/core/system.hpp"
+        "include/engine/core/system_entity.hpp"
+        "src/core/ecs.cpp"
         "src/core/system.cpp"
     )

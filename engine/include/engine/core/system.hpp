@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+#include <engine/core/ecs.hpp>
+
 namespace engine::core {
 
 class System final {
@@ -15,12 +17,24 @@ public:
     void register_components();
     void attach_system_components();
 
-    const std::string& name() { return name_; }
-    const std::vector<std::string>& arguments() { return arguments_; }
+    const std::string& name() const noexcept { return name_; }
+
+    const std::vector<std::string>& arguments() const noexcept {
+        return arguments_;
+    }
+
+    Ecs& ecs() noexcept { return ecs_; }
+
+    class System_entity& entity() const noexcept {
+        return *entity_;
+    }
 
 private:
     std::string name_;
     std::vector<std::string> arguments_;
+
+    Ecs ecs_;
+    class System_entity* entity_ = nullptr;
 };
 
 extern std::unique_ptr<System> sys;

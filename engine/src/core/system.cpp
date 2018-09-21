@@ -1,5 +1,7 @@
 #include <engine/core/system.hpp>
 
+#include <engine/core/system_entity.hpp>
+
 namespace engine::core {
 
 std::unique_ptr<System> sys = nullptr;
@@ -15,6 +17,8 @@ System::System(int argc, const char** argv) {
     for (int i = 1; i < argc; ++i) {
         arguments_.emplace_back(argv[i]);
     }
+
+    entity_ = ecs_.create_entity<System_entity>();
 }
 
 void System::run() {}
