@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+#include <engine/core/component_registry.hpp>
 #include <engine/core/ecs.hpp>
 
 namespace engine::core {
@@ -23,6 +24,10 @@ public:
         return arguments_;
     }
 
+    Component_registry& component_registry() noexcept {
+        return component_registry_;
+    }
+
     Ecs& ecs() noexcept { return ecs_; }
 
     class System_entity& entity() const noexcept {
@@ -33,6 +38,7 @@ private:
     std::string name_;
     std::vector<std::string> arguments_;
 
+    Component_registry component_registry_;
     Ecs ecs_;
     class System_entity* entity_ = nullptr;
 };
