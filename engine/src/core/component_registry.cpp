@@ -4,6 +4,21 @@
 
 namespace engine::core {
 
+std::unique_ptr<engine::core::Component>
+Component_registry::create_component(Component_uuid uuid) {
+    auto iter = component_creators_.find(uuid);
+    if (iter != std::end(component_creators_)) {
+        return iter->second();
+    }
+
+    return nullptr;
+}
+
+std::deque<Component_uuid>
+Component_registry::dependencies(Component_uuid uuid) const {
+    return {};
+}
+
 void Component_registry::add_dependent(
         Component_uuid dependent, Array_view<Component_uuid> dependencies) {
     bool missing_dependencies = false;
@@ -14,7 +29,7 @@ void Component_registry::add_dependent(
         }
     }
 
-    incomplete_dependency_graph_.emplace({dependent, dependencies});
+    incomplete_dependency_graph_.emplace(dependent, dependencies);
 
     if (!missing_dependencies) {
         resolve_missing_dependencies(dependent);
@@ -28,7 +43,9 @@ void Component_registry::track_missing_dependency(Component_uuid dependency,
         iter->second.push_back(dependent);
     }
     else {
-        missing_dependency_to_dependents_.emplace({dependency, {dependent}});
+        std::vector<Component_uuid> dependents = {dependent};
+        missing_dependency_to_dependents_.emplace(dependency,
+                                                  std::move(dependents));
     }
 
     if (auto iter = dependent_to_missing_dependencies_.find(dependent);
@@ -36,7 +53,9 @@ void Component_registry::track_missing_dependency(Component_uuid dependency,
         iter->second.push_back(dependency);
     }
     else {
-        dependent_to_missing_dependencies_.emplace({dependent, {dependency}});
+        std::vector<Component_uuid> dependencies = {dependency};
+        dependent_to_missing_dependencies_.emplace(dependent,
+                                                   std::move(dependencies));
     }
 }
 
@@ -46,8 +65,8 @@ void Component_registry::resolve_missing_dependencies(
     // resolved dependency from the incomplete to the complete dependency graph.
     auto dependency_transfer =
             incomplete_dependency_graph_.find(resolved_dependency);
-    dependency_graph_.emplace(
-            {dependency_transfer->first, dependency_transfer->second});
+    dependency_graph_.emplace(dependency_transfer->first,
+                              dependency_transfer->second);
     incomplete_dependency_graph_.erase(dependency_transfer);
 
     auto dependents =
@@ -76,7 +95,7 @@ void Component_registry::resolve_missing_dependencies(
             auto dependency = std::find(std::begin(dependencies->second),
                                         std::end(dependencies->second),
                                         resolved_dependency);
-            std::swap(*dependency, dependencies->second.last());
+            std::swap(*dependency, dependencies->second.back());
             dependencies->second.pop_back();
         }
     }

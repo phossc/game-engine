@@ -1,9 +1,14 @@
 #ifndef ENGINE_CORE_COMPONENT_REGISTRY_HPP
 #define ENGINE_CORE_COMPONENT_REGISTRY_HPP
 
+#include <deque>
+#include <functional>
 #include <map>
+#include <memory>
 #include <vector>
 
+#include <engine/array_view.hpp>
+#include <engine/core/component.hpp>
 #include <engine/core/component_uuid.hpp>
 
 namespace engine::core {
@@ -15,14 +20,27 @@ public:
     //! missing component dependencies on entities, and so that it can
     //! instantiate components by providing a UUID.
     template <typename ComponentType>
-    void register_component<ComponentType>();
+    void register_component();
+
+    //! Instantiates a component identified by UUID.
+    //!
+    //! \return an owning pointer to the created component or nullptr if a
+    //! component type is not registered for the UUID.
+    std::unique_ptr<Component> create_component(Component_uuid uuid);
+
+    //! Calls create_component(ComponentType::s_uuid()).
+    template <typename ComponentType>
+    std::unique_ptr<ComponentType> create_component() {
+        return static_cast<std::unique_ptr<ComponentType>>(
+                create_component(ComponentType::s_uuid()));
+    }
 
     //! Returns a topologically sorted list with all the dependencies of the
     //! component identified by the provided UUID including itself.
     //!
     //! If there are missing dependencies or the provided UUID does not exist
     //! then an empty list is returned.
-    std::vector<Component_uuid> dependencies(Component_uuid uuid) const;
+    std::deque<Component_uuid> dependencies(Component_uuid uuid) const;
 
 private:
     // Adds the dependent to the dependency graph if all dependencies are
@@ -41,6 +59,9 @@ private:
     // the further resolved dependencies are moved from the incomplete
     // dependency graph to the complete one.
     void resolve_missing_dependencies(Component_uuid resolved_dependency);
+
+    std::map<Component_uuid, std::function<std::unique_ptr<Component>()>>
+            component_creators_;
 
     std::map<Component_uuid, Array_view<Component_uuid>> dependency_graph_;
 
@@ -68,6 +89,8 @@ void Component_registry::register_component() {
     }
 
     add_dependent(uuid, dependency_uuids);
+    component_creators_.emplace(
+            uuid, []() { return std::make_unique<ComponentType>(); });
 }
 
 } // namespace engine::core
