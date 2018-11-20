@@ -2,6 +2,17 @@
 
 namespace engine::core {
 
+Ecs::~Ecs() {
+    for (const auto& entity : entities_) {
+        if (auto id = entity.first; id.value() != 0) {
+            schedule_deletion(id);
+        }
+    }
+
+    schedule_deletion(Entity_id{0});
+    update();
+}
+
 Entity* Ecs::get_entity(Entity_id entity_id) {
     auto iter = entities_.find(entity_id);
     return iter != std::end(entities_) ? iter->second.get() : nullptr;
