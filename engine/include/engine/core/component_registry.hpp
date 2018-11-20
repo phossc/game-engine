@@ -1,7 +1,6 @@
 #ifndef ENGINE_CORE_COMPONENT_REGISTRY_HPP
 #define ENGINE_CORE_COMPONENT_REGISTRY_HPP
 
-#include <deque>
 #include <functional>
 #include <map>
 #include <memory>
@@ -40,7 +39,7 @@ public:
     //!
     //! If there are missing dependencies or the provided UUID does not exist
     //! then an empty list is returned.
-    std::deque<Component_uuid> dependencies(Component_uuid uuid) const;
+    std::vector<Component_uuid> dependencies(Component_uuid uuid) const;
 
 private:
     // Adds the dependent to the dependency graph if all dependencies are
