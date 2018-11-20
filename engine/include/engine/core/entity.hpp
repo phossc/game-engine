@@ -22,7 +22,7 @@ public:
     //! in the next ECS update.
     virtual void deactivate() {}
 
-    virtual Entity_id id() const noexcept { return id_; }
+    Entity_id id() const noexcept { return id_; }
 
 private:
     Entity_id id_;
