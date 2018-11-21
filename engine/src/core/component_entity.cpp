@@ -85,6 +85,7 @@ void Component_entity::update() {
                           assert(component != nullptr);
 
                           component->activate();
+                          component->active_ = true;
                       });
         break;
     }
@@ -107,6 +108,7 @@ void Component_entity::perform_activation() {
 
                       if (!component->active()) {
                           component->activate();
+                          component->active_ = true;
                       }
                   });
 
@@ -122,6 +124,7 @@ void Component_entity::perform_deactivation() {
 
                       if (component->active()) {
                           component->deactivate();
+                          component->active_ = false;
                       }
                   });
 

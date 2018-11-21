@@ -11,14 +11,17 @@ public:
 
     virtual void activate() = 0;
     virtual void deactivate() = 0;
-    virtual bool active() = 0;
+    bool active() const noexcept { return active_; }
 
     void set_entity(Entity* entity) noexcept { entity_ = entity; }
 
     Entity* entity() const noexcept { return entity_; }
 
+    friend class Component_entity;
+
 private:
     Entity* entity_ = nullptr;
+    bool active_ = false;
 };
 
 } // namespace engine::core
