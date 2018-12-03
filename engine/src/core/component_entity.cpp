@@ -28,6 +28,7 @@ Component* Component_entity::create_component(Component_uuid uuid) {
     // start index value if another component creation call happened, and lets
     // deactivation and activation calls take precedence.
     if (scheduled_task_ == Task::none && active_) {
+        sys->ecs().schedule_update(id());
         scheduled_task_ = Task::activate_new_components;
         new_components_start_index_ = components_.size();
     }
@@ -61,7 +62,10 @@ Component* Component_entity::get(Component_uuid uuid) {
 }
 
 void Component_entity::update() {
-    switch (scheduled_task_) {
+    auto task = scheduled_task_;
+    scheduled_task_ = Task::none;
+
+    switch (task) {
     case Task::none:
         break;
 
@@ -92,10 +96,18 @@ void Component_entity::update() {
 }
 
 void Component_entity::activate() {
+    if (scheduled_task_ == Task::none) {
+        sys->ecs().schedule_update(id());
+    }
+
     scheduled_task_ = Task::activate;
 }
 
 void Component_entity::deactivate() {
+    if (scheduled_task_ == Task::none) {
+        sys->ecs().schedule_update(id());
+    }
+
     scheduled_task_ = Task::deactivate;
 }
 
