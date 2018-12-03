@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.11.3)
 project(GameEngine)
 
+add_subdirectory(third_party)
+
 add_subdirectory(engine)
 add_subdirectory(game)
 add_subdirectory(editor)
