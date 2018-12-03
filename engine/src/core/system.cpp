@@ -22,6 +22,7 @@ System::System(int argc, const char** argv) {
 }
 
 void System::run() {
+    entity_->activate();
     game_loop_.run();
 }
 
