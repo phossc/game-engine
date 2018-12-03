@@ -21,7 +21,10 @@ System::System(int argc, const char** argv) {
     entity_ = ecs_.create_entity<System_entity>();
 }
 
-void System::run() {}
+void System::run() {
+    game_loop_.run();
+}
+
 void System::register_components() {}
 void System::attach_system_components() {}
 

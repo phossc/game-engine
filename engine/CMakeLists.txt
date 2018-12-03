@@ -17,6 +17,7 @@ target_sources(engine
         "include/engine/core/ecs.hpp"
         "include/engine/core/entity.hpp"
         "include/engine/core/entity_id.hpp"
+        "include/engine/core/game_loop.hpp"
         "include/engine/core/system.hpp"
         "include/engine/core/system_entity.hpp"
         "include/engine/core/update_system.hpp"
@@ -24,6 +25,7 @@ target_sources(engine
         "src/core/component_entity.cpp"
         "src/core/component_registry.cpp"
         "src/core/ecs.cpp"
+        "src/core/game_loop.cpp"
         "src/core/system.cpp"
         "src/core/update_system.cpp"
     )

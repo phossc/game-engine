@@ -5,8 +5,11 @@
 #include <string>
 #include <vector>
 
+#include <engine/core/clock.hpp>
 #include <engine/core/component_registry.hpp>
 #include <engine/core/ecs.hpp>
+#include <engine/core/game_loop.hpp>
+#include <engine/core/update_system.hpp>
 
 namespace engine::core {
 
@@ -30,6 +33,12 @@ public:
 
     Ecs& ecs() noexcept { return ecs_; }
 
+    Clock& game_clock() noexcept { return game_clock_; }
+
+    Update_system& update_system() noexcept { return update_system_; }
+
+    Game_loop& game_loop() noexcept { return game_loop_; }
+
     class System_entity& entity() const noexcept {
         return *entity_;
     }
@@ -40,6 +49,10 @@ private:
 
     Component_registry component_registry_;
     Ecs ecs_;
+    Clock game_clock_;
+    Update_system update_system_;
+    Game_loop game_loop_;
+
     class System_entity* entity_ = nullptr;
 };
 
