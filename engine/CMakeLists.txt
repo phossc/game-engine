@@ -30,4 +30,4 @@ target_sources(engine
         "src/core/update_system.cpp"
     )
 
-target_link_libraries(engine PUBLIC spdlog)
+target_link_libraries(engine PUBLIC spdlog glfw)

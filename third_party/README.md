@@ -12,3 +12,10 @@
 
 Included files are the include directory and the LICENSE file. Uses a custom
 CMakeLists.txt file.
+
+## GLFW
+- URL: https://github.com/glfw/glfw
+- Version: f9923e90958e726aaabc86d83fb3681216d76067 (commit)
+- License: zlib/libpng
+
+Removed dotfiles in the root directory.
