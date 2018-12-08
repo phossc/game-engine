@@ -5,13 +5,12 @@
 - Version: v2.5.0 (tag)
 - License: BSL-1.0
 
-## spdlog
-- URL: https://github.com/gabime/spdlog
-- Version: v1.2.1 (tag)
+## glad
+- URL: https://github.com/Dav1dde/glad
+- Version: v0.1.28 (tag)
 - License: MIT
 
-Included files are the include directory and the LICENSE file. Uses a custom
-CMakeLists.txt file.
+Used through the webservice to generate glad files for OpenGL 3.3 Core.
 
 ## GLFW
 - URL: https://github.com/glfw/glfw
@@ -19,3 +18,11 @@ CMakeLists.txt file.
 - License: zlib/libpng
 
 Removed dotfiles in the root directory.
+
+## spdlog
+- URL: https://github.com/gabime/spdlog
+- Version: v1.2.1 (tag)
+- License: MIT
+
+Included files are the include directory and the LICENSE file. Uses a custom
+CMakeLists.txt file.
