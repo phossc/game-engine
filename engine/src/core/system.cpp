@@ -1,6 +1,7 @@
 #include <engine/core/system.hpp>
 
-#include <engine/core/system_entity.hpp>
+#include <engine/subsystems/glfw.hpp>
+#include <engine/subsystems/window_manager.hpp>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
 namespace engine::core {
@@ -28,7 +29,14 @@ void System::run() {
     game_loop_.run();
 }
 
-void System::register_components() {}
-void System::attach_system_components() {}
+void System::register_components() {
+    component_registry_.register_component<subsystems::Glfw>();
+    component_registry_.register_component<subsystems::Window_manager>();
+}
+
+void System::attach_system_components() {
+    entity_->create_component<subsystems::Glfw>();
+    entity_->create_component<subsystems::Window_manager>();
+}
 
 } // namespace engine::core

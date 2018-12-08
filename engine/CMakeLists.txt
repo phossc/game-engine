@@ -21,6 +21,8 @@ target_sources(engine
         "include/engine/core/system.hpp"
         "include/engine/core/system_entity.hpp"
         "include/engine/core/update_system.hpp"
+        "include/engine/subsystems/glfw.hpp"
+        "include/engine/subsystems/window_manager.hpp"
         "src/core/clock.cpp"
         "src/core/component_entity.cpp"
         "src/core/component_registry.cpp"
@@ -28,6 +30,8 @@ target_sources(engine
         "src/core/game_loop.cpp"
         "src/core/system.cpp"
         "src/core/update_system.cpp"
+        "src/subsystems/glfw/glfw.cpp"
+        "src/subsystems/window_manager/window_manager.cpp"
     )
 
 target_link_libraries(engine PUBLIC spdlog glad glfw)
