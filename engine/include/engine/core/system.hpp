@@ -11,6 +11,7 @@
 #include <engine/core/ecs.hpp>
 #include <engine/core/game_loop.hpp>
 #include <engine/core/update_system.hpp>
+#include <engine/core/system_entity.hpp>
 
 namespace engine::core {
 
@@ -58,7 +59,7 @@ private:
     Update_system update_system_;
     Game_loop game_loop_;
 
-    class System_entity* entity_ = nullptr;
+    System_entity* entity_ = nullptr;
 };
 
 extern std::unique_ptr<System> sys;
