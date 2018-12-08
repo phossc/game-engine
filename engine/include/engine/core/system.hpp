@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 
+#include <spdlog/logger.h>
 #include <engine/core/clock.hpp>
 #include <engine/core/component_registry.hpp>
 #include <engine/core/ecs.hpp>
@@ -31,6 +32,9 @@ public:
         return component_registry_;
     }
 
+    // References should not be used outside the lifetime of this instance.
+    spdlog::logger& logger() noexcept { return *logger_; }
+
     Ecs& ecs() noexcept { return ecs_; }
 
     Clock& game_clock() noexcept { return game_clock_; }
@@ -47,6 +51,7 @@ private:
     std::string name_;
     std::vector<std::string> arguments_;
 
+    std::shared_ptr<spdlog::logger> logger_;
     Component_registry component_registry_;
     Ecs ecs_;
     Clock game_clock_;

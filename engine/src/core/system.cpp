@@ -1,12 +1,14 @@
 #include <engine/core/system.hpp>
 
 #include <engine/core/system_entity.hpp>
+#include <spdlog/sinks/stdout_color_sinks.h>
 
 namespace engine::core {
 
 std::unique_ptr<System> sys = nullptr;
 
-System::System(int argc, const char** argv) {
+System::System(int argc, const char** argv)
+    : logger_(spdlog::stdout_color_mt("logger")) {
     if (argc <= 0) {
         name_ = "unnamed";
     }
