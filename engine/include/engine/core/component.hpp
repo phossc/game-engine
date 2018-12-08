@@ -18,8 +18,8 @@ public:
     virtual Component_uuid uuid() const noexcept = 0;
     virtual Array_view<Component_uuid> dependencies() const noexcept = 0;
 
-    virtual void activate() = 0;
-    virtual void deactivate() = 0;
+    virtual void activate() {}
+    virtual void deactivate() {}
 
     void set_entity(Entity* entity) noexcept { entity_ = entity; }
     Entity* entity() const noexcept { return entity_; }
