@@ -29,3 +29,5 @@ target_sources(engine
         "src/core/system.cpp"
         "src/core/update_system.cpp"
     )
+
+target_link_libraries(engine PUBLIC spdlog)
