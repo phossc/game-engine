@@ -12,6 +12,14 @@
 
 Used through the webservice to generate glad files for OpenGL 3.3 Core.
 
+## glm
+- URL: https://github.com/g-truc/glm
+- Version: v0.9.9.3 (tag)
+- License: Happy Bunny License (Modified MIT) or MIT
+
+Only included glm subdirectory and deleted CMakeLists.txt within it. Also added
+a file containing the license.
+
 ## GLFW
 - URL: https://github.com/glfw/glfw
 - Version: f9923e90958e726aaabc86d83fb3681216d76067 (commit)
