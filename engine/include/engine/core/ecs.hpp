@@ -13,12 +13,7 @@ namespace engine::core {
 // Entity system that allows creation of different entity types.
 class Ecs final {
 public:
-    //! Upon destruction, deletion is scheduled on all entities. The first
-    //! entity that was created in the system is scheduled to be destroyed last
-    //! if it still exists. The first entity created is the one with id 0. A
-    //! last update is then called on the ECS which performs the deletion. If
-    //! any new entities are created while performing the deletion, those
-    //! entities can't depend on other entities.
+    //! Calls delete_all()
     ~Ecs();
 
     //! Creates an entity of the specified type.
@@ -46,6 +41,11 @@ public:
     //! Entities scheduled for deletion are deleted and update is called on all
     //! entities who have an update scheduled.
     void update();
+
+    //! Deletes all entities.
+    //!
+    //! The entity with the id 0 is deleted last.
+    void delete_all();
 
 private:
     //! Data member holding the id that a newly created entity will get.

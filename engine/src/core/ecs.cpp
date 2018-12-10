@@ -3,14 +3,7 @@
 namespace engine::core {
 
 Ecs::~Ecs() {
-    for (const auto& entity : entities_) {
-        if (auto id = entity.first; id.value() != 0) {
-            schedule_deletion(id);
-        }
-    }
-
-    schedule_deletion(Entity_id{0});
-    update();
+    delete_all();
 }
 
 Entity* Ecs::get_entity(Entity_id entity_id) {
@@ -42,6 +35,20 @@ void Ecs::update() {
 
     entities_being_deleted_.clear();
     entities_being_updated_.clear();
+}
+
+void Ecs::delete_all() {
+    for (const auto& entity : entities_) {
+        if (auto id = entity.first; id.value() != 0) {
+            schedule_deletion(id);
+        }
+    }
+
+    if (entities_.count(0) == 1) {
+        schedule_deletion(Entity_id{0});
+    }
+
+    update();
 }
 
 } // namespace engine::core

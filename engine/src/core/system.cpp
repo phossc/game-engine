@@ -6,10 +6,11 @@
 
 namespace engine::core {
 
-std::unique_ptr<System> sys = nullptr;
+System* sys = nullptr;
 
 System::System(int argc, const char** argv)
-    : logger_(spdlog::stdout_color_mt("logger")) {
+    : logger_(spdlog::stdout_color_mt("logger")),
+      game_loop_(game_clock_, ecs_, update_system_) {
     if (argc <= 0) {
         name_ = "unnamed";
     }
@@ -21,7 +22,13 @@ System::System(int argc, const char** argv)
         arguments_.emplace_back(argv[i]);
     }
 
+    sys = this;
     entity_ = ecs_.create_entity<System_entity>();
+}
+
+System::~System() {
+    ecs_.delete_all();
+    sys = nullptr;
 }
 
 void System::run() {

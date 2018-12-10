@@ -5,19 +5,20 @@
 #include <string>
 #include <vector>
 
-#include <spdlog/logger.h>
 #include <engine/core/clock.hpp>
 #include <engine/core/component_registry.hpp>
 #include <engine/core/ecs.hpp>
 #include <engine/core/game_loop.hpp>
-#include <engine/core/update_system.hpp>
 #include <engine/core/system_entity.hpp>
+#include <engine/core/update_system.hpp>
+#include <spdlog/logger.h>
 
 namespace engine::core {
 
 class System final {
 public:
     System(int argc, const char** argv);
+    ~System();
 
     void run();
     void register_components();
@@ -62,7 +63,7 @@ private:
     System_entity* entity_ = nullptr;
 };
 
-extern std::unique_ptr<System> sys;
+extern System* sys;
 
 } // namespace engine::core
 

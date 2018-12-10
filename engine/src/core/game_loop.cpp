@@ -1,8 +1,14 @@
 #include <engine/core/game_loop.hpp>
 
-#include <engine/core/system.hpp>
+#include <engine/core/clock.hpp>
+#include <engine/core/ecs.hpp>
+#include <engine/core/update_system.hpp>
 
 namespace engine::core {
+
+Game_loop::Game_loop(class Clock& game_clock, class Ecs& ecs,
+                     class Update_system& update_system)
+    : game_clock_(game_clock), ecs_(ecs), update_system_(update_system) {}
 
 void Game_loop::run() {
     if (running_) {
@@ -16,10 +22,10 @@ void Game_loop::run() {
     while (running_) {
         auto current = std::chrono::steady_clock::now();
 
-        sys->game_clock().update(current - previous);
-        sys->ecs().update();
+        game_clock_.update(current - previous);
+        ecs_.update();
 
-        std::chrono::nanoseconds dt = sys->game_clock().update_dt();
+        std::chrono::nanoseconds dt = game_clock_.update_dt();
         accumulated_dt += dt;
 
         double simulation_rate_seconds =
@@ -31,15 +37,14 @@ void Game_loop::run() {
             simulation_rate_seconds =
                     std::chrono::duration<double>{simulation_rate_}.count();
 
-            sys->update_system().broadcast_fixed_update(
-                    simulation_rate_seconds);
+            update_system_.broadcast_fixed_update(simulation_rate_seconds);
         }
 
-        sys->update_system().broadcast_interpolation_update(
+        update_system_.broadcast_interpolation_update(
                 std::chrono::duration<double>{accumulated_dt}.count() /
                 simulation_rate_seconds);
 
-        sys->update_system().broadcast_variable_update(
+        update_system_.broadcast_variable_update(
                 std::chrono::duration<double>{dt}.count());
 
         previous = current;

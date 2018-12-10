@@ -7,7 +7,7 @@
 
 int main(int argc, const char** argv) {
     try {
-        engine::core::sys = std::make_unique<engine::core::System>(argc, argv);
+        auto sys_instance = std::make_unique<engine::core::System>(argc, argv);
         game::Game game;
         editor::Editor editor;
 
@@ -26,6 +26,4 @@ int main(int argc, const char** argv) {
     catch (const std::exception& e) {
         std::cerr << "Exception caught in main: " << e.what() << '\n';
     }
-
-    engine::core::sys = nullptr;
 }

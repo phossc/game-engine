@@ -7,6 +7,9 @@ namespace engine::core {
 
 class Game_loop final {
 public:
+    Game_loop(class Clock& game_clock, class Ecs& ecs,
+              class Update_system& update_system);
+
     //! Blocks the current thread while running the game loop.
     void run();
 
@@ -25,6 +28,10 @@ public:
 private:
     std::chrono::nanoseconds simulation_rate_{20'000'000};
     bool running_ = false;
+
+    class Clock& game_clock_;
+    class Ecs& ecs_;
+    class Update_system& update_system_;
 };
 
 } // namespace engine::core
