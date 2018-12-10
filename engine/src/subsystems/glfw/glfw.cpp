@@ -7,7 +7,7 @@
 
 namespace engine::subsystems {
 
-static void error_callback(int error, const char* description) {
+static void error_callback(int, const char* description) {
     throw std::runtime_error(description);
 }
 
@@ -22,7 +22,7 @@ void Glfw::deactivate() {
     glfwTerminate();
 }
 
-void Glfw::variable_update(double dt) {
+void Glfw::variable_update(double) {
     glfwPollEvents();
 }
 

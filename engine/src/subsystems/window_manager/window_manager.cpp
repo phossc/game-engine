@@ -8,7 +8,7 @@
 
 namespace engine::subsystems {
 
-static void window_close_callback(GLFWwindow* window) {
+static void window_close_callback(GLFWwindow*) {
     core::sys->game_loop().stop();
 }
 
