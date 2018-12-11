@@ -6,7 +6,7 @@
 
 extern "C" struct GLFWwindow;
 
-namespace engine::subsystems {
+namespace engine {
 
 class Window_manager : public core::Component {
 public:
@@ -20,6 +20,6 @@ private:
     GLFWwindow* window_ = nullptr;
 };
 
-} // namespace engine::subsystems
+} // namespace engine
 
 #endif /* ENGINE_SUBSYSTEMS_WINDOW_MANAGER_HPP */

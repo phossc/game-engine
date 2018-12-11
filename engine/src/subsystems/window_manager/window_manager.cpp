@@ -6,7 +6,7 @@
 #include <engine/core/system.hpp>
 #include <glad/glad.h>
 
-namespace engine::subsystems {
+namespace engine {
 
 static void window_close_callback(GLFWwindow*) {
     core::sys->game_loop().stop();
@@ -37,4 +37,4 @@ void Window_manager::swap_buffers() {
     glfwSwapBuffers(window_);
 }
 
-} // namespace engine::subsystems
+} // namespace engine

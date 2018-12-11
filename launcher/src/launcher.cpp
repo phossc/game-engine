@@ -4,8 +4,8 @@
 
 namespace launcher {
 
+using engine::Window_manager;
 using engine::core::sys;
-using engine::subsystems::Window_manager;
 
 void Launcher::activate() {
     sys->entity().get<Window_manager>()->create_window(1280, 720);

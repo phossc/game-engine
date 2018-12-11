@@ -5,7 +5,7 @@
 #include <GLFW/glfw3.h>
 #include <engine/core/system.hpp>
 
-namespace engine::subsystems {
+namespace engine {
 
 static void error_callback(int, const char* description) {
     throw std::runtime_error(description);
@@ -26,4 +26,4 @@ void Glfw::variable_update(double) {
     glfwPollEvents();
 }
 
-} // namespace engine::subsystems
+} // namespace engine

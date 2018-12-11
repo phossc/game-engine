@@ -37,13 +37,13 @@ void System::run() {
 }
 
 void System::register_components() {
-    component_registry_.register_component<subsystems::Glfw>();
-    component_registry_.register_component<subsystems::Window_manager>();
+    component_registry_.register_component<Glfw>();
+    component_registry_.register_component<Window_manager>();
 }
 
 void System::attach_system_components() {
-    entity_->create_component<subsystems::Glfw>();
-    entity_->create_component<subsystems::Window_manager>();
+    entity_->create_component<Glfw>();
+    entity_->create_component<Window_manager>();
 }
 
 } // namespace engine::core
