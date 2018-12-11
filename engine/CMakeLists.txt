@@ -18,6 +18,7 @@ target_sources(engine
         "include/engine/core/entity.hpp"
         "include/engine/core/entity_id.hpp"
         "include/engine/core/game_loop.hpp"
+        "include/engine/core/launch.hpp"
         "include/engine/core/system.hpp"
         "include/engine/core/system_entity.hpp"
         "include/engine/core/update_system.hpp"
