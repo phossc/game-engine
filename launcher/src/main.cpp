@@ -1,11 +1,11 @@
 #include <engine/core/launch.hpp>
-#include <game/game.hpp>
-#include <launcher/launcher.hpp>
+#include <game/game_setup.hpp>
+#include <launcher/launcher_setup.hpp>
 
 int main(int argc, const char** argv) {
     using engine::core::launch;
-    using game::Game;
-    using launcher::Launcher;
+    using game::Game_setup;
+    using launcher::Launcher_setup;
 
-    return launch<Launcher, Game>(argc, argv);
+    return launch<Launcher_setup, Game_setup>(argc, argv);
 }

@@ -2,7 +2,8 @@
 
 namespace editor {
 
-void Editor::register_components() {}
-void Editor::attach_system_components() {}
+void Editor::activate() {}
+
+void Editor::deactivate() {}
 
 } // namespace editor

@@ -1,11 +1,11 @@
-#include <editor/editor.hpp>
+#include <editor/editor_setup.hpp>
 #include <engine/core/launch.hpp>
-#include <game/game.hpp>
+#include <game/game_setup.hpp>
 
 int main(int argc, const char** argv) {
-    using editor::Editor;
+    using editor::Editor_setup;
     using engine::core::launch;
-    using game::Game;
+    using game::Game_setup;
 
-    return launch<Editor, Game>(argc, argv);
+    return launch<Editor_setup, Game_setup>(argc, argv);
 }
