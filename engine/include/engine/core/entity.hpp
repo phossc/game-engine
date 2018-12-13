@@ -1,11 +1,14 @@
 #ifndef ENGINE_CORE_ENTITY_HPP
 #define ENGINE_CORE_ENTITY_HPP
 
+#include <engine/core/component.hpp>
+#include <engine/core/component_uuid.hpp>
 #include <engine/core/entity_id.hpp>
 
 namespace engine::core {
 
 //! Specialized entities derive from this class to integrate with the ECS.
+//! Entities should only be created and destroyed through the ECS.
 class Entity {
 public:
     Entity(Entity_id id) : id_(id) {}
@@ -15,12 +18,42 @@ public:
     virtual void update() {}
 
     //! Activate should not activate the entity immediatly but rather do it in
-    //! the next ECS update.
+    //! the next ECS update. Components are activated in the order of their
+    //! dependencies.
     virtual void activate() {}
 
     //! Deactivate should not deactivate the entity immediatly but rather do it
-    //! in the next ECS update.
+    //! in the next ECS update. Components are deactivated in the reverse order
+    //! of their dependencies.
     virtual void deactivate() {}
+
+    //! Creates a component with the specified UUID and all of its dependencies
+    //! that are not already present in the entity.
+    //!
+    //! Newly created components are activated in the order of their
+    //! dependencies in the next ECS update if the entity is active.
+    //!
+    //! \return a pointer to the component with the specified UUID and if
+    //! creation fails then nullptr.
+    virtual Component* create_component(Component_uuid) { return nullptr; }
+
+    //! Calls create_component(ComponentType::s_uuid()).
+    template <typename ComponentType>
+    ComponentType* create_component() {
+        return static_cast<ComponentType*>(
+                create_component(ComponentType::s_uuid()));
+    }
+
+    //! Gets the component with the specified UUID.
+    //!
+    //! \return a pointer to the component or nullptr if it does not exist.
+    virtual Component* get(Component_uuid) { return nullptr; };
+
+    //! Calls get(ComponentType::s_uuid()).
+    template <typename ComponentType>
+    ComponentType* get() {
+        return static_cast<ComponentType*>(get(ComponentType::s_uuid()));
+    }
 
     Entity_id id() const noexcept { return id_; }
 

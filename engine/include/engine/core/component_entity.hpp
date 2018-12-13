@@ -5,7 +5,6 @@
 #include <unordered_map>
 #include <vector>
 
-#include <engine/core/component_uuid.hpp>
 #include <engine/core/entity.hpp>
 
 namespace engine::core {
@@ -17,52 +16,24 @@ public:
     Component_entity(Entity_id id) : Entity{id} {}
     virtual ~Component_entity();
 
-    //! Creates a component and all of its dependencies that are not already
-    //! present in the entity.
-    //!
-    //! The newly created components are added to the entity immediatly.
-    //! Activation of the added components happens in the next ECS update if the
-    //! entity is active, otherwise they remain inactive until activate() is
-    //! called on the entity. Activation order is based on the dependencies of
-    //! the components. Does not do anything if the component already exists or
-    //! creation fails.
-    //!
-    //! \return a pointer to the component with the specified UUID and if
-    //! creation fails then nullptr.
-    Component* create_component(Component_uuid uuid);
+    Component* create_component(Component_uuid uuid) override final;
+    Component* get(Component_uuid uuid) override final;
 
-    //! Calls create_component(ComponentType::s_uuid()).
-    template <typename ComponentType>
-    ComponentType* create_component() {
-        return static_cast<ComponentType*>(
-                create_component(ComponentType::s_uuid()));
-    }
+    //! Prevent overloads from being hidden.
+    using Entity::create_component;
+    using Entity::get;
 
-    //! Gets the component with the specified UUID.
-    //!
-    //! \return a pointer to the component or nullptr if it does not exist.
-    Component* get(Component_uuid uuid);
-
-    //! Calls get(ComponentType::s_uuid()).
-    template <typename ComponentType>
-    ComponentType* get() {
-        return static_cast<ComponentType*>(get(ComponentType::s_uuid()));
-    }
-
-    //! Activates or deactivates all components in the entity depending on which
-    //! was scheduled last. If neither activation nor deactivation is scheduled
-    //! and new components were added, then activate them if the entity is
-    //! active otherwise don't.
+    //! Updates the entity based on the scheduled task.
     void update() override final;
 
-    //! Schedule entity activation for the next ECS update.
+    //! Schedules entity activation for the next ECS update.
     //!
-    //! Overrides any previously scheduled activations or deactivations.
+    //! Overrides scheduled tasks and only activates inactive components.
     void activate() override final;
 
-    //! Schedule entity deactivation for the next ECS update.
+    //! Schedules entity deactivation for the next ECS update.
     //!
-    //! Overrides any previously scheduled activations or deactivations.
+    //! Overrides scheduled tasks and only deactivates active components.
     void deactivate() override final;
 
 private:
