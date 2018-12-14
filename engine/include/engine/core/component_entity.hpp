@@ -36,6 +36,8 @@ public:
     //! Overrides scheduled tasks and only deactivates active components.
     void deactivate() override final;
 
+    bool active() const noexcept override final { return active_; }
+
 private:
     void perform_activation();
     void perform_deactivation();

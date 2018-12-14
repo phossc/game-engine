@@ -55,6 +55,9 @@ public:
         return static_cast<ComponentType*>(get(ComponentType::s_uuid()));
     }
 
+    //! Whether the entity is active or not.
+    virtual bool active() const noexcept { return false; }
+
     Entity_id id() const noexcept { return id_; }
 
 private:
