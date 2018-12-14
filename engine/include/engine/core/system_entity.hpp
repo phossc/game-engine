@@ -9,7 +9,8 @@ namespace engine::core {
 //! moment, all functionality matches the Component_entity.
 class System_entity final : public Component_entity {
 public:
-    System_entity(Entity_id id) : Component_entity{id} {}
+    //! System entities start inactive.
+    System_entity(Entity_id id) : Component_entity{id, false} {}
 };
 
 } // namespace engine::core

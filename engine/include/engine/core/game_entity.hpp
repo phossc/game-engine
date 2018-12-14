@@ -15,7 +15,9 @@ namespace engine::core {
 //! therefore returns nullptr if its parent is not active.
 class Game_entity final : public Component_entity {
 public:
-    Game_entity(Entity_id id) : Component_entity{id} {}
+    //! Game entities start active.
+    Game_entity(Entity_id id) : Component_entity{id, true} {}
+
     ~Game_entity();
 
     //! Makes this entity the parent of child.

@@ -14,6 +14,8 @@ class Component;
 class Component_entity : public Entity {
 public:
     Component_entity(Entity_id id) : Entity{id} {}
+    Component_entity(Entity_id id, bool active) : Entity{id}, active_{active} {}
+
     virtual ~Component_entity();
 
     Component* create_component(Component_uuid uuid) override final;
