@@ -9,6 +9,7 @@ target_compile_options(engine PUBLIC $<$<CXX_COMPILER_ID:MSVC>:/W4>)
 target_sources(engine
     PRIVATE
         "include/engine/array_view.hpp"
+        "include/engine/components/transform_component.hpp"
         "include/engine/core/clock.hpp"
         "include/engine/core/component.hpp"
         "include/engine/core/component_entity.hpp"
@@ -24,6 +25,7 @@ target_sources(engine
         "include/engine/core/update_system.hpp"
         "include/engine/subsystems/glfw.hpp"
         "include/engine/subsystems/window_manager.hpp"
+        "src/components/transform_component.cpp"
         "src/core/clock.cpp"
         "src/core/component_entity.cpp"
         "src/core/component_registry.cpp"
