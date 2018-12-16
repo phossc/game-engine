@@ -20,6 +20,9 @@ Used through the webservice to generate glad files for OpenGL 3.3 Core.
 Only included glm subdirectory and deleted CMakeLists.txt within it. Also added
 a file containing the license.
 
+```glm/detail/setup.hpp``` was modified to make glm never use language
+extensions.
+
 ## GLFW
 - URL: https://github.com/glfw/glfw
 - Version: f9923e90958e726aaabc86d83fb3681216d76067 (commit)

@@ -72,6 +72,7 @@
 #define GLM_LANG_CXXMS			GLM_LANG_CXXMS_FLAG
 #define GLM_LANG_CXXGNU			GLM_LANG_CXXGNU_FLAG
 
+/*
 #if (defined(_MSC_EXTENSIONS))
 #	define GLM_LANG_EXT GLM_LANG_CXXMS_FLAG
 #elif ((GLM_COMPILER & (GLM_COMPILER_CLANG | GLM_COMPILER_GCC)) && (GLM_ARCH & GLM_ARCH_SIMD_BIT))
@@ -79,6 +80,8 @@
 #else
 #	define GLM_LANG_EXT 0
 #endif
+*/
+#define GLM_LANG_EXT 0
 
 #if (defined(GLM_FORCE_CXX_UNKNOWN))
 #	define GLM_LANG 0
