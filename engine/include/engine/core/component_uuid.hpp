@@ -2,6 +2,7 @@
 #define ENGINE_CORE_COMPONENT_UUID_HPP
 
 #include <functional>
+#include <string>
 #include <string_view>
 
 namespace engine::core {
@@ -20,6 +21,11 @@ public:
     //! not a valid UUID representation, then construction still succeeds but
     //! the resulting 128 bit UUID will be 0.
     constexpr Component_uuid(std::string_view uuid) noexcept;
+
+    constexpr std::uint64_t upper() const noexcept { return upper_half_; }
+    constexpr std::uint64_t lower() const noexcept { return lower_half_; }
+
+    std::string str() const;
 
     friend constexpr bool operator==(const Component_uuid&,
                                      const Component_uuid&) noexcept;

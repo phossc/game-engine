@@ -30,6 +30,7 @@ target_sources(engine
         "src/core/clock.cpp"
         "src/core/component_entity.cpp"
         "src/core/component_registry.cpp"
+        "src/core/component_uuid.cpp"
         "src/core/ecs.cpp"
         "src/core/game_entity.cpp"
         "src/core/game_loop.cpp"
