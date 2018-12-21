@@ -20,6 +20,10 @@ Component* Component_entity::create_component(Component_uuid uuid) {
 
     auto dependencies = sys->component_registry().dependencies(uuid);
     if (dependencies.empty()) {
+        sys->logger().warn(
+                "Unable to create component from UUID {} because a component "
+                "is not registered for it or one of its dependencies",
+                uuid.str());
         return nullptr;
     }
 
