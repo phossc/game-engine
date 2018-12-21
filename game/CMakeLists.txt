@@ -1,5 +1,6 @@
 add_library(game STATIC)
 target_include_directories(game PUBLIC "include")
+target_include_directories(game PRIVATE "src")
 
 target_sources(game
     PRIVATE
