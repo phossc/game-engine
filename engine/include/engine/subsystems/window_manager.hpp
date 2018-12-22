@@ -14,6 +14,8 @@ public:
     DEPENDENCIES(Glfw::s_uuid());
 
     void create_window(int width, int height);
+    GLFWwindow* window() const noexcept { return window_; }
+
     void swap_buffers();
 
 private:
