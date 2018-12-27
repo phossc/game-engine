@@ -1,5 +1,14 @@
 # Third party libraries
 
+## bullet
+- URL: https://github.com/bulletphysics/bullet3
+- Version: 8bc1c8e01b1b2b9284df08385da0e03241f4e6aa (commit)
+- License: zlib
+
+All files from the src subdirectory excluding CMakeLists.txt and premake4.lua
+files. Added a custom CMakeLists.txt file that builds the Bullet2 part of the
+library.
+
 ## Catch2
 - URL: https://github.com/catchorg/Catch2
 - Version: v2.5.0 (tag)

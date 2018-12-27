@@ -40,4 +40,4 @@ target_sources(engine
         "src/subsystems/window_manager/window_manager.cpp"
     )
 
-target_link_libraries(engine PUBLIC spdlog glm glad glfw)
+target_link_libraries(engine PUBLIC spdlog glm glad glfw bullet)
