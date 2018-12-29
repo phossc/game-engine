@@ -35,12 +35,7 @@ private:
 
 } // namespace engine::core
 
-#define COMPONENT(uuid_string)                                                 \
-    virtual engine::core::Uuid uuid() const noexcept override {                \
-        return {uuid_string};                                                  \
-    }                                                                          \
-                                                                               \
-    static engine::core::Uuid s_uuid() noexcept { return {uuid_string}; }
+#define COMPONENT(uuid_string) UUID(uuid_string)
 
 #define DEPENDENCIES_IMPL(...)                                                 \
     static std::array<                                                         \

@@ -162,4 +162,11 @@ struct hash<engine::core::Uuid> {
 };
 } // namespace std
 
+#define UUID(uuid_string)                                                      \
+    virtual engine::core::Uuid uuid() const noexcept override {                \
+        return {uuid_string};                                                  \
+    }                                                                          \
+                                                                               \
+    static engine::core::Uuid s_uuid() noexcept { return {uuid_string}; }
+
 #endif /* ENGINE_CORE_UUID_HPP */
