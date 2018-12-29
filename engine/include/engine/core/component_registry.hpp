@@ -8,7 +8,7 @@
 
 #include <engine/array_view.hpp>
 #include <engine/core/component.hpp>
-#include <engine/core/component_uuid.hpp>
+#include <engine/core/uuid.hpp>
 
 namespace engine::core {
 
@@ -25,7 +25,7 @@ public:
     //!
     //! \return an owning pointer to the created component or nullptr if a
     //! component type is not registered for the UUID.
-    std::unique_ptr<Component> create_component(Component_uuid uuid);
+    std::unique_ptr<Component> create_component(Uuid uuid);
 
     //! Calls create_component(ComponentType::s_uuid()).
     template <typename ComponentType>
@@ -39,41 +39,36 @@ public:
     //!
     //! If there are missing dependencies or the provided UUID does not exist
     //! then an empty list is returned.
-    std::vector<Component_uuid> dependencies(Component_uuid uuid) const;
+    std::vector<Uuid> dependencies(Uuid uuid) const;
 
 private:
     // Adds the dependent to the dependency graph if all dependencies are
     // present otherwise adds it to the incomplete dependency graph and the
     // missing dependencies are tracked. Dependents with missing dependencies
     // are resolved based on the information provided by the new dependent.
-    void add_dependent(Component_uuid dependent,
-                       Array_view<Component_uuid> dependencies);
+    void add_dependent(Uuid dependent, Array_view<Uuid> dependencies);
 
     // Tracks the missing dependency by storing what dependents rely on it and
     // by storing what dependencies that a dependent relies on.
-    void track_missing_dependency(Component_uuid dependency,
-                                  Component_uuid dependent);
+    void track_missing_dependency(Uuid dependency, Uuid dependent);
 
     // Recursively resolves dependencies. The provided resolved dependency and
     // the further resolved dependencies are moved from the incomplete
     // dependency graph to the complete one.
-    void resolve_missing_dependencies(Component_uuid resolved_dependency);
+    void resolve_missing_dependencies(Uuid resolved_dependency);
 
-    std::map<Component_uuid, std::function<std::unique_ptr<Component>()>>
+    std::map<Uuid, std::function<std::unique_ptr<Component>()>>
             component_creators_;
 
-    std::map<Component_uuid, Array_view<Component_uuid>> dependency_graph_;
+    std::map<Uuid, Array_view<Uuid>> dependency_graph_;
 
     //! Contains the UUID and the dependencies of components whose dependencies
     //! are not all present in the dependency graph.
-    std::map<Component_uuid, Array_view<Component_uuid>>
-            incomplete_dependency_graph_;
+    std::map<Uuid, Array_view<Uuid>> incomplete_dependency_graph_;
 
-    std::map<Component_uuid, std::vector<Component_uuid>>
-            missing_dependency_to_dependents_;
+    std::map<Uuid, std::vector<Uuid>> missing_dependency_to_dependents_;
 
-    std::map<Component_uuid, std::vector<Component_uuid>>
-            dependent_to_missing_dependencies_;
+    std::map<Uuid, std::vector<Uuid>> dependent_to_missing_dependencies_;
 };
 
 template <typename ComponentType>

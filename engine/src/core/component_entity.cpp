@@ -12,7 +12,7 @@ Component_entity::~Component_entity() {
     perform_deactivation();
 }
 
-Component* Component_entity::create_component(Component_uuid uuid) {
+Component* Component_entity::create_component(Uuid uuid) {
     // The component and its dependencies already exists.
     if (auto existing_component = get(uuid); existing_component != nullptr) {
         return existing_component;
@@ -59,7 +59,7 @@ Component* Component_entity::create_component(Component_uuid uuid) {
     return nullptr;
 }
 
-Component* Component_entity::get(Component_uuid uuid) {
+Component* Component_entity::get(Uuid uuid) {
     auto component = components_.find(uuid);
     return component != std::end(components_) ? component->second.get()
                                               : nullptr;

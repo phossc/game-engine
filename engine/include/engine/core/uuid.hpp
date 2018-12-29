@@ -1,5 +1,5 @@
-#ifndef ENGINE_CORE_COMPONENT_UUID_HPP
-#define ENGINE_CORE_COMPONENT_UUID_HPP
+#ifndef ENGINE_CORE_UUID_HPP
+#define ENGINE_CORE_UUID_HPP
 
 #include <functional>
 #include <string>
@@ -7,45 +7,38 @@
 
 namespace engine::core {
 
-class Component_uuid {
+class Uuid {
 public:
     //! A default constructed 128 bit UUID is 0.
-    constexpr Component_uuid() noexcept = default;
+    constexpr Uuid() noexcept = default;
 
     //! Constructs a 128 bit UUID from two 64 bit unsigned integers.
-    constexpr Component_uuid(std::uint64_t upper_half,
-                             std::uint64_t lower_half) noexcept;
+    constexpr Uuid(std::uint64_t upper_half, std::uint64_t lower_half) noexcept;
 
     //! Constructs a 128 bit UUID from a UUID string representation with the
     //! following format: ef379e48-3713-4c15-99fe-b15c4ff100e2. If the string is
     //! not a valid UUID representation, then construction still succeeds but
     //! the resulting 128 bit UUID will be 0.
-    constexpr Component_uuid(std::string_view uuid) noexcept;
+    constexpr Uuid(std::string_view uuid) noexcept;
 
     constexpr std::uint64_t upper() const noexcept { return upper_half_; }
     constexpr std::uint64_t lower() const noexcept { return lower_half_; }
 
     std::string str() const;
 
-    friend constexpr bool operator==(const Component_uuid&,
-                                     const Component_uuid&) noexcept;
+    friend constexpr bool operator==(const Uuid&, const Uuid&) noexcept;
 
-    friend constexpr bool operator!=(const Component_uuid&,
-                                     const Component_uuid&) noexcept;
+    friend constexpr bool operator!=(const Uuid&, const Uuid&) noexcept;
 
-    friend constexpr bool operator<(const Component_uuid&,
-                                    const Component_uuid&) noexcept;
+    friend constexpr bool operator<(const Uuid&, const Uuid&) noexcept;
 
-    friend constexpr bool operator>(const Component_uuid&,
-                                    const Component_uuid&) noexcept;
+    friend constexpr bool operator>(const Uuid&, const Uuid&) noexcept;
 
-    friend constexpr bool operator<=(const Component_uuid&,
-                                     const Component_uuid&) noexcept;
+    friend constexpr bool operator<=(const Uuid&, const Uuid&) noexcept;
 
-    friend constexpr bool operator>=(const Component_uuid&,
-                                     const Component_uuid&) noexcept;
+    friend constexpr bool operator>=(const Uuid&, const Uuid&) noexcept;
 
-    friend struct std::hash<Component_uuid>;
+    friend struct std::hash<Uuid>;
 
 private:
     constexpr bool is_hex_digit(char c) const noexcept;
@@ -55,11 +48,11 @@ private:
     std::uint64_t lower_half_ = 0;
 };
 
-constexpr Component_uuid::Component_uuid(std::uint64_t upper_half,
-                                         std::uint64_t lower_half) noexcept
+constexpr Uuid::Uuid(std::uint64_t upper_half,
+                     std::uint64_t lower_half) noexcept
     : upper_half_(upper_half), lower_half_(lower_half) {}
 
-constexpr Component_uuid::Component_uuid(std::string_view uuid) noexcept {
+constexpr Uuid::Uuid(std::string_view uuid) noexcept {
     if (uuid.size() != 36) {
         return;
     }
@@ -94,7 +87,7 @@ constexpr Component_uuid::Component_uuid(std::string_view uuid) noexcept {
     }
 }
 
-constexpr bool Component_uuid::is_hex_digit(char c) const noexcept {
+constexpr bool Uuid::is_hex_digit(char c) const noexcept {
     if ((c >= 0x30 && c <= 0x39) || (c >= 0x61 && c <= 0x66)) {
         return true;
     }
@@ -102,7 +95,7 @@ constexpr bool Component_uuid::is_hex_digit(char c) const noexcept {
     return false;
 }
 
-constexpr int Component_uuid::hex_digit_value(char c) const noexcept {
+constexpr int Uuid::hex_digit_value(char c) const noexcept {
     if (c >= 0x30 && c <= 0x39) {
         return c - 0x30;
     }
@@ -114,20 +107,17 @@ constexpr int Component_uuid::hex_digit_value(char c) const noexcept {
     }
 }
 
-constexpr bool operator==(const Component_uuid& lhs,
-                          const Component_uuid& rhs) noexcept {
+constexpr bool operator==(const Uuid& lhs, const Uuid& rhs) noexcept {
     return lhs.upper_half_ == rhs.upper_half_ &&
            lhs.lower_half_ == rhs.lower_half_;
 }
 
-constexpr bool operator!=(const Component_uuid& lhs,
-                          const Component_uuid& rhs) noexcept {
+constexpr bool operator!=(const Uuid& lhs, const Uuid& rhs) noexcept {
     return lhs.upper_half_ != rhs.upper_half_ ||
            lhs.lower_half_ != rhs.lower_half_;
 }
 
-constexpr bool operator<(const Component_uuid& lhs,
-                         const Component_uuid& rhs) noexcept {
+constexpr bool operator<(const Uuid& lhs, const Uuid& rhs) noexcept {
     if (lhs.upper_half_ > rhs.upper_half_) {
         return false;
     }
@@ -139,8 +129,7 @@ constexpr bool operator<(const Component_uuid& lhs,
     return true;
 }
 
-constexpr bool operator>(const Component_uuid& lhs,
-                         const Component_uuid& rhs) noexcept {
+constexpr bool operator>(const Uuid& lhs, const Uuid& rhs) noexcept {
     if (lhs.upper_half_ < rhs.upper_half_) {
         return false;
     }
@@ -152,13 +141,11 @@ constexpr bool operator>(const Component_uuid& lhs,
     return true;
 }
 
-constexpr bool operator<=(const Component_uuid& lhs,
-                          const Component_uuid& rhs) noexcept {
+constexpr bool operator<=(const Uuid& lhs, const Uuid& rhs) noexcept {
     return !(lhs > rhs);
 }
 
-constexpr bool operator>=(const Component_uuid& lhs,
-                          const Component_uuid& rhs) noexcept {
+constexpr bool operator>=(const Uuid& lhs, const Uuid& rhs) noexcept {
     return !(lhs < rhs);
 }
 
@@ -166,9 +153,8 @@ constexpr bool operator>=(const Component_uuid& lhs,
 
 namespace std {
 template <>
-struct hash<engine::core::Component_uuid> {
-    std::size_t operator()(const engine::core::Component_uuid& uuid) const
-            noexcept {
+struct hash<engine::core::Uuid> {
+    std::size_t operator()(const engine::core::Uuid& uuid) const noexcept {
         // TODO: Combine the hashes in a better way to avoid collisions.
         return std::hash<std::uint64_t>{}(uuid.upper_half_) ^
                std::hash<std::uint64_t>{}(uuid.lower_half_);
@@ -176,4 +162,4 @@ struct hash<engine::core::Component_uuid> {
 };
 } // namespace std
 
-#endif /* ENGINE_CORE_COMPONENT_UUID_HPP */
+#endif /* ENGINE_CORE_UUID_HPP */

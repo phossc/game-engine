@@ -5,7 +5,7 @@
 #include <tuple>
 
 #include <engine/array_view.hpp>
-#include <engine/core/component_uuid.hpp>
+#include <engine/core/uuid.hpp>
 
 namespace engine::core {
 
@@ -15,8 +15,8 @@ class Component {
 public:
     virtual ~Component() = default;
 
-    virtual Component_uuid uuid() const noexcept = 0;
-    virtual Array_view<Component_uuid> dependencies() const noexcept = 0;
+    virtual Uuid uuid() const noexcept = 0;
+    virtual Array_view<Uuid> dependencies() const noexcept = 0;
 
     virtual void activate() {}
     virtual void deactivate() {}
@@ -36,17 +36,15 @@ private:
 } // namespace engine::core
 
 #define COMPONENT(uuid_string)                                                 \
-    virtual engine::core::Component_uuid uuid() const noexcept override {      \
+    virtual engine::core::Uuid uuid() const noexcept override {                \
         return {uuid_string};                                                  \
     }                                                                          \
                                                                                \
-    static engine::core::Component_uuid s_uuid() noexcept {                    \
-        return {uuid_string};                                                  \
-    }
+    static engine::core::Uuid s_uuid() noexcept { return {uuid_string}; }
 
 #define DEPENDENCIES_IMPL(...)                                                 \
     static std::array<                                                         \
-            engine::core::Component_uuid,                                      \
+            engine::core::Uuid,                                                \
             std::tuple_size_v<decltype(std::make_tuple(__VA_ARGS__))>>         \
             uuids{__VA_ARGS__};                                                \
                                                                                \
@@ -57,12 +55,11 @@ private:
     return {};
 
 #define DEPENDENCIES(...)                                                      \
-    static engine::Array_view<engine::core::Component_uuid>                    \
-    s_dependencies() noexcept {                                                \
+    static engine::Array_view<engine::core::Uuid> s_dependencies() noexcept {  \
         DEPENDENCIES_IMPL(__VA_ARGS__);                                        \
     }                                                                          \
                                                                                \
-    virtual engine::Array_view<engine::core::Component_uuid> dependencies()    \
+    virtual engine::Array_view<engine::core::Uuid> dependencies()              \
             const noexcept override {                                          \
         return s_dependencies();                                               \
     }

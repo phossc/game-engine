@@ -1,11 +1,11 @@
-#include <engine/core/component_uuid.hpp>
+#include <engine/core/uuid.hpp>
 
 #include <iomanip>
 #include <sstream>
 
 namespace engine::core {
 
-std::string Component_uuid::str() const {
+std::string Uuid::str() const {
     std::ostringstream ostr;
     ostr << std::hex << std::noshowbase << std::nouppercase << std::internal
          << std::setfill('0');

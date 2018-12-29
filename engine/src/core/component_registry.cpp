@@ -7,7 +7,7 @@
 namespace engine::core {
 
 std::unique_ptr<engine::core::Component>
-Component_registry::create_component(Component_uuid uuid) {
+Component_registry::create_component(Uuid uuid) {
     auto iter = component_creators_.find(uuid);
     if (iter != std::end(component_creators_)) {
         return iter->second();
@@ -16,17 +16,16 @@ Component_registry::create_component(Component_uuid uuid) {
     return nullptr;
 }
 
-std::vector<Component_uuid>
-Component_registry::dependencies(Component_uuid uuid) const {
+std::vector<Uuid> Component_registry::dependencies(Uuid uuid) const {
     // A component can't be registered for a uuid with value 0.
-    if (uuid == Component_uuid(0, 0)) {
+    if (uuid == Uuid(0, 0)) {
         return {};
     }
 
     enum class Node_status { discovered, finished };
-    std::unordered_map<Component_uuid, Node_status> node_statuses;
-    std::stack<Component_uuid> nodes;
-    std::vector<Component_uuid> sorted_dependencies;
+    std::unordered_map<Uuid, Node_status> node_statuses;
+    std::stack<Uuid> nodes;
+    std::vector<Uuid> sorted_dependencies;
 
     nodes.push(uuid);
     node_statuses.emplace(uuid, Node_status::discovered);
@@ -36,7 +35,7 @@ Component_registry::dependencies(Component_uuid uuid) const {
 
         // The uuid with the value 0 is used to separate nodes at different
         // depths and can't be at the bottom of the nodes stack.
-        if (node == Component_uuid(0, 0)) {
+        if (node == Uuid(0, 0)) {
             nodes.pop();
             auto finished_node = nodes.top();
             node_statuses[finished_node] = Node_status::finished;
@@ -77,8 +76,8 @@ Component_registry::dependencies(Component_uuid uuid) const {
     return sorted_dependencies;
 }
 
-void Component_registry::add_dependent(
-        Component_uuid dependent, Array_view<Component_uuid> dependencies) {
+void Component_registry::add_dependent(Uuid dependent,
+                                       Array_view<Uuid> dependencies) {
     bool missing_dependencies = false;
     for (auto dependency : dependencies) {
         if (dependency_graph_.count(dependency) == 0) {
@@ -94,14 +93,14 @@ void Component_registry::add_dependent(
     }
 }
 
-void Component_registry::track_missing_dependency(Component_uuid dependency,
-                                                  Component_uuid dependent) {
+void Component_registry::track_missing_dependency(Uuid dependency,
+                                                  Uuid dependent) {
     if (auto iter = missing_dependency_to_dependents_.find(dependency);
         iter != std::end(missing_dependency_to_dependents_)) {
         iter->second.push_back(dependent);
     }
     else {
-        std::vector<Component_uuid> dependents = {dependent};
+        std::vector<Uuid> dependents = {dependent};
         missing_dependency_to_dependents_.emplace(dependency,
                                                   std::move(dependents));
     }
@@ -111,14 +110,14 @@ void Component_registry::track_missing_dependency(Component_uuid dependency,
         iter->second.push_back(dependency);
     }
     else {
-        std::vector<Component_uuid> dependencies = {dependency};
+        std::vector<Uuid> dependencies = {dependency};
         dependent_to_missing_dependencies_.emplace(dependent,
                                                    std::move(dependencies));
     }
 }
 
 void Component_registry::resolve_missing_dependencies(
-        Component_uuid resolved_dependency) {
+        Uuid resolved_dependency) {
     // Dependencies always start in the incomplete dependency graph. Move the
     // resolved dependency from the incomplete to the complete dependency graph.
     auto dependency_transfer =
@@ -136,7 +135,7 @@ void Component_registry::resolve_missing_dependencies(
         return;
     }
 
-    std::vector<Component_uuid> resolved_dependencies;
+    std::vector<Uuid> resolved_dependencies;
     for (auto dependent : dependents->second) {
         // Guaranteed to exist.
         auto dependencies = dependent_to_missing_dependencies_.find(dependent);

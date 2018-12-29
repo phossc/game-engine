@@ -18,8 +18,8 @@ public:
 
     virtual ~Component_entity();
 
-    Component* create_component(Component_uuid uuid) override final;
-    Component* get(Component_uuid uuid) override final;
+    Component* create_component(Uuid uuid) override final;
+    Component* get(Uuid uuid) override final;
 
     //! Prevent overloads from being hidden.
     using Entity::create_component;
@@ -48,8 +48,8 @@ private:
     Task scheduled_task_ = Task::none;
     bool active_ = false;
 
-    std::unordered_map<Component_uuid, std::unique_ptr<Component>> components_;
-    std::vector<Component_uuid> component_creation_order_;
+    std::unordered_map<Uuid, std::unique_ptr<Component>> components_;
+    std::vector<Uuid> component_creation_order_;
     std::size_t new_components_start_index_ = 0;
 };
 

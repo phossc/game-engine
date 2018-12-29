@@ -2,8 +2,8 @@
 #define ENGINE_CORE_ENTITY_HPP
 
 #include <engine/core/component.hpp>
-#include <engine/core/component_uuid.hpp>
 #include <engine/core/entity_id.hpp>
+#include <engine/core/uuid.hpp>
 
 namespace engine::core {
 
@@ -35,7 +35,7 @@ public:
     //!
     //! \return a pointer to the component with the specified UUID and if
     //! creation fails then nullptr.
-    virtual Component* create_component(Component_uuid) { return nullptr; }
+    virtual Component* create_component(Uuid) { return nullptr; }
 
     //! Calls create_component(ComponentType::s_uuid()).
     template <typename ComponentType>
@@ -47,7 +47,7 @@ public:
     //! Gets the component with the specified UUID.
     //!
     //! \return a pointer to the component or nullptr if it does not exist.
-    virtual Component* get(Component_uuid) { return nullptr; };
+    virtual Component* get(Uuid) { return nullptr; };
 
     //! Calls get(ComponentType::s_uuid()).
     template <typename ComponentType>
