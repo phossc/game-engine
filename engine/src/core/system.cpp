@@ -2,7 +2,7 @@
 
 #include <engine/components/transform_component.hpp>
 #include <engine/subsystems/glfw.hpp>
-#include <engine/subsystems/window_manager.hpp>
+#include <engine/subsystems/window.hpp>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
 namespace engine::core {
@@ -42,12 +42,12 @@ void System::run() {
 void System::register_components() {
     component_registry_.register_component<Glfw>();
     component_registry_.register_component<Transform_component>();
-    component_registry_.register_component<Window_manager>();
+    component_registry_.register_component<Window>();
 }
 
 void System::attach_system_components() {
     entity_->create_component<Glfw>();
-    entity_->create_component<Window_manager>();
+    entity_->create_component<Window>();
 }
 
 } // namespace engine::core
