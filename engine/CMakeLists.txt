@@ -25,6 +25,8 @@ target_sources(engine
         "include/engine/core/update_system.hpp"
         "include/engine/core/uuid.hpp"
         "include/engine/subsystems/glfw.hpp"
+        "include/engine/subsystems/physics_system.hpp"
+        "include/engine/subsystems/update_priorities.hpp"
         "include/engine/subsystems/window.hpp"
         "src/components/transform_component.cpp"
         "src/core/clock.cpp"
@@ -37,6 +39,7 @@ target_sources(engine
         "src/core/update_system.cpp"
         "src/core/uuid.cpp"
         "src/subsystems/glfw/glfw.cpp"
+        "src/subsystems/physics_system/physics_system.cpp"
         "src/subsystems/window.cpp"
     )
 

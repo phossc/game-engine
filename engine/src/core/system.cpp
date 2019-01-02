@@ -2,6 +2,7 @@
 
 #include <engine/components/transform_component.hpp>
 #include <engine/subsystems/glfw.hpp>
+#include <engine/subsystems/physics_system.hpp>
 #include <engine/subsystems/window.hpp>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
@@ -41,12 +42,14 @@ void System::run() {
 
 void System::register_components() {
     component_registry_.register_component<Glfw>();
+    component_registry_.register_component<Physics_system>();
     component_registry_.register_component<Transform_component>();
     component_registry_.register_component<Window>();
 }
 
 void System::attach_system_components() {
     entity_->create_component<Glfw>();
+    entity_->create_component<Physics_system>();
     entity_->create_component<Window>();
 }
 

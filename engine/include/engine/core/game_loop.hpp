@@ -26,7 +26,7 @@ public:
     }
 
 private:
-    std::chrono::nanoseconds simulation_rate_{20'000'000};
+    std::chrono::nanoseconds simulation_rate_{16'666'666};
     bool running_ = false;
 
     class Clock& game_clock_;
