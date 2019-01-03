@@ -72,4 +72,44 @@ Project specific components go in `Game::register_components()` where as the
 other three registration points are used for extending the engine. However,
 the engine can also be extended from the game registration point.
 
+### Accessing Components
+To get access to component dependencies and other components that might be
+present on an entity, the following functions can be used.
+
+```
+// Through an entity
+player_entity->get<Movement_component>();
+
+// From within a component class
+dependency<Transform_component>();
+
+// Alternative to the above method
+entity()->get<Transform_component>();
+```
+
+These methods return a pointer to the requested component if it is present
+otherwise a null pointer is returned. It is not always necessary to check
+whether the returned pointer is null. If a component depends on another
+component and that other component is requested, then that pointer is
+guaranteed to not be null.
+
+The above methods all have non-template variants taking a UUID as an
+argument. The return type of these methods is a `Component*` and not a
+pointer to a specific component like the templated versions.
+
+#### System Components
+Engine subsystems are organized into components residing in the system
+entity. These can be accessed in two ways.
+
+```
+using engine::core::sys;
+using engine::Physics_system;
+
+// Through the system entity
+auto physics = sys->entity()->get<Physics_system>();
+
+// Shorthand syntax
+auto physics = sys->component<Physics_system>();
+```
+
 ## Entities
