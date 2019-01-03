@@ -11,13 +11,13 @@ namespace engine {
 using engine::core::sys;
 
 static void window_close_callback(GLFWwindow* window) {
-    assert(window == sys->entity().get<Window>()->handle());
+    assert(window == sys->entity()->get<Window>()->handle());
     sys->game_loop().stop();
 }
 
 static void framebuffer_size_callback(GLFWwindow* window, int fb_width,
                                       int fb_height) {
-    assert(window == sys->entity().get<Window>()->handle());
+    assert(window == sys->entity()->get<Window>()->handle());
     glViewport(0, 0, fb_width, fb_height);
 }
 

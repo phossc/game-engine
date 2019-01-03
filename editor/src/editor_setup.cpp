@@ -12,7 +12,7 @@ void Editor_setup::register_components() {
 }
 
 void Editor_setup::attach_system_components() {
-    sys->entity().create<Editor>();
+    sys->entity()->create<Editor>();
 }
 
 } // namespace editor

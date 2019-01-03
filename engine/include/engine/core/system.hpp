@@ -45,9 +45,7 @@ public:
 
     Game_loop& game_loop() noexcept { return game_loop_; }
 
-    class System_entity& entity() const noexcept {
-        return *entity_;
-    }
+    System_entity* entity() const noexcept { return entity_; }
 
 private:
     std::string name_;

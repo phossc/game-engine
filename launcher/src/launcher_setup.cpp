@@ -12,7 +12,7 @@ void Launcher_setup::register_components() {
 }
 
 void Launcher_setup::attach_system_components() {
-    sys->entity().create<Launcher>();
+    sys->entity()->create<Launcher>();
 }
 
 } // namespace launcher
