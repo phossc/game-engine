@@ -1,5 +1,14 @@
 # Entity Component System
 
+## Introduction
+Games in this engine are developed using components and entities. Components
+make up the functionality and are combined in entities. For example, a player
+might be an entity that contains a component providing movement functionality
+and a component providing shooting functionality. If necessary, components
+can depend on each other to ensure that some functionality is always present.
+You might want your movement component to depend on a transform component so
+that you can update the position of the player.
+
 ## Components
 
 ### Simple Component
@@ -44,3 +53,23 @@ of `activate()` calls are based on the dependencies of an entity's
 components. A component is always activated after its dependencies.
 `deactivate()` is called in the reverse order of activation. Therefore, while
 a component is active, its dependencies are also active.
+
+### Component Registration
+In order for components to be created, they must first be registered with the
+component registry. The component registry maintains the component dependency
+graph and helps ensure that components are never without their dependencies
+in entities. Components can be registered anywhere but it is recommended to
+register them in either of the following functions. 
+
+```
+Game::register_components() // For game components.
+Editor::register_components() // For editor components.
+Launcher::register_components() // For launcher components.
+System::register_components() // For engine components.
+```
+
+Project specific components go in `Game::register_components()` where as the
+other three registration points are used for extending the engine. However,
+the engine can also be extended from the game registration point.
+
+## Entities
