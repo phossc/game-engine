@@ -12,7 +12,7 @@ Component_entity::~Component_entity() {
     perform_deactivation();
 }
 
-Component* Component_entity::create_component(Uuid uuid) {
+Component* Component_entity::create(Uuid uuid) {
     // The component and its dependencies already exists.
     if (auto existing_component = get(uuid); existing_component != nullptr) {
         return existing_component;

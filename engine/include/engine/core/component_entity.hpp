@@ -18,11 +18,11 @@ public:
 
     virtual ~Component_entity();
 
-    Component* create_component(Uuid uuid) override final;
+    Component* create(Uuid uuid) override final;
     Component* get(Uuid uuid) override final;
 
     //! Prevent overloads from being hidden.
-    using Entity::create_component;
+    using Entity::create;
     using Entity::get;
 
     //! Updates the entity based on the scheduled task.

@@ -35,13 +35,12 @@ public:
     //!
     //! \return a pointer to the component with the specified UUID and if
     //! creation fails then nullptr.
-    virtual Component* create_component(Uuid) { return nullptr; }
+    virtual Component* create(Uuid) { return nullptr; }
 
-    //! Calls create_component(ComponentType::s_uuid()).
+    //! Calls create(ComponentType::s_uuid()).
     template <typename ComponentType>
-    ComponentType* create_component() {
-        return static_cast<ComponentType*>(
-                create_component(ComponentType::s_uuid()));
+    ComponentType* create() {
+        return static_cast<ComponentType*>(create(ComponentType::s_uuid()));
     }
 
     //! Gets the component with the specified UUID.

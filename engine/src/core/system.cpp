@@ -48,9 +48,9 @@ void System::register_components() {
 }
 
 void System::attach_system_components() {
-    entity_->create_component<Glfw>();
-    entity_->create_component<Physics_system>();
-    entity_->create_component<Window>();
+    entity_->create<Glfw>();
+    entity_->create<Physics_system>();
+    entity_->create<Window>();
 }
 
 } // namespace engine::core

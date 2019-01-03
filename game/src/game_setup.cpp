@@ -12,7 +12,7 @@ void Game_setup::register_components() {
 }
 
 void Game_setup::attach_system_components() {
-    sys->entity().create_component<Game>();
+    sys->entity().create<Game>();
 }
 
 } // namespace game
