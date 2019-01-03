@@ -1,11 +1,12 @@
 #ifndef ENGINE_CORE_ENTITY_HPP
 #define ENGINE_CORE_ENTITY_HPP
 
-#include <engine/core/component.hpp>
 #include <engine/core/entity_id.hpp>
 #include <engine/core/uuid.hpp>
 
 namespace engine::core {
+
+class Component;
 
 //! Specialized entities derive from this class to integrate with the ECS.
 //! Entities should only be created and destroyed through the ECS.

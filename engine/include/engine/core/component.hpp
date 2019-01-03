@@ -5,11 +5,10 @@
 #include <tuple>
 
 #include <engine/array_view.hpp>
+#include <engine/core/entity.hpp>
 #include <engine/core/uuid.hpp>
 
 namespace engine::core {
-
-class Entity;
 
 class Component {
 public:
@@ -20,6 +19,19 @@ public:
 
     virtual void activate() {}
     virtual void deactivate() {}
+
+    //! Returns a component dependency from the containing entity.
+    Component* dependency(Uuid uuid) {
+        assert(entity_ != nullptr);
+        return entity_->get(uuid);
+    }
+
+    //! Returns a component dependency from the containing entity.
+    template <typename ComponentType>
+    ComponentType* dependency() {
+        assert(entity_ != nullptr);
+        return entity_->get<ComponentType>();
+    }
 
     void set_entity(Entity* entity) noexcept { entity_ = entity; }
     Entity* entity() const noexcept { return entity_; }

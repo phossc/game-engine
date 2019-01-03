@@ -5,11 +5,10 @@
 #include <unordered_map>
 #include <vector>
 
+#include <engine/core/component.hpp>
 #include <engine/core/entity.hpp>
 
 namespace engine::core {
-
-class Component;
 
 class Component_entity : public Entity {
 public:

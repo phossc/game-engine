@@ -47,6 +47,15 @@ public:
 
     System_entity* entity() const noexcept { return entity_; }
 
+    //! Returns a component from the system entity.
+    Component* component(Uuid uuid) { return entity_->get(uuid); }
+
+    //! Returns a component from the system entity.
+    template <typename ComponentType>
+    ComponentType* component() {
+        return entity_->get<ComponentType>();
+    }
+
 private:
     std::string name_;
     std::vector<std::string> arguments_;
