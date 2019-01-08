@@ -22,14 +22,14 @@ public:
     virtual void deactivate() {}
 
     //! Returns a component dependency from the containing entity.
-    Component* dependency(Uuid uuid) {
+    Component* dependency(Uuid uuid) const {
         assert(entity_ != nullptr);
         return entity_->get(uuid);
     }
 
     //! Returns a component dependency from the containing entity.
     template <typename ComponentType>
-    ComponentType* dependency() {
+    ComponentType* dependency() const {
         assert(entity_ != nullptr);
         return entity_->get<ComponentType>();
     }
