@@ -2,6 +2,7 @@
 #define ENGINE_CORE_COMPONENT_HPP
 
 #include <array>
+#include <cassert>
 #include <tuple>
 
 #include <engine/array_view.hpp>
