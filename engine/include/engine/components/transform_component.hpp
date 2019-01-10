@@ -10,7 +10,7 @@
 
 namespace engine {
 
-class Transform_component : public core::Component {
+class Transform_component : public core::Component, public btMotionState {
 public:
     COMPONENT("505e8991-d2de-4c07-9371-62d6ed8619fa");
     DEPENDENCIES();
@@ -41,8 +41,8 @@ public:
     const glm::mat4& transform() const noexcept;
 
     // Bullet motion state integration
-    void getWorldTransform(btTransform& worldTrans) const;
-    void setWorldTransform(const btTransform& worldTrans);
+    void getWorldTransform(btTransform& worldTrans) const override;
+    void setWorldTransform(const btTransform& worldTrans) override;
 
 private:
     glm::vec3 position_{0, 0, 0};
