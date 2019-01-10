@@ -9,7 +9,9 @@ using engine::core::sys;
 
 Physics_system::Physics_system()
     : dispatcher_(&collisionConfig_),
-      world_(&dispatcher_, &broadphase_, &solver_, &collisionConfig_) {}
+      world_(&dispatcher_, &broadphase_, &solver_, &collisionConfig_) {
+    world_.setGravity({0.0, -9.8, 0.0});
+}
 
 void Physics_system::activate() {
     sys->update_system().register_fixed_update(
