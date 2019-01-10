@@ -1,6 +1,7 @@
 #ifndef ENGINE_COMPONENTS_TRANSFORM_COMPONENT_HPP
 #define ENGINE_COMPONENTS_TRANSFORM_COMPONENT_HPP
 
+#include <LinearMath/btMotionState.h>
 #include <glm/ext/quaternion_float.hpp>
 #include <glm/mat4x4.hpp>
 #include <glm/vec3.hpp>
@@ -37,14 +38,18 @@ public:
         transform_needs_update_ = true;
     }
 
-    glm::mat4 transform() noexcept;
+    const glm::mat4& transform() const noexcept;
+
+    // Bullet motion state integration
+    void getWorldTransform(btTransform& worldTrans) const;
+    void setWorldTransform(const btTransform& worldTrans);
 
 private:
     glm::vec3 position_{0, 0, 0};
     glm::vec3 scale_{1, 1, 1};
     glm::quat orientation_{0, 0, 0, 1};
-    glm::mat4 transform_;
-    bool transform_needs_update_ = true;
+    mutable glm::mat4 transform_;
+    mutable bool transform_needs_update_ = true;
 };
 
 } // namespace engine
