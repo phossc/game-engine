@@ -26,16 +26,15 @@ void Transform_component::getWorldTransform(btTransform& worldTrans) const {
     static_assert(std::is_same_v<btScalar, decltype(transform_)::value_type>,
                   "Bullet and glm use different underlying scalar types");
 
-    const auto& t = transform();
-    glm::mat3 pure_rotation;
-    pure_rotation[0] = glm::normalize(t[0]);
-    pure_rotation[1] = glm::normalize(t[1]);
-    pure_rotation[2] = glm::normalize(t[2]);
+    if (scale_ == glm::vec3{1, 1, 1}) {
+        worldTrans.setFromOpenGLMatrix(glm::value_ptr(transform()));
+    }
+    else {
+        auto rigid_transform = glm::translate(glm::mat4(1.0f), position_) *
+                               glm::mat4_cast(orientation_);
 
-    worldTrans.getBasis().setFromOpenGLSubMatrix(glm::value_ptr(pure_rotation));
-    worldTrans.getOrigin().setX(position_.x);
-    worldTrans.getOrigin().setY(position_.y);
-    worldTrans.getOrigin().setZ(position_.z);
+        worldTrans.setFromOpenGLMatrix(glm::value_ptr(rigid_transform));
+    }
 }
 
 void Transform_component::setWorldTransform(const btTransform& worldTrans) {
@@ -48,10 +47,10 @@ void Transform_component::setWorldTransform(const btTransform& worldTrans) {
     position_.z = pos.getZ();
 
     auto quat = worldTrans.getRotation();
-    orientation_.x = quat.getX();
-    orientation_.y = quat.getY();
-    orientation_.z = quat.getZ();
-    orientation_.w = quat.getW();
+    orientation_.x = quat.getW();
+    orientation_.y = quat.getX();
+    orientation_.z = quat.getY();
+    orientation_.w = quat.getZ();
 
     transform_needs_update_ = true;
 }
