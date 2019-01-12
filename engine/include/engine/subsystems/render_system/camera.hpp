@@ -1,38 +1,57 @@
 #ifndef RENDER_SYSTEM_CAMERA_HPP
 #define RENDER_SYSTEM_CAMERA_HPP
 
-#include <glm/ext/scalar_constants.hpp>
 #include <glm/mat4x4.hpp>
 #include <glm/vec3.hpp>
 #include <render_system/frustum.hpp>
 
 class Camera {
 public:
-    Camera() { update_view_matrix(); }
     virtual ~Camera() = default;
 
-    void set_yaw(double yaw);
-    void set_pitch(double pitch);
-    void set_position(const glm::dvec3& position);
-
-    const glm::dmat4& view_matrix() const { return view_matrix_; }
-    const glm::dvec3& position() { return position_; }
-
     double yaw() { return yaw_; }
+    void set_yaw(double yaw) {
+        yaw_ = yaw;
+        orientation_needs_update_ = true;
+        view_matrix_needs_update_ = true;
+    }
+
     double pitch() { return pitch_; }
+    void set_pitch(double pitch) {
+        pitch_ = pitch;
+        orientation_needs_update_ = true;
+        view_matrix_needs_update_ = true;
+    }
+
+    glm::dvec3 position() { return position_; }
+    void set_position(const glm::dvec3& position) {
+        position_ = position;
+        view_matrix_needs_update_ = true;;
+    }
+
+    glm::dvec3 forward_dir() const noexcept {
+        return orientation()[2];
+    }
+
+    glm::dvec3 up_dir() const noexcept {
+        return orientation()[1];
+    }
+
+    const glm::dmat4& orientation() const;
+    const glm::dmat4& view_matrix() const;
 
     Frustum frustum;
 
 protected:
-    // pitch coordinates for center target
-    double yaw_{0};                       // yaw
-    double pitch_{glm::pi<double>() / 2}; // pitch
-
+    double yaw_{0};
+    double pitch_{0};
     glm::dvec3 position_{0, 0, 0};
 
-    virtual void update_view_matrix();
+    mutable glm::dmat4 orientation_;
+    mutable bool orientation_needs_update_ = true;
 
-    glm::dmat4 view_matrix_;
+    mutable glm::dmat4 view_matrix_;
+    mutable bool view_matrix_needs_update_ = true;
 };
 
 #endif /* RENDER_SYSTEM_CAMERA_HPP */

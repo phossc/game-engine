@@ -3,34 +3,25 @@
 #include <cmath>
 
 #include <glm/ext/matrix_transform.hpp>
+#include <glm/gtc/quaternion.hpp>
 
-void Camera::set_yaw(double yaw) {
-    yaw_ = std::fmod(yaw, glm::pi<double>() * 2.0);
-    update_view_matrix();
+const glm::dmat4& Camera::orientation() const {
+    if (orientation_needs_update_) {
+        orientation_ =
+                glm::mat4_cast(glm::dquat(glm::dvec3{pitch_, yaw_, 0.0}));
+
+        orientation_needs_update_ = false;
+    }
+
+    return orientation_;
 }
 
-void Camera::set_pitch(double pitch) {
-    pitch_ = std::fmod(pitch, glm::pi<double>() * 2.0);
-    update_view_matrix();
-}
+const glm::dmat4& Camera::view_matrix() const {
+    if (view_matrix_needs_update_) {
+        view_matrix_ = glm::transpose(orientation());
+        view_matrix_ *= glm::translate(glm::dmat4(1.0f), -position_);
+        view_matrix_needs_update_ = false;
+    }
 
-void Camera::set_position(const glm::dvec3& position) {
-    position_ = position;
-    update_view_matrix();
-}
-
-void Camera::update_view_matrix() {
-    double cos_yaw = std::cos(yaw_);
-    double sin_yaw = std::sin(yaw_);
-    double cos_pitch = std::cos(pitch_);
-    double sin_pitch = std::sin(pitch_);
-
-    double cos_up = std::cos(pitch_ + glm::pi<double>() / 2.0);
-    double sin_up = std::sin(pitch_ + glm::pi<double>() / 2.0);
-
-    glm::dvec3 target{cos_yaw * sin_pitch, sin_yaw * sin_pitch, cos_pitch};
-    glm::dvec3 camera_up{cos_yaw * sin_up, sin_yaw * sin_up, cos_up};
-    auto pos = position();
-
-    view_matrix_ = glm::lookAt(pos, target + pos, camera_up);
+    return view_matrix_;
 }
