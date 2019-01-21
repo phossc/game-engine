@@ -1,11 +1,11 @@
 #include <engine/components/transform_component.hpp>
 
-#include <type_traits>
-
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/mat3x3.hpp>
+
+#include <type_traits>
 
 namespace engine {
 

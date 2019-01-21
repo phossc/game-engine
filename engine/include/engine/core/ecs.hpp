@@ -1,12 +1,12 @@
 #ifndef ENGINE_CORE_ECS_HPP
 #define ENGINE_CORE_ECS_HPP
 
+#include <engine/core/entity.hpp>
+#include <engine/core/entity_id.hpp>
+
 #include <deque>
 #include <memory>
 #include <unordered_map>
-
-#include <engine/core/entity.hpp>
-#include <engine/core/entity_id.hpp>
 
 namespace engine::core {
 

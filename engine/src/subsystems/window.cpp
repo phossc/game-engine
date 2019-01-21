@@ -1,10 +1,11 @@
 #include <engine/subsystems/window.hpp>
 
-#include <cassert>
+#include <engine/core/system.hpp>
 
 #include <GLFW/glfw3.h>
-#include <engine/core/system.hpp>
 #include <glad/glad.h>
+
+#include <cassert>
 
 namespace engine {
 

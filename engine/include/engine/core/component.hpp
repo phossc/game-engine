@@ -1,13 +1,13 @@
 #ifndef ENGINE_CORE_COMPONENT_HPP
 #define ENGINE_CORE_COMPONENT_HPP
 
-#include <array>
-#include <cassert>
-#include <tuple>
-
 #include <engine/array_view.hpp>
 #include <engine/core/entity.hpp>
 #include <engine/core/uuid.hpp>
+
+#include <array>
+#include <cassert>
+#include <tuple>
 
 namespace engine::core {
 

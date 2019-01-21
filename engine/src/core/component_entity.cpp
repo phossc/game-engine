@@ -1,10 +1,9 @@
 #include <engine/core/component_entity.hpp>
 
-#include <cassert>
+#include <engine/core/system.hpp>
 
 #include <algorithm>
-
-#include <engine/core/system.hpp>
+#include <cassert>
 
 namespace engine::core {
 

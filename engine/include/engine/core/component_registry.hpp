@@ -1,14 +1,14 @@
 #ifndef ENGINE_CORE_COMPONENT_REGISTRY_HPP
 #define ENGINE_CORE_COMPONENT_REGISTRY_HPP
 
+#include <engine/array_view.hpp>
+#include <engine/core/component.hpp>
+#include <engine/core/uuid.hpp>
+
 #include <functional>
 #include <map>
 #include <memory>
 #include <vector>
-
-#include <engine/array_view.hpp>
-#include <engine/core/component.hpp>
-#include <engine/core/uuid.hpp>
 
 namespace engine::core {
 

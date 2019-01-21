@@ -4,6 +4,7 @@
 #include <engine/subsystems/glfw.hpp>
 #include <engine/subsystems/physics_system.hpp>
 #include <engine/subsystems/window.hpp>
+
 #include <spdlog/sinks/stdout_color_sinks.h>
 
 namespace engine::core {

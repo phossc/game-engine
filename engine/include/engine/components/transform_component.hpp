@@ -1,12 +1,12 @@
 #ifndef ENGINE_COMPONENTS_TRANSFORM_COMPONENT_HPP
 #define ENGINE_COMPONENTS_TRANSFORM_COMPONENT_HPP
 
+#include <engine/core/component.hpp>
+
 #include <LinearMath/btMotionState.h>
 #include <glm/ext/quaternion_float.hpp>
 #include <glm/mat4x4.hpp>
 #include <glm/vec3.hpp>
-
-#include <engine/core/component.hpp>
 
 namespace engine {
 

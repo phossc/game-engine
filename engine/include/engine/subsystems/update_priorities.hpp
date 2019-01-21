@@ -3,8 +3,6 @@
 
 #include <cstdint>
 
-enum class Update_priority : std::int32_t {
-    physics = 2000
-};
+enum class Update_priority : std::int32_t { physics = 2000 };
 
 #endif /* ENGINE_SUBSYSTEMS_UPDATE_PRIORITIES_HPP */

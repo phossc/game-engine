@@ -1,9 +1,10 @@
 #include <engine/subsystems/glfw.hpp>
 
-#include <stdexcept>
+#include <engine/core/system.hpp>
 
 #include <GLFW/glfw3.h>
-#include <engine/core/system.hpp>
+
+#include <stdexcept>
 
 namespace engine {
 

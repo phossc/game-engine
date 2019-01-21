@@ -2,7 +2,6 @@
 #define ENGINE_CORE_UPDATE_SYSTEM_HPP
 
 #include <cstdint>
-
 #include <map>
 #include <unordered_map>
 

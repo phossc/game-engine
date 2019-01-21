@@ -1,6 +1,6 @@
-#include <catch/catch.hpp>
-
 #include <engine/core/uuid.hpp>
+
+#include <catch/catch.hpp>
 
 TEST_CASE("UUIDs are constructed", "[uuid]") {
     using engine::core::Uuid;
