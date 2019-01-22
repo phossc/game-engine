@@ -1,7 +1,7 @@
 #ifndef GAME_GAME_HPP
 #define GAME_GAME_HPP
 
-#include <engine/core/component.hpp>
+#include "engine/core/component.hpp"
 
 namespace game {
 

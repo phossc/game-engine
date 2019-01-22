@@ -1,7 +1,7 @@
 #ifndef LAUNCHER_LAUNCHER_HPP
 #define LAUNCHER_LAUNCHER_HPP
 
-#include <engine/core/component.hpp>
+#include "engine/core/component.hpp"
 
 namespace launcher {
 

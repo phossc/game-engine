@@ -1,4 +1,4 @@
-#include <engine/core/component_registry.hpp>
+#include "engine/core/component_registry.hpp"
 
 #include <algorithm>
 #include <stack>

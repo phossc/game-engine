@@ -1,7 +1,7 @@
-#include <editor/editor_setup.hpp>
+#include "editor/editor_setup.hpp"
 
-#include <editor/editor.hpp>
-#include <engine/core/system.hpp>
+#include "editor/editor.hpp"
+#include "engine/core/system.hpp"
 
 namespace editor {
 

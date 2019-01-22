@@ -1,14 +1,14 @@
 #ifndef ENGINE_CORE_SYSTEM_HPP
 #define ENGINE_CORE_SYSTEM_HPP
 
-#include <engine/core/clock.hpp>
-#include <engine/core/component_registry.hpp>
-#include <engine/core/ecs.hpp>
-#include <engine/core/game_loop.hpp>
-#include <engine/core/system_entity.hpp>
-#include <engine/core/update_system.hpp>
+#include "engine/core/clock.hpp"
+#include "engine/core/component_registry.hpp"
+#include "engine/core/ecs.hpp"
+#include "engine/core/game_loop.hpp"
+#include "engine/core/system_entity.hpp"
+#include "engine/core/update_system.hpp"
 
-#include <spdlog/logger.h>
+#include "spdlog/logger.h"
 
 #include <memory>
 #include <string>

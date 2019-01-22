@@ -1,8 +1,8 @@
 #ifndef ENGINE_SUBSYSTEMS_GLFW_HPP
 #define ENGINE_SUBSYSTEMS_GLFW_HPP
 
-#include <engine/core/component.hpp>
-#include <engine/core/update_system.hpp>
+#include "engine/core/component.hpp"
+#include "engine/core/update_system.hpp"
 
 namespace engine {
 

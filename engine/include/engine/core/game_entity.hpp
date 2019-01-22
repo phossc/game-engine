@@ -1,7 +1,7 @@
 #ifndef ENGINE_CORE_GAME_ENTITY_HPP
 #define ENGINE_CORE_GAME_ENTITY_HPP
 
-#include <engine/core/component_entity.hpp>
+#include "engine/core/component_entity.hpp"
 
 #include <deque>
 

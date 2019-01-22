@@ -1,8 +1,8 @@
 #ifndef ENGINE_SUBSYSTEMS_WINDOW_HPP
 #define ENGINE_SUBSYSTEMS_WINDOW_HPP
 
-#include <engine/core/component.hpp>
-#include <engine/subsystems/glfw.hpp>
+#include "engine/core/component.hpp"
+#include "engine/subsystems/glfw.hpp"
 
 extern "C" struct GLFWwindow;
 

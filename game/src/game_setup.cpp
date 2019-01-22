@@ -1,7 +1,7 @@
-#include <game/game_setup.hpp>
+#include "game/game_setup.hpp"
 
-#include <engine/core/system.hpp>
-#include <game/game.hpp>
+#include "engine/core/system.hpp"
+#include "game/game.hpp"
 
 namespace game {
 

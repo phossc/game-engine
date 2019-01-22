@@ -13,16 +13,16 @@ PointerAlignment: Left
 IncludeIsMainRegex: '(_tests)?$'
 IncludeBlocks: Regroup
 IncludeCategories:
+  - Regex:           '^"(engine|editor|launcher|game)/'
+    Priority:        2
+  - Regex:           '^"(glad|KHR|GLFW|catch|glm|spdlog)/'
+    Priority:        3
+  - Regex:           '^"(BulletCollision|BulletDynamics|BulletInverseDynamics|BulletSoftBody|LinearMath)/'
+    Priority:        3
+  - Regex:           '^"(btBulletCollisionCommon|btBulletDynamicsCommon)'
+    Priority:        3
   - Regex:           '^"'
     Priority:        1
-  - Regex:           '^<(engine|editor|launcher|game)/'
-    Priority:        2
-  - Regex:           '^<(glad|KHR|GLFW|catch|glm|spdlog)/'
-    Priority:        3
-  - Regex:           '^<(BulletCollision|BulletDynamics|BulletInverseDynamics|BulletSoftBody|LinearMath)/'
-    Priority:        3
-  - Regex:           '^<(btBulletCollisionCommon|btBulletDynamicsCommon)'
-    Priority:        3
   - Regex:           '.*'
     Priority:        4
 

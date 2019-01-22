@@ -1,6 +1,6 @@
-#include <engine/core/launch.hpp>
-#include <game/game_setup.hpp>
-#include <launcher/launcher_setup.hpp>
+#include "engine/core/launch.hpp"
+#include "game/game_setup.hpp"
+#include "launcher/launcher_setup.hpp"
 
 int main(int argc, const char** argv) {
     using engine::core::launch;

@@ -1,8 +1,8 @@
 #ifndef ENGINE_CORE_COMPONENT_ENTITY_HPP
 #define ENGINE_CORE_COMPONENT_ENTITY_HPP
 
-#include <engine/core/component.hpp>
-#include <engine/core/entity.hpp>
+#include "engine/core/component.hpp"
+#include "engine/core/entity.hpp"
 
 #include <memory>
 #include <unordered_map>

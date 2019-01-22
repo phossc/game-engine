@@ -1,8 +1,8 @@
 #ifndef ENGINE_CORE_ECS_HPP
 #define ENGINE_CORE_ECS_HPP
 
-#include <engine/core/entity.hpp>
-#include <engine/core/entity_id.hpp>
+#include "engine/core/entity.hpp"
+#include "engine/core/entity_id.hpp"
 
 #include <deque>
 #include <memory>

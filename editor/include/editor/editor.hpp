@@ -1,7 +1,7 @@
 #ifndef EDITOR_EDITOR_HPP
 #define EDITOR_EDITOR_HPP
 
-#include <engine/core/component.hpp>
+#include "engine/core/component.hpp"
 
 namespace editor {
 
