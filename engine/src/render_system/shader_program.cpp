@@ -1,12 +1,15 @@
-#include "shader_program.hpp"
+#include "engine/render_system/shader_program.hpp"
+
+#include "engine/core/system.hpp"
+
+#include "glad/glad.h"
+#include "glm/gtc/type_ptr.hpp"
 
 #include <vector>
 
-#include <engine/core/system.hpp>
-#include <glad/glad.h>
-#include <glm/gtc/type_ptr.hpp>
+namespace engine {
 
-using engine::core::sys;
+using core::sys;
 
 Shader_program::Shader_program() {
     program_ = glCreateProgram();
@@ -109,3 +112,5 @@ void Shader_program::load_uniform_mat_4f(GLint location, const glm::mat4& mat) {
     }
     glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(mat));
 }
+
+} // namespace engine

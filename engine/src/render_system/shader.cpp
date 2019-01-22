@@ -1,11 +1,13 @@
-#include "shader.hpp"
+#include "engine/render_system/shader.hpp"
+
+#include "engine/core/system.hpp"
 
 #include <fstream>
 #include <vector>
 
-#include <engine/core/system.hpp>
+namespace engine {
 
-using engine::core::sys;
+using core::sys;
 
 Shader::Shader(GLenum type, const std::string& filepath) : type_{type} {
     auto source = load_file(filepath);
@@ -68,3 +70,5 @@ GLint Shader::compile_status(GLuint shader) {
 
     return compile_status;
 }
+
+} // namespace engine

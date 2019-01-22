@@ -1,13 +1,17 @@
-#ifndef RENDER_SYSTEM_MESH_HPP
-#define RENDER_SYSTEM_MESH_HPP
+#ifndef ENGINE_RENDER_SYSTEM_MESH_HPP
+#define ENGINE_RENDER_SYSTEM_MESH_HPP
+
+#include "glad/glad.h"
 
 #include <vector>
 
-#include <glad/glad.h>
+namespace engine {
 
 struct Mesh {
     std::vector<GLfloat> vertex_positions;
     std::vector<GLuint> indices;
 };
 
-#endif /* RENDER_SYSTEM_MESH_HPP */
+} // namespace engine
+
+#endif /* ENGINE_RENDER_SYSTEM_MESH_HPP */

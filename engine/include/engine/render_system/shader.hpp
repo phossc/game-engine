@@ -1,14 +1,16 @@
-#ifndef RENDER_SYSTEM_SHADERS_SHADER_HPP
-#define RENDER_SYSTEM_SHADERS_SHADER_HPP
+#ifndef ENGINE_RENDER_SYSTEM_SHADER_HPP
+#define ENGINE_RENDER_SYSTEM_SHADER_HPP
+
+#include "glad/glad.h"
 
 #include <string>
 
-#include <glad/glad.h>
-#include <util/noncopyable.hpp>
+namespace engine {
 
-class Shader : private Noncopyable {
+class Shader {
 public:
     Shader(GLenum type, const std::string& filepath);
+    Shader(const Shader&) = delete;
     ~Shader();
 
     GLuint location() { return shader_; }
@@ -23,4 +25,6 @@ private:
     static GLint compile_status(GLuint shader);
 };
 
-#endif /* RENDER_SYSTEM_SHADERS_SHADER_HPP */
+} // namespace engine
+
+#endif /* ENGINE_RENDER_SYSTEM_SHADER_HPP */

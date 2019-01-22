@@ -1,9 +1,12 @@
-#ifndef RENDER_SYSTEM_CAMERA_HPP
-#define RENDER_SYSTEM_CAMERA_HPP
+#ifndef ENGINE_RENDER_SYSTEM_CAMERA_HPP
+#define ENGINE_RENDER_SYSTEM_CAMERA_HPP
 
-#include <glm/mat4x4.hpp>
-#include <glm/vec3.hpp>
-#include <render_system/frustum.hpp>
+#include "engine/render_system/frustum.hpp"
+
+#include "glm/mat4x4.hpp"
+#include "glm/vec3.hpp"
+
+namespace engine {
 
 class Camera {
 public:
@@ -26,16 +29,12 @@ public:
     glm::dvec3 position() { return position_; }
     void set_position(const glm::dvec3& position) {
         position_ = position;
-        view_matrix_needs_update_ = true;;
+        view_matrix_needs_update_ = true;
     }
 
-    glm::dvec3 forward_dir() const noexcept {
-        return orientation()[2];
-    }
+    glm::dvec3 forward_dir() const noexcept { return orientation()[2]; }
 
-    glm::dvec3 up_dir() const noexcept {
-        return orientation()[1];
-    }
+    glm::dvec3 up_dir() const noexcept { return orientation()[1]; }
 
     const glm::dmat4& orientation() const;
     const glm::dmat4& view_matrix() const;
@@ -54,4 +53,6 @@ protected:
     mutable bool view_matrix_needs_update_ = true;
 };
 
-#endif /* RENDER_SYSTEM_CAMERA_HPP */
+} // namespace engine
+
+#endif /* ENGINE_RENDER_SYSTEM_CAMERA_HPP */

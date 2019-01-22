@@ -1,9 +1,11 @@
-#include "camera.hpp"
+#include "engine/render_system/camera.hpp"
+
+#include "glm/ext/matrix_transform.hpp"
+#include "glm/gtc/quaternion.hpp"
 
 #include <cmath>
 
-#include <glm/ext/matrix_transform.hpp>
-#include <glm/gtc/quaternion.hpp>
+namespace engine {
 
 const glm::dmat4& Camera::orientation() const {
     if (orientation_needs_update_) {
@@ -25,3 +27,5 @@ const glm::dmat4& Camera::view_matrix() const {
 
     return view_matrix_;
 }
+
+} // namespace engine

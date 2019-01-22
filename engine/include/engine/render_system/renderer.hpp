@@ -1,11 +1,12 @@
-#ifndef RENDER_SYSTEM_RENDERERS_RENDERER_HPP
-#define RENDER_SYSTEM_RENDERERS_RENDERER_HPP
+#ifndef ENGINE_RENDER_SYSTEM_RENDERER_HPP
+#define ENGINE_RENDER_SYSTEM_RENDERER_HPP
 
-#include <engine/core/component.hpp>
-#include <engine/core/system.hpp>
+#include "engine/core/component.hpp"
+#include "engine/core/system.hpp"
 
-class Renderer : public engine::core::Component,
-                 public engine::core::Updatable {
+namespace engine {
+
+class Renderer : public core::Component, public core::Updatable {
 public:
     COMPONENT("c975a4b6-bd5c-46fc-b359-04ccb4a5ba8c");
     DEPENDENCIES();
@@ -14,16 +15,18 @@ public:
     virtual std::int32_t priority() = 0;
 
     void activate() override {
-        using engine::core::sys;
+        using core::sys;
         sys->update_system().register_variable_update(this, priority());
     }
 
     void deactivate() override {
-        using engine::core::sys;
+        using core::sys;
         sys->update_system().deregister_variable_update(this);
     }
 
     void variable_update(double) override { render(); }
 };
 
-#endif /* RENDER_SYSTEM_RENDERERS_RENDERER_HPP */
+} // namespace engine
+
+#endif /* ENGINE_RENDER_SYSTEM_RENDERER_HPP */

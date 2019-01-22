@@ -1,7 +1,9 @@
-#ifndef RENDER_SYSTEM_MODEL_HPP
-#define RENDER_SYSTEM_MODEL_HPP
+#ifndef ENGINE_RENDER_SYSTEM_MODEL_HPP
+#define ENGINE_RENDER_SYSTEM_MODEL_HPP
 
-#include <render_system/mesh.hpp>
+#include "engine/render_system/mesh.hpp"
+
+namespace engine {
 
 class Model {
 public:
@@ -24,4 +26,6 @@ private:
     std::vector<GLuint> buffers_;
 };
 
-#endif /* RENDER_SYSTEM_MODEL_HPP */
+} // namespace engine
+
+#endif /* ENGINE_RENDER_SYSTEM_MODEL_HPP */

@@ -1,7 +1,9 @@
-#include "frustum.hpp"
+#include "engine/render_system/frustum.hpp"
 
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/trigonometric.hpp>
+#include "glm/gtc/matrix_transform.hpp"
+#include "glm/trigonometric.hpp"
+
+namespace engine {
 
 void Frustum::set_frustum_scale(float scale) noexcept {
     frustum_scale_ = scale;
@@ -33,3 +35,5 @@ void Frustum::update_projection_matrix() noexcept {
     projection_matrix_[0][0] *= frustum_scale_;
     projection_matrix_[1][1] *= frustum_scale_;
 }
+
+} // namespace engine

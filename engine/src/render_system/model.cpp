@@ -1,4 +1,6 @@
-#include "model.hpp"
+#include "engine/render_system/model.hpp"
+
+namespace engine {
 
 Model::Model(const Mesh& mesh) {
     gen_VAO();
@@ -48,3 +50,5 @@ void Model::add_EBO(const std::vector<GLuint>& indices) {
 
     buffers_.push_back(ebo);
 }
+
+} // namespace engine

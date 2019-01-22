@@ -1,16 +1,19 @@
-#ifndef RENDER_SYSTEM_SHADERS_SHADER_PROGRAM_HPP
-#define RENDER_SYSTEM_SHADERS_SHADER_PROGRAM_HPP
+#ifndef ENGINE_RENDER_SYSTEM_SHADER_PROGRAM_HPP
+#define ENGINE_RENDER_SYSTEM_SHADER_PROGRAM_HPP
+
+#include "engine/render_system/shader.hpp"
+
+#include "glm/mat4x4.hpp"
+#include "glm/vec4.hpp"
 
 #include <set>
 
-#include <glm/mat4x4.hpp>
-#include <glm/vec4.hpp>
-#include <render_system/shaders/shader.hpp>
-#include <util/noncopyable.hpp>
+namespace engine {
 
-class Shader_program : private Noncopyable {
+class Shader_program {
 public:
     Shader_program();
+    Shader_program(const Shader_program&) = delete;
     ~Shader_program();
 
     void attach(Shader& shader);
@@ -38,4 +41,6 @@ private:
     static GLint link_status(GLuint program);
 };
 
-#endif /* RENDER_SYSTEM_SHADERS_SHADER_PROGRAM_HPP */
+} // namespace engine
+
+#endif /* ENGINE_RENDER_SYSTEM_SHADER_PROGRAM_HPP */

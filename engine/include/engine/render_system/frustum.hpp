@@ -1,7 +1,9 @@
-#ifndef RENDER_SYSTEM_FRUSTUM_HPP
-#define RENDER_SYSTEM_FRUSTUM_HPP
+#ifndef ENGINE_RENDER_SYSTEM_FRUSTUM_HPP
+#define ENGINE_RENDER_SYSTEM_FRUSTUM_HPP
 
-#include <glm/mat4x4.hpp>
+#include "glm/mat4x4.hpp"
+
+namespace engine {
 
 class Frustum {
 public:
@@ -15,7 +17,7 @@ public:
 
     const glm::dmat4& projection_matrix() const noexcept {
         return projection_matrix_;
-    };
+    }
 
     float frustum_scale() const noexcept { return frustum_scale_; }
     float aspect_ratio() const noexcept { return aspect_ratio_; }
@@ -33,4 +35,6 @@ private:
     void update_projection_matrix() noexcept;
 };
 
-#endif /* RENDER_SYSTEM_FRUSTUM_HPP */
+} // namespace engine
+
+#endif /* ENGINE_RENDER_SYSTEM_FRUSTUM_HPP */
