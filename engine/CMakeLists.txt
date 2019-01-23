@@ -31,6 +31,7 @@ target_sources(engine
         "include/engine/render_system/renderer.hpp"
         "include/engine/render_system/shader.hpp"
         "include/engine/render_system/shader_program.hpp"
+        "include/engine/render_system/vertex_formats.hpp"
         "include/engine/subsystems/glfw.hpp"
         "include/engine/subsystems/window.hpp"
         "src/components/transform_component.cpp"
