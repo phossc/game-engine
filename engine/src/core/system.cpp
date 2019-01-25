@@ -1,6 +1,8 @@
 #include "engine/core/system.hpp"
 
 #include "engine/components/transform_component.hpp"
+#include "engine/render_system/camera_manager.hpp"
+#include "engine/render_system/render_system.hpp"
 #include "engine/subsystems/glfw.hpp"
 #include "engine/subsystems/physics_system.hpp"
 #include "engine/subsystems/window.hpp"
@@ -42,15 +44,19 @@ void System::run() {
 }
 
 void System::register_components() {
+    component_registry_.register_component<Camera_manager>();
     component_registry_.register_component<Glfw>();
     component_registry_.register_component<Physics_system>();
+    component_registry_.register_component<Render_system>();
     component_registry_.register_component<Transform_component>();
     component_registry_.register_component<Window>();
 }
 
 void System::attach_system_components() {
+    entity_->create<Camera_manager>();
     entity_->create<Glfw>();
     entity_->create<Physics_system>();
+    entity_->create<Render_system>();
     entity_->create<Window>();
 }
 
