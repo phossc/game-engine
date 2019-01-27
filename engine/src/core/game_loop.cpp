@@ -10,6 +10,8 @@ Game_loop::Game_loop(class Clock& game_clock, class Ecs& ecs,
                      class Update_system& update_system)
     : game_clock_(game_clock), ecs_(ecs), update_system_(update_system) {}
 
+//! For a better understanding of how the game loop works, read this great
+//! article https://gafferongames.com/post/fix_your_timestep/ by Glenn Fiedler.
 void Game_loop::run() {
     if (running_) {
         return;
@@ -22,7 +24,12 @@ void Game_loop::run() {
     while (running_) {
         auto current = std::chrono::steady_clock::now();
 
-        game_clock_.update(current - previous);
+        //! Slow down the simulation if frame time is too high.
+        auto frame_time_max = std::chrono::milliseconds{200};
+        auto real_dt = current - previous;
+        real_dt = real_dt < frame_time_max ? real_dt : frame_time_max;
+
+        game_clock_.update(real_dt);
         ecs_.update();
 
         std::chrono::nanoseconds dt = game_clock_.update_dt();
