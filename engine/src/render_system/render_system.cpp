@@ -1,7 +1,7 @@
 #include "engine/render_system/render_system.hpp"
 
 #include "engine/core/system.hpp"
-#include "engine/subsystems/update_priorities.hpp"
+#include "engine/update_priorities.hpp"
 
 #include "glad/glad.h"
 

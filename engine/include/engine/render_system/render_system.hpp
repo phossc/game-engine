@@ -3,7 +3,7 @@
 
 #include "engine/core/component.hpp"
 #include "engine/core/update_system.hpp"
-#include "engine/subsystems/window.hpp"
+#include "engine/window_manager/window.hpp"
 
 #include <cstdint>
 #include <map>

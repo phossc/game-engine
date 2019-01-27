@@ -1,11 +1,11 @@
 #include "engine/core/system.hpp"
 
 #include "engine/components/transform_component.hpp"
+#include "engine/glfw/glfw.hpp"
+#include "engine/physics_system/physics_system.hpp"
 #include "engine/render_system/camera_manager.hpp"
 #include "engine/render_system/render_system.hpp"
-#include "engine/subsystems/glfw.hpp"
-#include "engine/subsystems/physics_system.hpp"
-#include "engine/subsystems/window.hpp"
+#include "engine/window_manager/window.hpp"
 
 #include "spdlog/sinks/stdout_color_sinks.h"
 

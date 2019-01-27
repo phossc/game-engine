@@ -1,7 +1,7 @@
-#include "engine/subsystems/physics_system.hpp"
+#include "engine/physics_system/physics_system.hpp"
 
 #include "engine/core/system.hpp"
-#include "engine/subsystems/update_priorities.hpp"
+#include "engine/update_priorities.hpp"
 
 namespace engine {
 

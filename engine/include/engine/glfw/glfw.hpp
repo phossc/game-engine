@@ -1,5 +1,5 @@
-#ifndef ENGINE_SUBSYSTEMS_GLFW_HPP
-#define ENGINE_SUBSYSTEMS_GLFW_HPP
+#ifndef ENGINE_GLFW_GLFW_HPP
+#define ENGINE_GLFW_GLFW_HPP
 
 #include "engine/core/component.hpp"
 #include "engine/core/update_system.hpp"
@@ -19,4 +19,4 @@ public:
 
 } // namespace engine
 
-#endif /* ENGINE_SUBSYSTEMS_GLFW_HPP */
+#endif /* ENGINE_GLFW_GLFW_HPP */

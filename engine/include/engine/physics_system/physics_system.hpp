@@ -1,5 +1,5 @@
-#ifndef ENGINE_SUBSYSTEMS_PHYSICS_SYSTEM_HPP
-#define ENGINE_SUBSYSTEMS_PHYSICS_SYSTEM_HPP
+#ifndef ENGINE_PHYSICS_SYSTEM_PHYSICS_SYSTEM_HPP
+#define ENGINE_PHYSICS_SYSTEM_PHYSICS_SYSTEM_HPP
 
 #include "engine/core/component.hpp"
 #include "engine/core/update_system.hpp"
@@ -49,4 +49,4 @@ private:
 
 } // namespace engine
 
-#endif /* ENGINE_SUBSYSTEMS_PHYSICS_SYSTEM_HPP */
+#endif /* ENGINE_PHYSICS_SYSTEM_PHYSICS_SYSTEM_HPP */

@@ -1,8 +1,8 @@
-#ifndef ENGINE_SUBSYSTEMS_WINDOW_HPP
-#define ENGINE_SUBSYSTEMS_WINDOW_HPP
+#ifndef ENGINE_WINDOW_MANAGER_WINDOW_HPP
+#define ENGINE_WINDOW_MANAGER_WINDOW_HPP
 
 #include "engine/core/component.hpp"
-#include "engine/subsystems/glfw.hpp"
+#include "engine/glfw/glfw.hpp"
 
 extern "C" struct GLFWwindow;
 
@@ -41,4 +41,4 @@ private:
 
 } // namespace engine
 
-#endif /* ENGINE_SUBSYSTEMS_WINDOW_HPP */
+#endif /* ENGINE_WINDOW_MANAGER_WINDOW_HPP */
