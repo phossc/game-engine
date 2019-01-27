@@ -3,6 +3,10 @@
 
 #include <cstdint>
 
-enum class Update_priority : std::int32_t { physics = 2000 };
+namespace engine {
+
+enum class Update_priority : std::int32_t { physics = 2000, rendering = 10000 };
+
+} // namespace engine
 
 #endif /* ENGINE_SUBSYSTEMS_UPDATE_PRIORITIES_HPP */
