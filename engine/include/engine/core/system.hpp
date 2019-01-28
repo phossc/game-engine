@@ -5,6 +5,7 @@
 #include "engine/core/component_registry.hpp"
 #include "engine/core/ecs.hpp"
 #include "engine/core/game_loop.hpp"
+#include "engine/core/profiler.hpp"
 #include "engine/core/system_entity.hpp"
 #include "engine/core/update_system.hpp"
 
@@ -38,6 +39,8 @@ public:
     // References should not be used outside the lifetime of this instance.
     spdlog::logger& logger() noexcept { return *logger_; }
 
+    Profiler& profiler() noexcept { return profiler_; }
+
     Ecs& ecs() noexcept { return ecs_; }
 
     Clock& game_clock() noexcept { return game_clock_; }
@@ -62,6 +65,7 @@ private:
     std::vector<std::string> arguments_;
 
     std::shared_ptr<spdlog::logger> logger_;
+    Profiler profiler_;
     Component_registry component_registry_;
     Ecs ecs_;
     Clock game_clock_;

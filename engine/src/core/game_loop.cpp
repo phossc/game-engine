@@ -2,13 +2,15 @@
 
 #include "engine/core/clock.hpp"
 #include "engine/core/ecs.hpp"
+#include "engine/core/profiler.hpp"
 #include "engine/core/update_system.hpp"
 
 namespace engine::core {
 
-Game_loop::Game_loop(class Clock& game_clock, class Ecs& ecs,
-                     class Update_system& update_system)
-    : game_clock_(game_clock), ecs_(ecs), update_system_(update_system) {}
+Game_loop::Game_loop(Profiler& profiler, Clock& game_clock, Ecs& ecs,
+                     Update_system& update_system)
+    : profiler_(profiler), game_clock_(game_clock), ecs_(ecs),
+      update_system_(update_system) {}
 
 //! For a better understanding of how the game loop works, read this great
 //! article https://gafferongames.com/post/fix_your_timestep/ by Glenn Fiedler.
@@ -22,6 +24,8 @@ void Game_loop::run() {
     std::chrono::nanoseconds accumulated_dt{0};
     auto previous = std::chrono::steady_clock::now();
     while (running_) {
+        profiler_.update();
+        PROFILE("Frame", {});
         auto current = std::chrono::steady_clock::now();
 
         //! Slow down the simulation if frame time is too high.
@@ -30,7 +34,11 @@ void Game_loop::run() {
         real_dt = real_dt < frame_time_max ? real_dt : frame_time_max;
 
         game_clock_.update(real_dt);
-        ecs_.update();
+
+        {
+            PROFILE("Ecs", "Frame");
+            ecs_.update();
+        }
 
         std::chrono::nanoseconds dt = game_clock_.update_dt();
         accumulated_dt += dt;
@@ -44,15 +52,24 @@ void Game_loop::run() {
             simulation_rate_seconds =
                     std::chrono::duration<double>{simulation_rate_}.count();
 
-            update_system_.broadcast_fixed_update(simulation_rate_seconds);
+            {
+                PROFILE("Fixed update", "Frame");
+                update_system_.broadcast_fixed_update(simulation_rate_seconds);
+            }
         }
 
-        update_system_.broadcast_interpolation_update(
-                std::chrono::duration<double>{accumulated_dt}.count() /
-                simulation_rate_seconds);
+        {
+            PROFILE("Interpolation update", "Frame");
+            update_system_.broadcast_interpolation_update(
+                    std::chrono::duration<double>{accumulated_dt}.count() /
+                    simulation_rate_seconds);
+        }
 
-        update_system_.broadcast_variable_update(
-                std::chrono::duration<double>{dt}.count());
+        {
+            PROFILE("Variable update", "Frame");
+            update_system_.broadcast_variable_update(
+                    std::chrono::duration<double>{dt}.count());
+        }
 
         previous = current;
     }

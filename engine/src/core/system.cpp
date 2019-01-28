@@ -15,7 +15,7 @@ System* sys = nullptr;
 
 System::System(int argc, const char** argv)
     : logger_(spdlog::stdout_color_mt("logger")),
-      game_loop_(game_clock_, ecs_, update_system_) {
+      game_loop_(profiler_, game_clock_, ecs_, update_system_) {
     logger_->flush_on(spdlog::level::warn);
 
     if (argc <= 0) {
