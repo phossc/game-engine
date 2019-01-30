@@ -1,5 +1,6 @@
 #include "engine/render_system/render_system.hpp"
 
+#include "engine/core/profiler.hpp"
 #include "engine/core/system.hpp"
 #include "engine/update_priorities.hpp"
 
@@ -20,6 +21,7 @@ void Render_system::deactivate() {
 }
 
 void Render_system::variable_update(double dt) {
+    PROFILE("Render system", "Variable update");
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     for (auto renderer : renderers_) {
         renderer.second->render(dt);

@@ -1,5 +1,6 @@
 #include "engine/physics_system/physics_system.hpp"
 
+#include "engine/core/profiler.hpp"
 #include "engine/core/system.hpp"
 #include "engine/update_priorities.hpp"
 
@@ -26,10 +27,12 @@ void Physics_system::deactivate() {
 }
 
 void Physics_system::fixed_update(double dt) {
+    PROFILE("Physics sim", "Fixed update");
     world_.stepSimulation(dt, 1, dt);
 }
 
 void Physics_system::interpolation_update(double a) {
+    PROFILE("Physics interp", "Interpolation update");
     auto dt = sys->game_loop().simulation_rate();
     double dt_seconds = std::chrono::duration<double>{dt}.count();
     double time_step = dt_seconds * a;
