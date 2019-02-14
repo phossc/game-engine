@@ -27,6 +27,7 @@ target_sources(engine
         "include/engine/core/uuid.hpp"
         "include/engine/glfw/glfw.hpp"
         "include/engine/input_system/input_system.hpp"
+        "include/engine/input_system/input_types.hpp"
         "include/engine/physics_system/physics_system.hpp"
         "include/engine/render_system/camera.hpp"
         "include/engine/render_system/camera_manager.hpp"
