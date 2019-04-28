@@ -5,7 +5,11 @@
 
 namespace engine {
 
-enum class Update_priority : std::int32_t { physics = 2000, rendering = 10000 };
+enum class Update_priority : std::int32_t {
+    input = 100,
+    physics = 2000,
+    rendering = 10000
+};
 
 } // namespace engine
 

@@ -18,6 +18,9 @@ enum class Mouse {
     middle = GLFW_MOUSE_BUTTON_MIDDLE,
     four = GLFW_MOUSE_BUTTON_4,
     five = GLFW_MOUSE_BUTTON_5,
+    six = GLFW_MOUSE_BUTTON_6,
+    seven = GLFW_MOUSE_BUTTON_7,
+    eight = GLFW_MOUSE_BUTTON_8,
     delta_xy = -1
 };
 
