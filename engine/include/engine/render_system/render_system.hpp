@@ -42,7 +42,7 @@ struct Renderer {
 class Render_system final : public core::Component, public core::Updatable {
 public:
     COMPONENT("48fbf924-8942-41cd-a096-413f4c61f7f1");
-    DEPENDENCIES(Window::s_uuid());
+    DEPENDENCIES(Window::uuid_s());
 
     void activate() override;
     void deactivate() override;

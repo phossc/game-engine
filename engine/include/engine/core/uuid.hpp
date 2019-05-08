@@ -167,6 +167,6 @@ struct hash<engine::core::Uuid> {
         return {uuid_string};                                                  \
     }                                                                          \
                                                                                \
-    static engine::core::Uuid s_uuid() noexcept { return {uuid_string}; }
+    static engine::core::Uuid uuid_s() noexcept { return {uuid_string}; }
 
 #endif /* ENGINE_CORE_UUID_HPP */

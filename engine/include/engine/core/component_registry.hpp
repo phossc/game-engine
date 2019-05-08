@@ -27,11 +27,11 @@ public:
     //! component type is not registered for the UUID.
     std::unique_ptr<Component> create_component(Uuid uuid);
 
-    //! Calls create_component(ComponentType::s_uuid()).
+    //! Calls create_component(ComponentType::uuid_s()).
     template <typename ComponentType>
     std::unique_ptr<ComponentType> create_component() {
         return static_cast<std::unique_ptr<ComponentType>>(
-                create_component(ComponentType::s_uuid()));
+                create_component(ComponentType::uuid_s()));
     }
 
     //! Returns a topologically sorted list with all the dependencies of the
@@ -73,7 +73,7 @@ private:
 
 template <typename ComponentType>
 void Component_registry::register_component() {
-    auto uuid = ComponentType::s_uuid();
+    auto uuid = ComponentType::uuid_s();
     auto dependency_uuids = ComponentType::s_dependencies();
 
     // Already registered.

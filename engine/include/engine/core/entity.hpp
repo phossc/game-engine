@@ -38,10 +38,10 @@ public:
     //! creation fails then nullptr.
     virtual Component* create(Uuid) { return nullptr; }
 
-    //! Calls create(ComponentType::s_uuid()).
+    //! Calls create(ComponentType::uuid_s()).
     template <typename ComponentType>
     ComponentType* create() {
-        return static_cast<ComponentType*>(create(ComponentType::s_uuid()));
+        return static_cast<ComponentType*>(create(ComponentType::uuid_s()));
     }
 
     //! Gets the component with the specified UUID.
@@ -49,10 +49,10 @@ public:
     //! \return a pointer to the component or nullptr if it does not exist.
     virtual Component* get(Uuid) { return nullptr; };
 
-    //! Calls get(ComponentType::s_uuid()).
+    //! Calls get(ComponentType::uuid_s()).
     template <typename ComponentType>
     ComponentType* get() {
-        return static_cast<ComponentType*>(get(ComponentType::s_uuid()));
+        return static_cast<ComponentType*>(get(ComponentType::uuid_s()));
     }
 
     //! Whether the entity is active or not.

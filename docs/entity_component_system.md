@@ -38,7 +38,7 @@ list may remain empty like the above example - more on dependencies later.
 class Dependent_component : public engine::core::Component {
 public:
     COMPONENT("37c01f0e-2499-49c4-ba25-11fdc9812e01");
-    DEPENDENCIES(Simple_component::s_uuid(), Another_component::s_uuid());
+    DEPENDENCIES(Simple_component::uuid_s(), Another_component::uuid_s());
 
     void activate() override; // optional
     void deactivate() override; // optional
