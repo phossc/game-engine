@@ -1,5 +1,5 @@
-#ifndef ENGINE_COMPONENTS_TRANSFORM_COMPONENT_HPP
-#define ENGINE_COMPONENTS_TRANSFORM_COMPONENT_HPP
+#ifndef ENGINE_COMPONENTS_TRANSFORM_C_HPP
+#define ENGINE_COMPONENTS_TRANSFORM_C_HPP
 
 #include "engine/core/component.hpp"
 
@@ -10,7 +10,7 @@
 
 namespace engine {
 
-class Transform_component : public core::Component, public btMotionState {
+class Transform_c : public core::Component, public btMotionState {
 public:
     COMPONENT("505e8991-d2de-4c07-9371-62d6ed8619fa");
     DEPENDENCIES();
@@ -54,4 +54,4 @@ private:
 
 } // namespace engine
 
-#endif /* ENGINE_COMPONENTS_TRANSFORM_COMPONENT_HPP */
+#endif /* ENGINE_COMPONENTS_TRANSFORM_C_HPP */

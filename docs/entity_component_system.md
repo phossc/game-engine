@@ -78,13 +78,13 @@ present on an entity, the following functions can be used.
 
 ```
 // Through an entity
-player_entity->get<Movement_component>();
+player_entity->get<Movement_c>();
 
 // From within a component class
-dependency<Transform_component>();
+dependency<Transform_c>();
 
 // Alternative to the above method
-entity()->get<Transform_component>();
+entity()->get<Transform_c>();
 ```
 
 These methods return a pointer to the requested component if it is present

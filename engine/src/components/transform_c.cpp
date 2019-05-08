@@ -1,4 +1,4 @@
-#include "engine/components/transform_component.hpp"
+#include "engine/components/transform_c.hpp"
 
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/quaternion.hpp"
@@ -9,7 +9,7 @@
 
 namespace engine {
 
-const glm::mat4& Transform_component::transform() const noexcept {
+const glm::mat4& Transform_c::transform() const noexcept {
     if (!transform_needs_update_) {
         return transform_;
     }
@@ -22,7 +22,7 @@ const glm::mat4& Transform_component::transform() const noexcept {
     return transform_;
 }
 
-void Transform_component::getWorldTransform(btTransform& worldTrans) const {
+void Transform_c::getWorldTransform(btTransform& worldTrans) const {
     static_assert(std::is_same_v<btScalar, decltype(transform_)::value_type>,
                   "Bullet and glm use different underlying scalar types");
 
@@ -37,7 +37,7 @@ void Transform_component::getWorldTransform(btTransform& worldTrans) const {
     }
 }
 
-void Transform_component::setWorldTransform(const btTransform& worldTrans) {
+void Transform_c::setWorldTransform(const btTransform& worldTrans) {
     static_assert(std::is_same_v<btScalar, decltype(transform_)::value_type>,
                   "Bullet and glm use different underlying scalar types");
 

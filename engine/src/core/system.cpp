@@ -1,6 +1,6 @@
 #include "engine/core/system.hpp"
 
-#include "engine/components/transform_component.hpp"
+#include "engine/components/transform_c.hpp"
 #include "engine/glfw/glfw.hpp"
 #include "engine/input_system/input_system.hpp"
 #include "engine/physics_system/physics_system.hpp"
@@ -50,7 +50,7 @@ void System::register_components() {
     component_registry_.register_component<Input_system>();
     component_registry_.register_component<Physics_system>();
     component_registry_.register_component<Render_system>();
-    component_registry_.register_component<Transform_component>();
+    component_registry_.register_component<Transform_c>();
     component_registry_.register_component<Window>();
 }
 
