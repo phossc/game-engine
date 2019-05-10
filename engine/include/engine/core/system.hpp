@@ -23,8 +23,6 @@ public:
     ~System();
 
     void run();
-    void register_components();
-    void attach_system_components();
 
     const std::string& name() const noexcept { return name_; }
 
