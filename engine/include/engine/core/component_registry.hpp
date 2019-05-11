@@ -42,33 +42,9 @@ public:
     std::vector<Uuid> dependencies(Uuid uuid) const;
 
 private:
-    // Adds the dependent to the dependency graph if all dependencies are
-    // present otherwise adds it to the incomplete dependency graph and the
-    // missing dependencies are tracked. Dependents with missing dependencies
-    // are resolved based on the information provided by the new dependent.
-    void add_dependent(Uuid dependent, Array_view<Uuid> dependencies);
-
-    // Tracks the missing dependency by storing what dependents rely on it and
-    // by storing what dependencies that a dependent relies on.
-    void track_missing_dependency(Uuid dependency, Uuid dependent);
-
-    // Recursively resolves dependencies. The provided resolved dependency and
-    // the further resolved dependencies are moved from the incomplete
-    // dependency graph to the complete one.
-    void resolve_missing_dependencies(Uuid resolved_dependency);
-
+    std::map<Uuid, Array_view<Uuid>> dependency_graph_;
     std::map<Uuid, std::function<std::unique_ptr<Component>()>>
             component_creators_;
-
-    std::map<Uuid, Array_view<Uuid>> dependency_graph_;
-
-    //! Contains the UUID and the dependencies of components whose dependencies
-    //! are not all present in the dependency graph.
-    std::map<Uuid, Array_view<Uuid>> incomplete_dependency_graph_;
-
-    std::map<Uuid, std::vector<Uuid>> missing_dependency_to_dependents_;
-
-    std::map<Uuid, std::vector<Uuid>> dependent_to_missing_dependencies_;
 };
 
 template <typename ComponentType>
@@ -77,12 +53,11 @@ void Component_registry::register_component() {
     auto dependency_uuids = ComponentType::s_dependencies();
 
     // Already registered.
-    if (dependency_graph_.count(uuid) == 1 ||
-        incomplete_dependency_graph_.count(uuid) == 1) {
+    if (dependency_graph_.count(uuid) == 1) {
         return;
     }
 
-    add_dependent(uuid, dependency_uuids);
+    dependency_graph_.emplace(uuid, dependency_uuids);
     component_creators_.emplace(
             uuid, []() { return std::make_unique<ComponentType>(); });
 }
