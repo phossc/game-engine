@@ -17,7 +17,9 @@ public:
     //! Components must be registered before the entity component system can use
     //! them. This is required by the ECS so it can make sure that there are no
     //! missing component dependencies on entities, and so that it can
-    //! instantiate components by providing a UUID.
+    //! instantiate components by providing a UUID. Registration of a component
+    //! with the same UUID as a component previously registered will replace the
+    //! registration of the old component with the new one.
     template <typename ComponentType>
     void register_component();
 
@@ -37,8 +39,8 @@ public:
     //! Returns a topologically sorted list with all the dependencies of the
     //! component identified by the provided UUID including itself.
     //!
-    //! If there are missing dependencies or the provided UUID does not exist
-    //! then an empty list is returned.
+    //! If there are circular dependencies, missing dependencies or the provided
+    //! UUID does not exist then an empty array is returned.
     std::vector<Uuid> dependencies(Uuid uuid) const;
 
 private:
@@ -49,17 +51,13 @@ private:
 
 template <typename ComponentType>
 void Component_registry::register_component() {
-    auto uuid = ComponentType::uuid_s();
-    auto dependency_uuids = ComponentType::s_dependencies();
+    auto dependent = ComponentType::uuid_s();
+    auto dependencies = ComponentType::s_dependencies();
 
-    // Already registered.
-    if (dependency_graph_.count(uuid) == 1) {
-        return;
-    }
-
-    dependency_graph_.emplace(uuid, dependency_uuids);
-    component_creators_.emplace(
-            uuid, []() { return std::make_unique<ComponentType>(); });
+    dependency_graph_[dependent] = dependencies;
+    component_creators_[dependent] = []() {
+        return std::make_unique<ComponentType>();
+    };
 }
 
 } // namespace engine::core
