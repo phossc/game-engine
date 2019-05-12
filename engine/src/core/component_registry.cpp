@@ -1,7 +1,7 @@
 #include "engine/core/component_registry.hpp"
 
-#include <stack>
 #include <unordered_map>
+#include <vector>
 
 namespace engine::core {
 
@@ -16,63 +16,63 @@ Component_registry::create_component(Uuid uuid) {
 }
 
 std::vector<Uuid> Component_registry::dependencies(Uuid uuid) const {
-    // A component can't be registered for a uuid with value 0.
-    if (uuid == Uuid(0, 0)) {
-        return {};
-    }
+    enum class Vertex_status { undiscovered, discovered, finished };
+    std::unordered_map<Uuid, Vertex_status> status;
+    std::vector<Uuid> processing;
+    std::vector<Uuid> sorted;
 
-    enum class Node_status { discovered, finished };
-    std::unordered_map<Uuid, Node_status> node_statuses;
-    std::stack<Uuid> nodes;
-    std::vector<Uuid> sorted_dependencies;
-
-    nodes.push(uuid);
-    node_statuses.emplace(uuid, Node_status::discovered);
-
-    while (!nodes.empty()) {
-        auto node = nodes.top();
-
-        // The uuid with the value 0 is used to separate nodes at different
-        // depths and can't be at the bottom of the nodes stack.
-        if (node == Uuid(0, 0)) {
-            nodes.pop();
-            auto finished_node = nodes.top();
-            node_statuses[finished_node] = Node_status::finished;
-            sorted_dependencies.push_back(finished_node);
-            nodes.pop();
-            continue;
+    auto handle_undiscovered = [&](const auto& vertex) {
+        auto iter = dependency_graph_.find(vertex);
+        if (iter == std::end(dependency_graph_)) {
+            // Vertex is not part of the dependency graph.
+            return false;
         }
 
-        if (auto dependencies = dependency_graph_.find(node);
-            dependencies == std::end(dependency_graph_)) {
-            return {};
-        }
-        else if (dependencies->second.empty()) {
-            node_statuses[node] = Node_status::finished;
-            sorted_dependencies.push_back(node);
-            nodes.pop();
-        }
-        else {
-            // Push graph depth separator.
-            nodes.emplace(0, 0);
+        status[vertex] = Vertex_status::discovered;
+        const auto& dependencies = iter->second;
 
-            for (const auto& dependency : dependencies->second) {
-                auto inserted = node_statuses.emplace(dependency,
-                                                      Node_status::discovered);
-
-                if (inserted.second) {
-                    nodes.push(dependency);
-                }
+        auto first = std::begin(dependencies);
+        auto last = std::end(dependencies);
+        for (; first != last; ++first) {
+            auto result = status.emplace(*first, Vertex_status::undiscovered);
+            if (result.first->second == Vertex_status::undiscovered) {
+                processing.push_back(*first);
+            }
+            else if (result.first->second == Vertex_status::discovered) {
                 // Circular dependency.
-                else if (!inserted.second &&
-                         inserted.first->second == Node_status::discovered) {
-                    return {};
-                }
+                return false;
             }
         }
+
+        return true;
+    };
+
+    processing.push_back(uuid);
+    status[uuid] = Vertex_status::undiscovered;
+    while (!processing.empty()) {
+        Uuid current_vertex = processing.back();
+        auto status_iter = status.find(current_vertex); // Always valid
+        switch (status_iter->second) {
+        case Vertex_status::undiscovered:
+            if (!handle_undiscovered(current_vertex)) {
+                sorted.clear();
+                return sorted;
+            }
+            break;
+
+        case Vertex_status::discovered:
+            processing.pop_back();
+            status_iter->second = Vertex_status::finished;
+            sorted.push_back(current_vertex);
+            break;
+
+        case Vertex_status::finished:
+            processing.pop_back();
+            break;
+        }
     }
 
-    return sorted_dependencies;
+    return sorted;
 }
 
 } // namespace engine::core
