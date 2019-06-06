@@ -1,10 +1,10 @@
 add_executable(editor)
-target_include_directories(editor PRIVATE "include")
+target_include_directories(editor PRIVATE "./")
 
 target_sources(editor
     PRIVATE
-        "include/editor/editor.hpp"
-        "src/main.cpp"
+        "editor/editor.hpp"
+        "editor/main.cpp"
     )
 
 target_link_libraries(editor PRIVATE engine game)
