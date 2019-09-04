@@ -54,6 +54,11 @@ void Component_registry::register_component() {
     auto dependent = ComponentType::uuid_s();
     auto dependencies = ComponentType::s_dependencies();
 
+    // Disallow UUID 0 registration.
+    if (dependent == Uuid{0, 0}) {
+        return;
+    }
+
     dependency_graph_[dependent] = dependencies;
     component_creators_[dependent] = []() {
         return std::make_unique<ComponentType>();
