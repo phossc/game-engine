@@ -14,7 +14,7 @@ namespace engine {
 class Input_system : public core::Component, public core::Updatable {
 public:
     COMPONENT("9cbc73de-f5ac-4d04-a18b-775b15889de2");
-    DEPENDENCIES(Window::uuid_s());
+    DEPENDENCIES(Glfw::uuid_s(), Window::uuid_s());
 
     void push_action_map(Action_map action_map);
     Action_map pop_action_map();
