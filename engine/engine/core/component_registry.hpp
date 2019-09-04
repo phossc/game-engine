@@ -52,7 +52,7 @@ private:
 template <typename ComponentType>
 void Component_registry::register_component() {
     auto dependent = ComponentType::uuid_s();
-    auto dependencies = ComponentType::s_dependencies();
+    auto dependencies = ComponentType::dependencies_s();
 
     // Disallow UUID 0 registration.
     if (dependent == Uuid{0, 0}) {

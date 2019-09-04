@@ -63,13 +63,13 @@ private:
     return {};
 
 #define DEPENDENCIES(...)                                                      \
-    static engine::Array_view<engine::core::Uuid> s_dependencies() noexcept {  \
+    static engine::Array_view<engine::core::Uuid> dependencies_s() noexcept {  \
         DEPENDENCIES_IMPL(__VA_ARGS__);                                        \
     }                                                                          \
                                                                                \
     virtual engine::Array_view<engine::core::Uuid> dependencies()              \
             const noexcept override {                                          \
-        return s_dependencies();                                               \
+        return dependencies_s();                                               \
     }
 
 #endif /* ENGINE_CORE_COMPONENT_HPP */
