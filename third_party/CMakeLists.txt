@@ -3,6 +3,7 @@ add_subdirectory(spdlog)
 add_subdirectory(glm)
 add_subdirectory(glad)
 add_subdirectory(bullet)
+add_subdirectory(strong_typedef)
 
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)

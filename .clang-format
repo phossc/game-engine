@@ -15,7 +15,7 @@ IncludeBlocks: Regroup
 IncludeCategories:
   - Regex:           '^"(engine|editor|launcher|game)/'
     Priority:        2
-  - Regex:           '^"(glad|KHR|GLFW|catch|glm|spdlog)/'
+  - Regex:           '^"(glad|KHR|GLFW|catch|glm|spdlog|jss)/'
     Priority:        3
   - Regex:           '^"(BulletCollision|BulletDynamics|BulletInverseDynamics|BulletSoftBody|LinearMath)/'
     Priority:        3

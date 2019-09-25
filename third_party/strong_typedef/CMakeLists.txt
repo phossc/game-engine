@@ -1,0 +1,2 @@
+add_library(strong_typedef INTERFACE)
+target_include_directories(strong_typedef INTERFACE "include")

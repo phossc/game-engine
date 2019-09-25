@@ -66,4 +66,4 @@ target_sources(engine
         "engine/window_manager/window.hpp"
     )
 
-target_link_libraries(engine PUBLIC spdlog glm glad glfw bullet)
+target_link_libraries(engine PUBLIC spdlog glm glad glfw bullet strong_typedef)

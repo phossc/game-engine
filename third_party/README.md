@@ -46,3 +46,11 @@ Removed dotfiles in the root directory.
 
 Included files are the include directory and the LICENSE file. Uses a custom
 CMakeLists.txt file.
+
+## strong_typedef
+- URL: https://github.com/anthonywilliams/strong_typedef
+- Version: 7bdfadda96b88525e2b61a6b24c4db6a77083fb1 (commit)
+- License: Boost Software License
+
+Included files are the `README.md` and `strong_typedef.hpp`. Uses a custom
+CMakeLists.txt file.
