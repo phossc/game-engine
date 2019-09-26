@@ -3,7 +3,7 @@
 
 #include <chrono>
 
-namespace engine::core {
+namespace engine {
 
 class Clock final {
 public:
@@ -46,6 +46,6 @@ private:
     std::chrono::nanoseconds step_duration_{20'000'000};
 };
 
-} // namespace engine::core
+} // namespace engine
 
 #endif /* ENGINE_CORE_CLOCK_HPP */

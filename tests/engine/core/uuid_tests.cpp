@@ -3,7 +3,7 @@
 #include "catch/catch.hpp"
 
 TEST_CASE("UUIDs are constructed", "[uuid]") {
-    using engine::core::Uuid;
+    using engine::Uuid;
 
     SECTION("Null UUIDs") {
         Uuid default_uuid;

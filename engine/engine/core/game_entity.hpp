@@ -5,7 +5,7 @@
 
 #include <deque>
 
-namespace engine::core {
+namespace engine {
 
 //! This entity makes it possible to arrange hierarchies of entities. If an
 //! entity in the hierarchy is destructed, then it detaches all its children and
@@ -35,6 +35,6 @@ private:
     std::deque<Game_entity*> children_;
 };
 
-} // namespace engine::core
+} // namespace engine
 
 #endif /* ENGINE_CORE_GAME_ENTITY_HPP */

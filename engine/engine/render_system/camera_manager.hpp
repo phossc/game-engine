@@ -9,7 +9,7 @@ namespace engine {
 
 class Camera;
 
-class Camera_manager final : public core::Component {
+class Camera_manager final : public Component {
 public:
     COMPONENT("b5f78703-1376-4423-8322-3cf3a2583bb3");
     DEPENDENCIES();

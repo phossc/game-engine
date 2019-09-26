@@ -5,7 +5,7 @@
 #include <map>
 #include <unordered_map>
 
-namespace engine::core {
+namespace engine {
 
 struct Updatable {
     //! Delta time in seconds between frames.
@@ -56,6 +56,6 @@ private:
             iterators_to_fixed_updatables_;
 };
 
-} // namespace engine::core
+} // namespace engine
 
 #endif /* ENGINE_CORE_UPDATE_SYSTEM_HPP */

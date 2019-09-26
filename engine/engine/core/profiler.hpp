@@ -5,7 +5,7 @@
 #include <map>
 #include <string_view>
 
-namespace engine::core {
+namespace engine {
 
 //! A profiler providing very basic functionality. It currently assumes that
 //! functions being profiled are called on a single path and not recursively.
@@ -41,9 +41,9 @@ private:
     std::chrono::time_point<std::chrono::high_resolution_clock> start_;
 };
 
-} // namespace engine::core
+} // namespace engine
 
 #define PROFILE(name, parent_name)                                             \
-    engine::core::Scope_profiler scope_profiler{name, parent_name};
+    engine::Scope_profiler scope_profiler{name, parent_name};
 
 #endif /* ENGINE_CORE_PROFILER_HPP */

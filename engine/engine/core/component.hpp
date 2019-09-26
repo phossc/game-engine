@@ -9,7 +9,7 @@
 #include <cassert>
 #include <tuple>
 
-namespace engine::core {
+namespace engine {
 
 class Component {
 public:
@@ -46,14 +46,13 @@ private:
     bool active_ = false;
 };
 
-} // namespace engine::core
+} // namespace engine
 
 #define COMPONENT(uuid_string) UUID(uuid_string)
 
 #define DEPENDENCIES_IMPL(...)                                                 \
-    static std::array<                                                         \
-            engine::core::Uuid,                                                \
-            std::tuple_size_v<decltype(std::make_tuple(__VA_ARGS__))>>         \
+    static std::array<engine::Uuid, std::tuple_size_v<decltype(                \
+                                            std::make_tuple(__VA_ARGS__))>>    \
             uuids{__VA_ARGS__};                                                \
                                                                                \
     if (!uuids.empty()) {                                                      \
@@ -63,11 +62,11 @@ private:
     return {};
 
 #define DEPENDENCIES(...)                                                      \
-    static engine::Array_view<engine::core::Uuid> dependencies_s() noexcept {  \
+    static engine::Array_view<engine::Uuid> dependencies_s() noexcept {        \
         DEPENDENCIES_IMPL(__VA_ARGS__);                                        \
     }                                                                          \
                                                                                \
-    virtual engine::Array_view<engine::core::Uuid> dependencies()              \
+    virtual engine::Array_view<engine::Uuid> dependencies()                    \
             const noexcept override {                                          \
         return dependencies_s();                                               \
     }

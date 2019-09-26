@@ -1,6 +1,6 @@
 #include "engine/core/ecs.hpp"
 
-namespace engine::core {
+namespace engine {
 
 Ecs::~Ecs() {
     delete_all();
@@ -51,4 +51,4 @@ void Ecs::delete_all() {
     update();
 }
 
-} // namespace engine::core
+} // namespace engine

@@ -9,8 +9,6 @@
 
 namespace engine {
 
-using core::sys;
-
 Shader_program::Shader_program() {
     program_ = glCreateProgram();
 }

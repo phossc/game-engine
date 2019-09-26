@@ -5,7 +5,7 @@
 
 int main(int argc, const char** argv) {
     using engine::launch;
-    using engine::core::System;
+    using engine::System;
     return launch(argc, argv, [](System& sys_instance) {
         engine::register_components(sys_instance.component_registry());
         game::register_components(sys_instance.component_registry());

@@ -3,7 +3,7 @@
 #include <iomanip>
 #include <sstream>
 
-namespace engine::core {
+namespace engine {
 
 std::string Uuid::str() const {
     std::ostringstream ostr;
@@ -21,4 +21,4 @@ std::string Uuid::str() const {
     return ostr.str();
 }
 
-} // namespace engine::core
+} // namespace engine

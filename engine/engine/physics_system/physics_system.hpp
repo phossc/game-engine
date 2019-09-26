@@ -9,7 +9,7 @@
 
 namespace engine {
 
-class Physics_system : public core::Component, public core::Updatable {
+class Physics_system : public Component, public Updatable {
 public:
     COMPONENT("bf9aa9be-2fa9-4098-b4b8-25bfe2057ac4");
     DEPENDENCIES();

@@ -3,7 +3,7 @@
 
 #include "engine/core/component_entity.hpp"
 
-namespace engine::core {
+namespace engine {
 
 //! System entity specific optimizations can be done in this class. At the
 //! moment, all functionality matches the Component_entity.
@@ -13,6 +13,6 @@ public:
     System_entity(Entity_id id) : Component_entity{id, false} {}
 };
 
-} // namespace engine::core
+} // namespace engine
 
 #endif /* ENGINE_CORE_SYSTEM_ENTITY_HPP */

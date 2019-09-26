@@ -2,7 +2,7 @@
 
 #include "engine/core/system.hpp"
 
-namespace engine::core {
+namespace engine {
 
 void Profiler::update() {
     std::swap(next_results_, results_);
@@ -36,4 +36,4 @@ Scope_profiler::~Scope_profiler() {
     sys->profiler().add_sample(name_, parent_name_, duration);
 }
 
-} // namespace engine::core
+} // namespace engine

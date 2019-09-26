@@ -8,7 +8,7 @@ namespace editor {
 
 //! Specify all the system components provided by the editor in the
 //! DEPENDENCIES() macro.
-struct Editor : engine::core::Component {
+struct Editor : engine::Component {
     COMPONENT("d49d0588-5ed5-46d2-9525-48493a024d93");
     DEPENDENCIES();
 };
@@ -16,7 +16,7 @@ struct Editor : engine::core::Component {
 //! Register all components provided by the editor. Engine and game components
 //! can also be overridden here i.e. if you want to provide a custom camera
 //! manager.
-inline void register_components(engine::core::Component_registry& registry) {
+inline void register_components(engine::Component_registry& registry) {
     registry.register_component<Editor>();
 }
 

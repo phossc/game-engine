@@ -5,7 +5,7 @@
 #include "engine/core/profiler.hpp"
 #include "engine/core/update_system.hpp"
 
-namespace engine::core {
+namespace engine {
 
 Game_loop::Game_loop(Profiler& profiler, Clock& game_clock, Ecs& ecs,
                      Update_system& update_system)
@@ -75,4 +75,4 @@ void Game_loop::run() {
     }
 }
 
-} // namespace engine::core
+} // namespace engine

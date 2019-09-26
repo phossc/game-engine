@@ -7,8 +7,6 @@
 
 namespace engine {
 
-using core::sys;
-
 Shader::Shader(GLenum type, const std::string& filepath) : type_{type} {
     auto source = load_file(filepath);
     shader_ = load_shader(type, source.c_str());

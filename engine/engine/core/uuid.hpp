@@ -5,7 +5,7 @@
 #include <string>
 #include <string_view>
 
-namespace engine::core {
+namespace engine {
 
 class Uuid {
 public:
@@ -149,12 +149,12 @@ constexpr bool operator>=(const Uuid& lhs, const Uuid& rhs) noexcept {
     return !(lhs < rhs);
 }
 
-} // namespace engine::core
+} // namespace engine
 
 namespace std {
 template <>
-struct hash<engine::core::Uuid> {
-    std::size_t operator()(const engine::core::Uuid& uuid) const noexcept {
+struct hash<engine::Uuid> {
+    std::size_t operator()(const engine::Uuid& uuid) const noexcept {
         // TODO: Combine the hashes in a better way to avoid collisions.
         return std::hash<std::uint64_t>{}(uuid.upper_half_) ^
                std::hash<std::uint64_t>{}(uuid.lower_half_);
@@ -163,10 +163,10 @@ struct hash<engine::core::Uuid> {
 } // namespace std
 
 #define UUID(uuid_string)                                                      \
-    virtual engine::core::Uuid uuid() const noexcept override {                \
+    virtual engine::Uuid uuid() const noexcept override {                      \
         return {uuid_string};                                                  \
     }                                                                          \
                                                                                \
-    static engine::core::Uuid uuid_s() noexcept { return {uuid_string}; }
+    static engine::Uuid uuid_s() noexcept { return {uuid_string}; }
 
 #endif /* ENGINE_CORE_UUID_HPP */

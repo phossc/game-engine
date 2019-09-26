@@ -2,7 +2,7 @@
 
 #include "spdlog/sinks/stdout_color_sinks.h"
 
-namespace engine::core {
+namespace engine {
 
 System* sys = nullptr;
 
@@ -36,4 +36,4 @@ void System::run() {
     game_loop_.run();
 }
 
-} // namespace engine::core
+} // namespace engine

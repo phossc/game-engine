@@ -3,10 +3,9 @@
 #include <unordered_map>
 #include <vector>
 
-namespace engine::core {
+namespace engine {
 
-std::unique_ptr<engine::core::Component>
-Component_registry::create_component(Uuid uuid) {
+std::unique_ptr<Component> Component_registry::create_component(Uuid uuid) {
     auto iter = component_creators_.find(uuid);
     if (iter != std::end(component_creators_)) {
         return iter->second();
@@ -75,4 +74,4 @@ std::vector<Uuid> Component_registry::dependencies(Uuid uuid) const {
     return sorted;
 }
 
-} // namespace engine::core
+} // namespace engine

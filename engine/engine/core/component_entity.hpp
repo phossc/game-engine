@@ -8,7 +8,7 @@
 #include <unordered_map>
 #include <vector>
 
-namespace engine::core {
+namespace engine {
 
 class Component_entity : public Entity {
 public:
@@ -52,6 +52,6 @@ private:
     std::size_t new_components_start_index_ = 0;
 };
 
-} // namespace engine::core
+} // namespace engine
 
 #endif /* ENGINE_CORE_COMPONENT_ENTITY_HPP */

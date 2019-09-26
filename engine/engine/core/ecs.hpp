@@ -8,7 +8,7 @@
 #include <memory>
 #include <unordered_map>
 
-namespace engine::core {
+namespace engine {
 
 // Entity system that allows creation of different entity types.
 class Ecs final {
@@ -73,6 +73,6 @@ EntityType* Ecs::create_entity() {
     return static_cast<EntityType*>(p.first->second.get());
 }
 
-} // namespace engine::core
+} // namespace engine
 
 #endif /* ENGINE_CORE_ECS_HPP */

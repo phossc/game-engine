@@ -8,7 +8,7 @@ extern "C" struct GLFWwindow;
 
 namespace engine {
 
-class Window : public core::Component {
+class Window : public Component {
 public:
     COMPONENT("0cf717a0-a5d6-4915-a907-8b2210ccb353");
     DEPENDENCIES(Glfw::uuid_s());

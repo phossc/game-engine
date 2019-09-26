@@ -1,6 +1,6 @@
 #include "engine/core/update_system.hpp"
 
-namespace engine::core {
+namespace engine {
 
 using Updatables = std::multimap<std::int32_t, Updatable*>;
 using Updatables_iterators =
@@ -82,4 +82,4 @@ void Update_system::deregister_fixed_update(Updatable* updatable) {
                       iterators_to_fixed_updatables_);
 }
 
-} // namespace engine::core
+} // namespace engine

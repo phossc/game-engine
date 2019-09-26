@@ -4,7 +4,7 @@
 #include "engine/core/uuid.hpp"
 #include "engine/id_types.hpp"
 
-namespace engine::core {
+namespace engine {
 
 class Component;
 
@@ -64,6 +64,6 @@ private:
     Entity_id id_;
 };
 
-} // namespace engine::core
+} // namespace engine
 
 #endif /* ENGINE_CORE_ENTITY_HPP */

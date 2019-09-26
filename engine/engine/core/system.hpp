@@ -15,7 +15,7 @@
 #include <string>
 #include <vector>
 
-namespace engine::core {
+namespace engine {
 
 class System final {
 public:
@@ -75,6 +75,6 @@ private:
 
 extern System* sys;
 
-} // namespace engine::core
+} // namespace engine
 
 #endif /* ENGINE_CORE_SYSTEM_HPP */

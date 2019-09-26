@@ -10,7 +10,7 @@
 #include <memory>
 #include <vector>
 
-namespace engine::core {
+namespace engine {
 
 class Component_registry final {
 public:
@@ -65,6 +65,6 @@ void Component_registry::register_component() {
     };
 }
 
-} // namespace engine::core
+} // namespace engine
 
 #endif /* ENGINE_CORE_COMPONENT_REGISTRY_HPP */

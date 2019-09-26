@@ -12,12 +12,12 @@ namespace engine {
 
 void Render_system::activate() {
     glClearColor(0.8f, 0.8f, 0.8f, 1.0f);
-    core::sys->update_system().register_variable_update(
+    sys->update_system().register_variable_update(
             this, static_cast<std::int32_t>(Update_priority::rendering));
 }
 
 void Render_system::deactivate() {
-    core::sys->update_system().deregister_variable_update(this);
+    sys->update_system().deregister_variable_update(this);
 }
 
 void Render_system::variable_update(double dt) {

@@ -2,7 +2,7 @@
 
 #include <cstdint>
 
-namespace engine::core {
+namespace engine {
 
 void Clock::update(std::chrono::nanoseconds dt) noexcept {
     if (paused_) {
@@ -35,4 +35,4 @@ void Clock::refresh_update_dt() noexcept {
     previous_total_time_ = total_time_;
 }
 
-} // namespace engine::core
+} // namespace engine

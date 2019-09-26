@@ -2,7 +2,7 @@
 
 #include <algorithm>
 
-namespace engine::core {
+namespace engine {
 
 Game_entity::~Game_entity() {
     for (auto child : children_) {
@@ -50,4 +50,4 @@ Game_entity* Game_entity::parent() const noexcept {
     return parent_;
 }
 
-} // namespace engine::core
+} // namespace engine

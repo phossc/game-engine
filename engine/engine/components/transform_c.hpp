@@ -10,7 +10,7 @@
 
 namespace engine {
 
-class Transform_c : public core::Component, public btMotionState {
+class Transform_c : public Component, public btMotionState {
 public:
     COMPONENT("505e8991-d2de-4c07-9371-62d6ed8619fa");
     DEPENDENCIES();

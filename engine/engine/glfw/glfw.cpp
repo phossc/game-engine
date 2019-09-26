@@ -15,11 +15,11 @@ static void error_callback(int, const char* description) {
 void Glfw::activate() {
     glfwSetErrorCallback(error_callback);
     glfwInit();
-    core::sys->update_system().register_variable_update(this, 0);
+    sys->update_system().register_variable_update(this, 0);
 }
 
 void Glfw::deactivate() {
-    core::sys->update_system().deregister_variable_update(this);
+    sys->update_system().deregister_variable_update(this);
     glfwTerminate();
 }
 

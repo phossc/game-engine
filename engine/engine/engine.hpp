@@ -15,7 +15,7 @@ namespace engine {
 
 //! Specify all the system components provided by the engine in the
 //! DEPENDENCIES() macro.
-struct Engine : core::Component {
+struct Engine : Component {
     COMPONENT("887587e4-b56b-4359-9e0f-d81b0b652ed6");
     DEPENDENCIES(Camera_manager::uuid_s(), Glfw::uuid_s(),
                  Input_system::uuid_s(), Physics_system::uuid_s(),
@@ -23,7 +23,7 @@ struct Engine : core::Component {
 };
 
 //! Register all components provided by the engine.
-inline void register_components(core::Component_registry& registry) {
+inline void register_components(Component_registry& registry) {
     registry.register_component<Camera_manager>();
     registry.register_component<Engine>();
     registry.register_component<Glfw>();

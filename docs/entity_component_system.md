@@ -15,7 +15,7 @@ that you can update the position of the player.
 ```
 #include <engine/core/component.hpp>
 
-class Simple_component : public engine::core::Component {
+class Simple_component : public engine::Component {
 public:
     COMPONENT("559f58a8-621e-433b-b9b5-07b3789a859b");
     DEPENDENCIES();
@@ -35,7 +35,7 @@ list may remain empty like the above example - more on dependencies later.
 
 ### Dependent Component
 ```
-class Dependent_component : public engine::core::Component {
+class Dependent_component : public engine::Component {
 public:
     COMPONENT("37c01f0e-2499-49c4-ba25-11fdc9812e01");
     DEPENDENCIES(Simple_component::uuid_s(), Another_component::uuid_s());
@@ -102,7 +102,7 @@ Engine subsystems are organized into components residing in the system
 entity. These can be accessed in two ways.
 
 ```
-using engine::core::sys;
+using engine::sys;
 using engine::Physics_system;
 
 // Through the system entity

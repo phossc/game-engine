@@ -24,7 +24,7 @@ static void process_until_consumed(std::vector<Action_map>& action_maps,
 }
 
 static void key_callback(GLFWwindow*, int key, int, int action, int) {
-    auto input_system = core::sys->component<Input_system>();
+    auto input_system = sys->component<Input_system>();
 
     auto input_key = static_cast<input::Key>(key);
     input::Event input_event;
@@ -49,7 +49,7 @@ static void key_callback(GLFWwindow*, int key, int, int action, int) {
 
 static void mouse_button_callback(GLFWwindow* window, int button, int action,
                                   int) {
-    auto input_system = core::sys->component<Input_system>();
+    auto input_system = sys->component<Input_system>();
     bool captures_mouse =
             glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED;
 
@@ -80,7 +80,7 @@ static void mouse_button_callback(GLFWwindow* window, int button, int action,
 }
 
 static void cursor_position_callback(GLFWwindow* window, double x, double y) {
-    auto input_system = core::sys->component<Input_system>();
+    auto input_system = sys->component<Input_system>();
     bool captures_mouse =
             glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED;
 
@@ -101,8 +101,8 @@ void Input_system::push_action_map(Action_map action_map) {
 
 Action_map Input_system::pop_action_map() {
     if (action_maps_.empty()) {
-        core::sys->logger().critical("Removing an action map when there is "
-                                     "none is undefined behavior");
+        sys->logger().critical("Removing an action map when there is "
+                               "none is undefined behavior");
     }
 
     auto action_map = std::move(action_maps_.back());
@@ -112,8 +112,8 @@ Action_map Input_system::pop_action_map() {
 
 Action_map& Input_system::current_action_map() noexcept {
     if (action_maps_.empty()) {
-        core::sys->logger().critical("Retrieving the current action map when "
-                                     "there is none is undefined behavior");
+        sys->logger().critical("Retrieving the current action map when "
+                               "there is none is undefined behavior");
     }
 
     return action_maps_.back();
@@ -128,7 +128,7 @@ std::vector<Action_map>& Input_system::action_maps() noexcept {
 }
 
 void Input_system::activate() {
-    core::sys->update_system().register_variable_update(
+    sys->update_system().register_variable_update(
             this, static_cast<std::int32_t>(Update_priority::input));
 
     auto window = dependency<Window>()->handle();
@@ -139,7 +139,7 @@ void Input_system::activate() {
 }
 
 void Input_system::deactivate() {
-    core::sys->update_system().deregister_variable_update(this);
+    sys->update_system().deregister_variable_update(this);
 
     auto window = dependency<Window>()->handle();
     assert(window != nullptr);

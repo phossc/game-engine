@@ -6,8 +6,6 @@
 
 namespace engine {
 
-using engine::core::sys;
-
 Physics_system::Physics_system()
     : dispatcher_(&collisionConfig_),
       world_(&dispatcher_, &broadphase_, &solver_, &collisionConfig_) {

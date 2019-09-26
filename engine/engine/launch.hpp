@@ -9,10 +9,9 @@
 
 namespace engine {
 
-int launch(int argc, const char** argv,
-           std::function<void(core::System&)> setup) {
+int launch(int argc, const char** argv, std::function<void(System&)> setup) {
     try {
-        core::System sys_instance(argc, argv);
+        System sys_instance(argc, argv);
         setup(sys_instance);
         sys_instance.run();
     }

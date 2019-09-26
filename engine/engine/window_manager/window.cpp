@@ -9,8 +9,6 @@
 
 namespace engine {
 
-using engine::core::sys;
-
 static void window_close_callback(GLFWwindow* window) {
     assert(window == sys->component<Window>()->handle());
     sys->game_loop().stop();

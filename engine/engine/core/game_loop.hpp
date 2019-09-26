@@ -3,7 +3,7 @@
 
 #include <chrono>
 
-namespace engine::core {
+namespace engine {
 
 class Game_loop final {
 public:
@@ -35,6 +35,6 @@ private:
     class Update_system& update_system_;
 };
 
-} // namespace engine::core
+} // namespace engine
 
 #endif /* ENGINE_CORE_GAME_LOOP_HPP */

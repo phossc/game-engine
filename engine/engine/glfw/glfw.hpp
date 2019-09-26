@@ -6,7 +6,7 @@
 
 namespace engine {
 
-class Glfw final : public core::Component, public core::Updatable {
+class Glfw final : public Component, public Updatable {
 public:
     COMPONENT("1757336f-d5de-47a4-8f7b-e961b37974d4");
     DEPENDENCIES();

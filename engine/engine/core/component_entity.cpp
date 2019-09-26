@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <cassert>
 
-namespace engine::core {
+namespace engine {
 
 Component_entity::~Component_entity() {
     perform_deactivation();
@@ -146,4 +146,4 @@ void Component_entity::perform_deactivation() {
     active_ = false;
 }
 
-} // namespace engine::core
+} // namespace engine
