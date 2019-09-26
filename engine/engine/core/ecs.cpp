@@ -39,12 +39,12 @@ void Ecs::update() {
 
 void Ecs::delete_all() {
     for (const auto& entity : entities_) {
-        if (auto id = entity.first; id.value() != 0) {
+        if (auto id = entity.first; id != Entity_id{0}) {
             schedule_deletion(id);
         }
     }
 
-    if (entities_.count(0) == 1) {
+    if (entities_.count(Entity_id{0}) == 1) {
         schedule_deletion(Entity_id{0});
     }
 

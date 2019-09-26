@@ -2,7 +2,7 @@
 #define ENGINE_CORE_ECS_HPP
 
 #include "engine/core/entity.hpp"
-#include "engine/core/entity_id.hpp"
+#include "engine/id_types.hpp"
 
 #include <deque>
 #include <memory>
@@ -50,10 +50,11 @@ public:
 private:
     //! Data member holding the id that a newly created entity will get.
     //!
-    //! The value_type is an std::int64_t and the id is advanced by incrementing
-    //! it. Thus we will run into trouble if entities are created continually
-    //! for a few billion years without an engine restart. We'll take that risk.
-    Entity_id::value_type next_id_ = 0;
+    //! The underlying type is an std::int64_t and the id is advanced by
+    //! incrementing it. Thus we will run into trouble if entities are created
+    //! continually for a few billion years without an engine restart. We'll
+    //! take that risk.
+    Entity_id next_id_{0};
 
     //! Entities currently in the system.
     std::unordered_map<Entity_id, std::unique_ptr<Entity>> entities_;

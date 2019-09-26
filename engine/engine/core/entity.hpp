@@ -1,8 +1,8 @@
 #ifndef ENGINE_CORE_ENTITY_HPP
 #define ENGINE_CORE_ENTITY_HPP
 
-#include "engine/core/entity_id.hpp"
 #include "engine/core/uuid.hpp"
+#include "engine/id_types.hpp"
 
 namespace engine::core {
 
