@@ -9,10 +9,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - name: Setup build directory
+      run: mkdir build
     - name: CMake
-      run: |
-        mkdir build
-        cd build
-        cmake -G "Unix Makefiles" ..
+      run: cmake -G "Unix Makefiles" -S . -B build     
     - name: make
-      run: make
+      run: make --directory=build
