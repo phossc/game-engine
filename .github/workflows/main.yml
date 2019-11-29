@@ -5,7 +5,7 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@v1
@@ -14,5 +14,5 @@ jobs:
         mkdir build
         cd build
         cmake -G "Unix Makefiles" ..
-    - name: Build
+    - name: make
       run: make
