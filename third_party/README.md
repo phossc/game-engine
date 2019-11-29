@@ -2,7 +2,7 @@
 
 ## bullet
 - URL: https://github.com/bulletphysics/bullet3
-- Version: 8bc1c8e01b1b2b9284df08385da0e03241f4e6aa (commit)
+- Version: c4300dc2999b37ac0f689a54df422434a6cf5ddd (commit)
 - License: zlib
 
 All files from the src subdirectory excluding CMakeLists.txt and premake4.lua
