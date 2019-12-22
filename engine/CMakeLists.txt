@@ -18,6 +18,7 @@ target_sources(engine
         "engine/core/component_entity.hpp"
         "engine/core/component_registry.cpp"
         "engine/core/component_registry.hpp"
+        "engine/core/component_types.hpp"
         "engine/core/ecs.cpp"
         "engine/core/ecs.hpp"
         "engine/core/entity.hpp"
