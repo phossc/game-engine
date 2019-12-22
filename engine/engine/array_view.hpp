@@ -22,7 +22,7 @@ public:
 
     constexpr Array_view() noexcept : data_(nullptr), size_(0) {}
 
-    constexpr Array_view(pointer data, size_type size) noexcept
+    constexpr Array_view(const_pointer data, size_type size) noexcept
         : data_(data), size_(size) {}
 
     constexpr Array_view(const Array_view<T>& src) noexcept = default;
@@ -55,7 +55,7 @@ public:
     }
 
 private:
-    pointer data_;
+    const_pointer data_;
     size_type size_;
 };
 
