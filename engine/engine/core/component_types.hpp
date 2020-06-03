@@ -8,40 +8,44 @@
 
 namespace engine::ecs {
 
+template <typename ComponentType>
+struct Component_traits {
+    constexpr static Uuid uuid() noexcept { return ComponentType::uuid_s(); }
+    constexpr static Array_view<Uuid> deps() noexcept {
+        return ComponentType::dependencies_s();
+    }
+};
+
 struct Base_component {};
 
-template <std::uint64_t Upper, std::uint64_t Lower, typename... Dependencies>
+template <typename ComponentType, typename... Dependencies>
 struct Component : Base_component {
-    constexpr static Uuid uuid_s() noexcept {
-        constexpr Uuid uuid{Upper, Lower};
-        return uuid;
-    }
+    using Dependencies_array = std::array<Uuid, sizeof...(Dependencies)>;
+
+    constexpr static Uuid uuid_s() noexcept { return ComponentType::uuid; }
 
     constexpr static Array_view<Uuid> dependencies_s() noexcept {
-        static constexpr auto uuids = [] {
-            std::array<Uuid, sizeof...(Dependencies)> deps;
-            std::size_t i = 0;
-            (..., (deps[i++] = Dependencies::uuid_s()));
-            return deps;
-        }();
-
-        if constexpr (uuids.empty()) {
+        if constexpr (dependencies.empty()) {
             return {};
         }
         else {
-            return {uuids.data(), uuids.size()};
+            return {dependencies.data(), dependencies.size()};
         }
     }
 
-    Uuid uuid() const noexcept { return uuid_s(); }
-    Array_view<Uuid> dependencies() const noexcept { return dependencies_s(); }
+    static constexpr Dependencies_array dependencies = [] {
+        Dependencies_array deps{};
+        std::size_t i = 0;
+        (..., (deps[i++] = Dependencies::uuid_s()));
+        return deps;
+    }();
 };
 
-template <std::uint64_t Upper, std::uint64_t Lower, typename... Dependencies>
-struct Data_component : Component<Upper, Lower, Dependencies...> {};
+template <typename ComponentType, typename... Dependencies>
+struct Data_component : Component<ComponentType, Dependencies...> {};
 
-template <std::uint64_t Upper, std::uint64_t Lower, typename... Dependencies>
-struct Behavior_component : Component<Upper, Lower, Dependencies...> {};
+template <typename ComponentType, typename... Dependencies>
+struct Behavior_component : Component<ComponentType, Dependencies...> {};
 
 } // namespace engine::ecs
 
