@@ -1,11 +1,9 @@
-add_executable(engine_tester "../tests_main.cpp")
+function(engine_test name)
+    add_executable(${name})
+    target_sources(${name} PRIVATE ${ARGN})
+    target_link_libraries(${name} PRIVATE tests_main engine)
+    add_test(NAME ${name} COMMAND ${name})
+endfunction()
 
-target_sources(engine_tester
-    PRIVATE
-        "core/component_type_tests.cpp"
-        "core/uuid_tests.cpp"
-    )
-
-target_link_libraries(engine_tester PRIVATE catch engine)
-
-add_test(NAME engine_tests COMMAND engine_tester)
+engine_test(component_type_tests "core/component_type_tests.cpp")
+engine_test(uuid_tests "core/uuid_tests.cpp")
