@@ -5,6 +5,7 @@
 
 using engine::Uuid;
 using engine::ecs::Behavior_component;
+using engine::ecs::Behavior_component_interface;
 using engine::ecs::Component_traits;
 using engine::ecs::Data_component;
 
@@ -45,4 +46,30 @@ TEST_CASE("Component template instantiations", "[component]") {
             Component_traits<Render>::uuid());
     REQUIRE(Component_traits<Player>::deps().data()[1] ==
             Component_traits<Transform>::uuid());
+}
+
+namespace {
+
+struct Window_manager : Behavior_component<Window_manager> {
+    static constexpr Uuid uuid{"64ab83d2-2d92-4aff-88c9-4e231e422b49"};
+};
+
+struct Render_system : Behavior_component<Render_system, Window_manager> {
+    static constexpr Uuid uuid{"2c7bcbaa-42ff-4dd2-be5f-cdf1d7bd3a57"};
+};
+
+} // namespace
+
+TEST_CASE("Behavior component interface", "[component]") {
+    Window_manager wm;
+    Render_system rs;
+
+    Behavior_component_interface* wm_ptr = &wm;
+    Behavior_component_interface* rs_ptr = &rs;
+
+    REQUIRE(Component_traits<Window_manager>::uuid() == wm_ptr->get_uuid());
+    REQUIRE(Component_traits<Render_system>::uuid() == rs_ptr->get_uuid());
+    REQUIRE(wm_ptr->get_deps().empty());
+    REQUIRE(rs_ptr->get_deps().size() == 1);
+    REQUIRE(rs_ptr->get_deps().data()[0] == wm_ptr->get_uuid());
 }

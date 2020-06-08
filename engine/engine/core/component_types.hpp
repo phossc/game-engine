@@ -44,8 +44,29 @@ struct Component : Base_component {
 template <typename ComponentType, typename... Dependencies>
 struct Data_component : Component<ComponentType, Dependencies...> {};
 
+struct Behavior_component_interface {
+    virtual void activate() = 0;
+    virtual void deactivate() = 0;
+    virtual bool active() const noexcept = 0;
+    virtual Uuid get_uuid() const noexcept = 0;
+    virtual Array_view<Uuid> get_deps() const noexcept = 0;
+};
+
 template <typename ComponentType, typename... Dependencies>
-struct Behavior_component : Component<ComponentType, Dependencies...> {};
+struct Behavior_component : Component<ComponentType, Dependencies...>,
+                            Behavior_component_interface {
+    virtual void activate() override {}
+    virtual void deactivate() override {}
+    virtual bool active() const noexcept override { return false; }
+
+    virtual Uuid get_uuid() const noexcept override final {
+        return Component_traits<ComponentType>::uuid();
+    }
+
+    virtual Array_view<Uuid> get_deps() const noexcept override final {
+        return Component_traits<ComponentType>::deps();
+    }
+};
 
 } // namespace engine::ecs
 
