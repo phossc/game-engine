@@ -1,17 +1,20 @@
-name: CI
+name: Continuous Integration
 
 on: [push]
 
 jobs:
   build:
+    name: Build and test
 
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Setup build directory
-      run: mkdir build
+      run: mkdir build && cd build
     - name: CMake
-      run: cmake -G "Unix Makefiles" -S . -B build     
+      run: cmake -G "Unix Makefiles" ..
     - name: make
-      run: make --directory=build
+      run: make
+    - name: CTest
+      run: ctest
