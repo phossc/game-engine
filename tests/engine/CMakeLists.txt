@@ -5,5 +5,6 @@ function(engine_test name)
     add_test(NAME ${name} COMMAND ${name})
 endfunction()
 
-engine_test(component_type_tests "core/component_type_tests.cpp")
 engine_test(uuid_tests "core/uuid_tests.cpp")
+engine_test(component_type_tests "core/component_type_tests.cpp")
+engine_test(component_store_tests "core/component_store_tests.cpp")
