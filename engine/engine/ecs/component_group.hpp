@@ -1,5 +1,5 @@
-#ifndef ENGINE_CORE_COMPONENT_GROUP_HPP
-#define ENGINE_CORE_COMPONENT_GROUP_HPP
+#ifndef ENGINE_ECS_COMPONENT_GROUP_HPP
+#define ENGINE_ECS_COMPONENT_GROUP_HPP
 
 #include <vector>
 
@@ -14,4 +14,4 @@ private:
 
 } // namespace engine::ecs
 
-#endif /* ENGINE_CORE_COMPONENT_GROUP_HPP */
+#endif /* ENGINE_ECS_COMPONENT_GROUP_HPP */

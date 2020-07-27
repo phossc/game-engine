@@ -1,8 +1,8 @@
-#include "engine/core/component_group.hpp"
+#include "engine/ecs/component_group.hpp"
 
-#include "engine/core/component_store.hpp"
-#include "engine/core/component_types.hpp"
 #include "engine/core/uuid.hpp"
+#include "engine/ecs/component_store.hpp"
+#include "engine/ecs/component_types.hpp"
 
 #include "catch/catch.hpp"
 

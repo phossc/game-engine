@@ -1,4 +1,5 @@
-#include "engine/core/component_types.hpp"
+#include "engine/ecs/component_types.hpp"
+
 #include "engine/core/uuid.hpp"
 
 #include "catch/catch.hpp"

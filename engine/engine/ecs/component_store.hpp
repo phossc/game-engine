@@ -1,5 +1,5 @@
-#ifndef ENGINE_CORE_COMPONENT_STORE_HPP
-#define ENGINE_CORE_COMPONENT_STORE_HPP
+#ifndef ENGINE_ECS_COMPONENT_STORE_HPP
+#define ENGINE_ECS_COMPONENT_STORE_HPP
 
 #include "jss/strong_typedef.hpp"
 
@@ -73,4 +73,4 @@ private:
 
 } // namespace engine::ecs
 
-#endif /* ENGINE_CORE_COMPONENT_STORE_HPP */
+#endif /* ENGINE_ECS_COMPONENT_STORE_HPP */

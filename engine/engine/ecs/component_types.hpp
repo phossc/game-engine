@@ -1,9 +1,9 @@
-#ifndef ENGINE_CORE_COMPONENT_TYPES_HPP
-#define ENGINE_CORE_COMPONENT_TYPES_HPP
+#ifndef ENGINE_ECS_COMPONENT_TYPES_HPP
+#define ENGINE_ECS_COMPONENT_TYPES_HPP
 
 #include "engine/array_view.hpp"
-#include "engine/core/component_store.hpp"
 #include "engine/core/uuid.hpp"
+#include "engine/ecs/component_store.hpp"
 
 #include <array>
 #include <tuple>
@@ -75,4 +75,4 @@ struct Behavior_component : Component<ComponentType, Dependencies...>,
 
 } // namespace engine::ecs
 
-#endif /* ENGINE_CORE_COMPONENT_TYPES_HPP */
+#endif /* ENGINE_ECS_COMPONENT_TYPES_HPP */
