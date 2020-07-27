@@ -16,6 +16,7 @@ target_sources(engine
         "engine/core/component.hpp"
         "engine/core/component_entity.cpp"
         "engine/core/component_entity.hpp"
+        "engine/core/component_group.hpp"
         "engine/core/component_registry.cpp"
         "engine/core/component_registry.hpp"
         "engine/core/component_store.hpp"
