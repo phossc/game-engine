@@ -4,6 +4,7 @@
 #include "jss/strong_typedef.hpp"
 
 #include <cstddef>
+#include <deque>
 #include <optional>
 #include <vector>
 
@@ -13,9 +14,9 @@ namespace engine::ecs {
 /// type. An inserted component is referenced by an index that remain stable
 /// until that component is removed. Although indicies remain stable, the
 /// components themselves might be moved around as the internal storage needs
-/// resizing.
+/// resizing. References to stored components are valid for at least one frame.
 template <typename ComponentType>
-class Component_store {
+class Component_store final {
     template <typename T>
     struct Index_tag {};
 
@@ -67,7 +68,7 @@ public:
     }
 
 private:
-    std::vector<std::optional<ComponentType>> components_;
+    std::deque<std::optional<ComponentType>> components_;
     std::vector<Index_type> available_indicies_;
 };
 
