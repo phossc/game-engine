@@ -10,6 +10,15 @@
 
 namespace engine::ecs {
 
+/// Defined outside the Component_store class so that the store index can be
+/// used where only an incomplete component type is available.
+template <typename ComponentType>
+using Store_index =
+        jss::strong_typedef<ComponentType, std::size_t,
+                            jss::strong_typedef_properties::comparable,
+                            jss::strong_typedef_properties::hashable,
+                            jss::strong_typedef_properties::streamable>;
+
 /// The Component_store class is responsible for storing components of the same
 /// type. An inserted component is referenced by an index that remain stable
 /// until that component is removed. Although indicies remain stable, the
@@ -17,17 +26,12 @@ namespace engine::ecs {
 /// resizing. References to stored components are valid for at least one frame.
 template <typename ComponentType>
 class Component_store final {
-    template <typename T>
-    struct Index_tag {};
-
-    using Index_type = std::size_t;
-
 public:
-    using Index =
-            jss::strong_typedef<Index_tag<ComponentType>, Index_type,
-                                jss::strong_typedef_properties::comparable,
-                                jss::strong_typedef_properties::hashable,
-                                jss::strong_typedef_properties::streamable>;
+    /// The Component_store class implementation requires that the component
+    /// type is complete, therefore this index type can only be used where the
+    /// component type is complete. If this index type is required where only an
+    /// incomplete component type is available, use Store_index instead.
+    using Index = Store_index<ComponentType>;
 
     /// Inserts a component into the component store and returns an index to
     /// that component that can be used to reference that component until the
@@ -69,7 +73,7 @@ public:
 
 private:
     std::deque<std::optional<ComponentType>> components_;
-    std::vector<Index_type> available_indicies_;
+    std::vector<typename Index::underlying_value_type> available_indicies_;
 };
 
 } // namespace engine::ecs

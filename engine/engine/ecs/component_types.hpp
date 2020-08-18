@@ -23,9 +23,8 @@ struct Base_component {};
 template <typename ComponentType, typename... Dependencies>
 struct Component : Base_component {
     using Dependencies_array = std::array<Uuid, sizeof...(Dependencies)>;
-    using Group_tuple =
-            std::tuple<typename Component_store<ComponentType>::Index,
-                       typename Component_store<Dependencies>::Index...>;
+    using Group_tuple = std::tuple<Store_index<ComponentType>,
+                                   Store_index<Dependencies>...>;
 
     constexpr static Uuid uuid_s() noexcept { return ComponentType::uuid; }
 
