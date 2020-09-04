@@ -59,6 +59,7 @@ struct Behavior_component_interface {
 template <typename ComponentType, typename... Dependencies>
 struct Behavior_component : Component<ComponentType, Dependencies...>,
                             Behavior_component_interface {
+    virtual ~Behavior_component() = default;
     virtual void activate() override {}
     virtual void deactivate() override {}
     virtual bool active() const noexcept override { return false; }
