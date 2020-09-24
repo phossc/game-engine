@@ -1,5 +1,5 @@
-#ifndef ENGINE_ECS_COMPONENT_GROUP_HPP
-#define ENGINE_ECS_COMPONENT_GROUP_HPP
+#ifndef ENGINE_ECS_COMPONENT_GROUPING_HPP
+#define ENGINE_ECS_COMPONENT_GROUPING_HPP
 
 #include "engine/ecs/component_store.hpp"
 
@@ -13,7 +13,7 @@
 
 namespace engine::ecs {
 
-/// The Component_group class stores groups of component store indicies. A
+/// The Component_grouping class stores groups of component store indicies. A
 /// component group for a given component type consists of the index of that
 /// component and the indicies of its direct dependencies. Each group
 /// corresponds to an entity that contains those components. The class also
@@ -23,14 +23,14 @@ namespace engine::ecs {
 /// the iteration is possible. Doing that would iterate through all D1
 /// components that also has the component C in the entity.
 template <typename ComponentType, typename StoreProvider>
-class Component_group final {
+class Component_grouping final {
 private:
     using Group_storage = std::vector<typename ComponentType::Group_tuple>;
 
 public:
     /// The Iter class is an iterator capable of iterating through all groups in
-    /// the component group providing a tuple of pointers to the components in
-    /// the component stores. The template parameter ...Members is used to
+    /// the component grouping providing a tuple of pointers to the components
+    /// in the component stores. The template parameter ...Members is used to
     /// specify which component pointers to include in the tuple i.e. all of
     /// the components in the group or a subset thereof. A tuple of pointers was
     /// chosen over a tuple of references since it's semantics are more clear
@@ -139,7 +139,7 @@ public:
         typename Group_storage::iterator last_;
     };
 
-    Component_group(StoreProvider& store_provider)
+    Component_grouping(StoreProvider& store_provider)
         : store_provider_(store_provider) {}
 
     /// Invalidates every view and iterator.
@@ -195,4 +195,4 @@ private:
 
 } // namespace engine::ecs
 
-#endif /* ENGINE_ECS_COMPONENT_GROUP_HPP */
+#endif /* ENGINE_ECS_COMPONENT_GROUPING_HPP */

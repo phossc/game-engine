@@ -34,7 +34,7 @@ target_sources(engine
         "engine/core/update_system.hpp"
         "engine/core/uuid.cpp"
         "engine/core/uuid.hpp"
-        "engine/ecs/component_group.hpp"
+        "engine/ecs/component_grouping.hpp"
         "engine/ecs/component_store.hpp"
         "engine/ecs/component_types.hpp"
         "engine/engine.cpp"

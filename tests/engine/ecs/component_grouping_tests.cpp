@@ -1,4 +1,4 @@
-#include "engine/ecs/component_group.hpp"
+#include "engine/ecs/component_grouping.hpp"
 
 #include "engine/core/uuid.hpp"
 #include "engine/ecs/component_store.hpp"
@@ -13,7 +13,7 @@
 
 using engine::Uuid;
 using engine::ecs::Behavior_component;
-using engine::ecs::Component_group;
+using engine::ecs::Component_grouping;
 using engine::ecs::Component_store;
 using engine::ecs::Data_component;
 
@@ -96,9 +96,10 @@ TEST_CASE("Component group types", "[component]") {
 
 TEST_CASE("Component group iteration", "[component]") {
     Store_provider store_provider;
-    Component_group<Transform, Store_provider> transform_groups(store_provider);
-    Component_group<Physics, Store_provider> physics_groups(store_provider);
-    Component_group<Player, Store_provider> player_groups(store_provider);
+    Component_grouping<Transform, Store_provider> transform_groups(
+            store_provider);
+    Component_grouping<Physics, Store_provider> physics_groups(store_provider);
+    Component_grouping<Player, Store_provider> player_groups(store_provider);
 
     // i_tr1: index of transform 1
     // i_ph1: index of physics 1
