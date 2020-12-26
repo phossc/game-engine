@@ -37,6 +37,8 @@ target_sources(engine
         "engine/ecs/component_grouping.hpp"
         "engine/ecs/component_store.hpp"
         "engine/ecs/component_types.hpp"
+        "engine/ecs/entity_store.cpp"
+        "engine/ecs/entity_store.hpp"
         "engine/ecs/handle_types.hpp"
         "engine/engine.cpp"
         "engine/engine.hpp"
