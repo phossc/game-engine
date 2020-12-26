@@ -37,6 +37,7 @@ target_sources(engine
         "engine/ecs/component_grouping.hpp"
         "engine/ecs/component_store.hpp"
         "engine/ecs/component_types.hpp"
+        "engine/ecs/handle_types.hpp"
         "engine/engine.cpp"
         "engine/engine.hpp"
         "engine/glfw/glfw.cpp"

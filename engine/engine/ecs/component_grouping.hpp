@@ -79,8 +79,8 @@ public:
             return std::make_tuple(
                     &std::get<std::reference_wrapper<Component_store<Members>>>(
                              stores_)
-                             .get()[std::get<typename Component_store<
-                                     Members>::Index>(*iter_)]...);
+                             .get()[std::get<Typed_component_index<Members>>(
+                                     *iter_)]...);
         }
 
         Member_of_pointer_proxy operator->() noexcept { return {operator*()}; }
@@ -144,12 +144,13 @@ public:
 
     /// Invalidates every view and iterator.
     /// Currently no exception guarantee.
-    /// A group is identified by the Store_index<ComponentType> value in it.
-    /// Having two groups with the same identifier stored at the same time is
-    /// not supported and one of them must be removed before the other can be
-    /// added.
+    /// A group is identified by the Typed_component_index<ComponentType> value
+    /// in it. Having two groups with the same identifier stored at the same
+    /// time is not supported and one of them must be removed before the other
+    /// can be added.
     void add_group(typename ComponentType::Group_tuple group) {
-        auto stable_index = std::get<Store_index<ComponentType>>(group);
+        auto stable_index =
+                std::get<Typed_component_index<ComponentType>>(group);
         if (index_lookup_table_.count(stable_index) == 1) {
             throw std::logic_error("Multiple groups with the same identifier "
                                    "is not supported.");
@@ -163,7 +164,7 @@ public:
     /// Currently no exception guarantee.
     /// Trying to remove a group that is not stored results in an exception
     /// thrown.
-    void remove_group(Store_index<ComponentType> stable_index) {
+    void remove_group(Typed_component_index<ComponentType> stable_index) {
         // Index is a valid index into groups_.
         auto index = index_lookup_table_.at(stable_index);
 
@@ -171,7 +172,8 @@ public:
         if (index < groups_.size() - 1) {
             std::swap(groups_[index], groups_.back());
             auto stable_index_relocated =
-                    std::get<Store_index<ComponentType>>(groups_[index]);
+                    std::get<Typed_component_index<ComponentType>>(
+                            groups_[index]);
             index_lookup_table_[stable_index_relocated] = index;
         }
 
@@ -187,7 +189,7 @@ public:
 
 private:
     Group_storage groups_;
-    std::unordered_map<Store_index<ComponentType>, std::size_t>
+    std::unordered_map<Typed_component_index<ComponentType>, std::size_t>
             index_lookup_table_;
 
     StoreProvider& store_provider_;

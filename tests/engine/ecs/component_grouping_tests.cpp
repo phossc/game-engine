@@ -3,6 +3,7 @@
 #include "engine/core/uuid.hpp"
 #include "engine/ecs/component_store.hpp"
 #include "engine/ecs/component_types.hpp"
+#include "engine/ecs/handle_types.hpp"
 
 #include "catch/catch.hpp"
 
@@ -16,6 +17,7 @@ using engine::ecs::Behavior_component;
 using engine::ecs::Component_grouping;
 using engine::ecs::Component_store;
 using engine::ecs::Data_component;
+using engine::ecs::Typed_component_index;
 
 namespace {
 
@@ -76,22 +78,21 @@ struct Store_provider {
 
 TEST_CASE("Component group types", "[component]") {
     REQUIRE(std::is_same_v<Transform::Group_tuple,
-                           std::tuple<Component_store<Transform>::Index>>);
+                           std::tuple<Typed_component_index<Transform>>>);
 
     REQUIRE(std::is_same_v<Physics::Group_tuple,
-                           std::tuple<Component_store<Physics>::Index,
-                                      Component_store<Transform>::Index>>);
+                           std::tuple<Typed_component_index<Physics>,
+                                      Typed_component_index<Transform>>>);
 
     REQUIRE(std::is_same_v<Player::Group_tuple,
-                           std::tuple<Component_store<Player>::Index,
-                                      Component_store<Transform>::Index,
-                                      Component_store<Physics>::Index>>);
+                           std::tuple<Typed_component_index<Player>,
+                                      Typed_component_index<Transform>,
+                                      Typed_component_index<Physics>>>);
 
-    REQUIRE_FALSE(
-            std::is_same_v<Player::Group_tuple,
-                           std::tuple<Component_store<Player>::Index,
-                                      Component_store<Physics>::Index,
-                                      Component_store<Transform>::Index>>);
+    REQUIRE_FALSE(std::is_same_v<Player::Group_tuple,
+                                 std::tuple<Typed_component_index<Player>,
+                                            Typed_component_index<Physics>,
+                                            Typed_component_index<Transform>>>);
 }
 
 TEST_CASE("Component group iteration", "[component]") {
