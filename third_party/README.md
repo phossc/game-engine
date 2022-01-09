@@ -49,7 +49,7 @@ CMakeLists.txt file.
 
 ## strong_typedef
 - URL: https://github.com/anthonywilliams/strong_typedef
-- Version: 7bdfadda96b88525e2b61a6b24c4db6a77083fb1 (commit)
+- Version: 3ea4cd3b54899328721a3e6553356861d667648d (commit)
 - License: Boost Software License
 
 Included files are the `README.md` and `strong_typedef.hpp`. Uses a custom
