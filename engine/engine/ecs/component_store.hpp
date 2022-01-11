@@ -11,15 +11,14 @@ namespace engine::ecs {
 
 /// The Component_store class is responsible for storing components of the same
 /// type. An inserted component is referenced by an index that remain stable
-/// until that component is removed. Although indicies remain stable, the
-/// components themselves might be moved around as the internal storage needs
-/// resizing. References to stored components are valid for at least one frame.
+/// until that component is removed. References to stored components are valid
+/// for at least one frame.
 template <typename ComponentType>
 class Component_store final {
 public:
     /// Inserts a component into the component store and returns an index to
     /// that component that can be used to reference that component until the
-    /// component is removed.
+    /// component is removed. Does not invalidate references.
     Typed_component_index<ComponentType> insert(ComponentType component) {
         if (available_indicies_.empty()) {
             components_.push_back(std::move(component));
@@ -34,7 +33,7 @@ public:
     }
 
     /// Removes the component at the specified index. Does nothing if there is
-    /// no component at that index.
+    /// no component at that index. Does not invalidate references.
     void remove(Typed_component_index<ComponentType> index) {
         auto i = index.underlying_value();
         if (i >= 0 && i < components_.size() && components_[i].has_value()) {
