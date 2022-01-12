@@ -26,12 +26,6 @@ Entity_store::Entity_range Entity_store::create(Array_view<Entry> components) {
                   std::back_inserter(component_indices_));
     }
 
-    auto offset = std::begin(component_indices_);
-    std::sort(offset + result_range.first, offset + result_range.second,
-              [](const Entry& lhs, const Entry& rhs) {
-                  return lhs.first < rhs.first;
-              });
-
     return result_range;
 }
 
