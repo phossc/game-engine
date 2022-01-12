@@ -13,8 +13,13 @@ namespace engine::ecs {
 template <typename ComponentType>
 struct Component_traits {
     constexpr static Uuid uuid() noexcept { return ComponentType::uuid_s(); }
+
     constexpr static Array_view<Uuid> deps() noexcept {
         return ComponentType::dependencies_s();
+    }
+
+    constexpr static bool sort_deps() noexcept {
+        return ComponentType::sort_dependencies();
     }
 };
 
@@ -46,7 +51,9 @@ struct Component : Base_component {
 };
 
 template <typename ComponentType, typename... Dependencies>
-struct Data_component : Component<ComponentType, Dependencies...> {};
+struct Data_component : Component<ComponentType, Dependencies...> {
+    constexpr static bool sort_dependencies() noexcept { return false; }
+};
 
 struct Behavior_component_interface {
     virtual void activate() = 0;
@@ -59,6 +66,8 @@ struct Behavior_component_interface {
 template <typename ComponentType, typename... Dependencies>
 struct Behavior_component : Component<ComponentType, Dependencies...>,
                             Behavior_component_interface {
+    constexpr static bool sort_dependencies() noexcept { return true; }
+
     virtual ~Behavior_component() = default;
     virtual void activate() override {}
     virtual void deactivate() override {}
