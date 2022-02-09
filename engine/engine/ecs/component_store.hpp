@@ -9,12 +9,14 @@
 
 namespace engine::ecs {
 
+struct Component_store_base {};
+
 /// The Component_store class is responsible for storing components of the same
 /// type. An inserted component is referenced by an index that remain stable
 /// until that component is removed. References to stored components are valid
 /// for at least one frame.
 template <typename ComponentType>
-class Component_store final {
+class Component_store final : public Component_store_base {
 public:
     /// Inserts a component into the component store and returns an index to
     /// that component that can be used to reference that component until the

@@ -13,6 +13,8 @@
 
 namespace engine::ecs {
 
+struct Component_grouping_base {};
+
 /// The Component_grouping class stores groups of component store indicies. A
 /// component group for a given component type consists of the index of that
 /// component and the indicies of its direct dependencies. Each group
@@ -23,7 +25,7 @@ namespace engine::ecs {
 /// the iteration is possible. Doing that would iterate through all D1
 /// components that also has the component C in the entity.
 template <typename ComponentType, typename StoreProvider>
-class Component_grouping final {
+class Component_grouping final : public Component_grouping_base {
 private:
     using Group_storage = std::vector<typename ComponentType::Group_tuple>;
 
