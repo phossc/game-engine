@@ -17,7 +17,9 @@ public:
     using Entry = std::pair<Dependency_order, Component_index>;
 
     /// Creates an entity with the provided components. Components are not
-    /// activated. Entities may not contain duplicate components.
+    /// activated. Entities may not contain duplicate components. If components
+    /// require activation, they must be ordered by their dependencies when
+    /// provided.
     Entity_range create(Array_view<Entry> components);
 
     /// Deletes an entity from the store. Components are not deactivated and not
