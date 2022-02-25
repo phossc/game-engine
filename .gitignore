@@ -1,4 +1,5 @@
 /build/
+/cmake-build-debug/
 
 # C++ completion
 /compile_commands.json
@@ -6,8 +7,9 @@
 # macOS Finder
 .DS_Store
 
-# Visual Studio
+# IDEs
 /.vs/
 /.vscode/
 /CMakeSettings.json
 /out/
+/.idea/
