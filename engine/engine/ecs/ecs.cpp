@@ -1,6 +1,7 @@
 #include "engine/ecs/ecs.hpp"
 
 #include <algorithm>
+#include <cassert>
 #include <unordered_map>
 #include <vector>
 
