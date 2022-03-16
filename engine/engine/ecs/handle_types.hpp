@@ -30,6 +30,7 @@ using Dependency_order =
         jss::strong_typedef<struct Dependency_order_tag, std::int32_t,
                             jss::strong_typedef_properties::comparable,
                             jss::strong_typedef_properties::hashable,
+                            jss::strong_typedef_properties::incrementable,
                             jss::strong_typedef_properties::streamable>;
 
 /// Typed component index that can only be used with component stores of
