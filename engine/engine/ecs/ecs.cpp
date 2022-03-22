@@ -25,14 +25,9 @@ void Ecs::register_components(
     registration_done_ = true;
 }
 
-void Ecs::build_new_entities() {
-    for (auto& builder_entry : scheduled_entity_builders_) {
-        auto components = builder_entry.second.perform_build();
-        auto range = entity_store_.create(components);
-        entities_.emplace(builder_entry.first, range);
-    }
-
-    scheduled_entity_builders_.clear();
+void Ecs::lifecycle_update() {
+    build_scheduled_entities();
+    delete_scheduled_entities();
 }
 
 Entity_id Ecs::schedule_entity_builder(Entity_builder<Ecs> builder) {
@@ -110,6 +105,36 @@ bool Ecs::calculate_dependency_ordering() {
     }
 
     return true;
+}
+
+void Ecs::build_scheduled_entities() {
+    for (auto& builder_entry : scheduled_entity_builders_) {
+        auto components = builder_entry.second.perform_build();
+        auto range = entity_store_.create(components);
+        entities_.emplace(builder_entry.first, range);
+    }
+
+    scheduled_entity_builders_.clear();
+}
+
+void Ecs::delete_scheduled_entities() {
+    for (auto id : entities_to_delete_) {
+        if (const auto iter = entities_.find(id);
+            iter != std::cend(entities_)) {
+            auto components = entity_store_.get_entity_components(iter->second);
+            std::for_each(std::crbegin(components), std::crend(components),
+                          [this](const auto& entry) {
+                              const auto uuid = uuid_from(entry.first);
+                              const auto index = entry.second;
+                              component_groupings_.at(uuid)->remove_group(
+                                      index);
+                              component_stores_.at(uuid)->remove(index);
+                          });
+            entity_store_.erase(iter->second);
+        }
+    }
+
+    entities_to_delete_.clear();
 }
 
 } // namespace engine::ecs

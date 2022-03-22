@@ -2,6 +2,7 @@
 #define ENGINE_ARRAY_VIEW_HPP
 
 #include <cstddef>
+#include <iterator>
 #include <limits>
 
 namespace engine {
@@ -42,6 +43,22 @@ public:
     constexpr const_iterator end() const noexcept { return data_ + size_; }
     constexpr const_iterator cbegin() const noexcept { return data_; }
     constexpr const_iterator cend() const noexcept { return data_ + size_; }
+
+    constexpr auto rbegin() const noexcept {
+        return std::make_reverse_iterator(end());
+    }
+
+    constexpr auto rend() const noexcept {
+        return std::make_reverse_iterator(begin());
+    }
+
+    constexpr auto crbegin() const noexcept {
+        return std::make_reverse_iterator(cend());
+    }
+
+    constexpr auto crend() const noexcept {
+        return std::make_reverse_iterator(cbegin());
+    }
 
     constexpr void swap(Array_view<T>& other) noexcept {
         auto temp_data = data_;

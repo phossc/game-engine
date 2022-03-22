@@ -42,6 +42,8 @@ public:
         return Entity_builder<Ecs>(*this);
     }
 
+    void delete_entity(Entity_id id) { entities_to_delete_.push_back(id); }
+
     template <typename ComponentType>
     [[nodiscard]] Component_store<ComponentType>& component_store() const {
         return static_cast<Component_store<ComponentType>&>(
@@ -69,10 +71,10 @@ public:
     register_components(const std::function<void(const Component_registrar&)>&
                                 registration_function);
 
-    // Finishes the creation of entities that have been set up before this call.
-    // Should be called at the beginning of every frame as it can invalidate
-    // references into component groupings and the entity store.
-    void build_new_entities();
+    /// Fully deletes and creates entities scheduled for it.
+    /// Should be called at the beginning of every frame as it can invalidate
+    /// references into component groupings and the entity store.
+    void lifecycle_update();
 
 private:
     friend struct Entity_builder<Ecs>;
@@ -102,6 +104,13 @@ private:
     /// Returns false on circular dependencies and non existent dependencies.
     bool calculate_dependency_ordering();
 
+    /// Finishes the creation of entities that have been set up before this
+    /// call.
+    void build_scheduled_entities();
+
+    /// Deletes scheduled entities.
+    void delete_scheduled_entities();
+
     std::unordered_map<Uuid, std::unique_ptr<Component_store_base>>
             component_stores_;
     std::unordered_map<Uuid, std::unique_ptr<Component_grouping_base>>
@@ -115,6 +124,7 @@ private:
     std::unordered_map<Entity_id, Entity_store::Entity_range> entities_;
     std::vector<std::pair<Entity_id, Entity_builder<Ecs>>>
             scheduled_entity_builders_;
+    std::vector<Entity_id> entities_to_delete_;
 
     /// The entity id used for the next entity being created.
     Entity_id current_entity_id_{0};

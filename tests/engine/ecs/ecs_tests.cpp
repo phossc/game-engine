@@ -89,12 +89,12 @@ TEST_CASE("ECS entity creation", "[ecs]") {
                 .with<Transform_component>()
                 .with<Mesh_component>()
                 .build();
-        REQUIRE_NOTHROW(ecs.build_new_entities());
+        REQUIRE_NOTHROW(ecs.lifecycle_update());
     }
 
     SECTION("Missing dependency") {
         ecs.entity().with<Mesh_component>().build();
-        REQUIRE_THROWS(ecs.build_new_entities());
+        REQUIRE_THROWS(ecs.lifecycle_update());
     }
 
     SECTION("Creation of unregistered component") {
@@ -106,6 +106,6 @@ TEST_CASE("ECS entity creation", "[ecs]") {
                 .with<Transform_component>()
                 .with<Transform_component>()
                 .build();
-        REQUIRE_THROWS(ecs.build_new_entities());
+        REQUIRE_THROWS(ecs.lifecycle_update());
     }
 }

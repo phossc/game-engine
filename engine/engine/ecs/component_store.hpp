@@ -9,7 +9,9 @@
 
 namespace engine::ecs {
 
-struct Component_store_base {};
+struct Component_store_base {
+    virtual void remove(Component_index index) = 0;
+};
 
 /// The Component_store class is responsible for storing components of the same
 /// type. An inserted component is referenced by an index that remain stable
@@ -45,7 +47,7 @@ public:
     }
 
     /// Generic component index version of remove.
-    void remove(Component_index index) {
+    void remove(Component_index index) override {
         remove(Typed_component_index<ComponentType>{index.underlying_value()});
     }
 

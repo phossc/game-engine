@@ -13,7 +13,9 @@
 
 namespace engine::ecs {
 
-struct Component_grouping_base {};
+struct Component_grouping_base {
+    virtual void remove_group(Component_index stable_index) = 0;
+};
 
 /// The Component_grouping class stores groups of component store indicies. A
 /// component group for a given component type consists of the index of that
@@ -181,6 +183,12 @@ public:
 
         groups_.pop_back();
         index_lookup_table_.erase(stable_index);
+    }
+
+    /// Generic version of remove_group.
+    void remove_group(Component_index stable_index) override {
+        remove_group(Typed_component_index<ComponentType>{
+                stable_index.underlying_value()});
     }
 
     template <typename... Members>
