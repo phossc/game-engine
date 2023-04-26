@@ -3,11 +3,9 @@
 namespace engine {
 
 using Updatables = std::multimap<std::int32_t, Updatable*>;
-using Updatables_iterators =
-        std::unordered_map<Updatable*, Updatables::iterator>;
+using Updatables_iterators = std::unordered_map<Updatable*, Updatables::iterator>;
 
-static void register_update(Updatable* updatable, std::int32_t priority,
-                            Updatables& updatables,
+static void register_update(Updatable* updatable, std::int32_t priority, Updatables& updatables,
                             Updatables_iterators& iterators) {
     // Updatable has already been registered.
     if (iterators.count(updatable) > 0) {
@@ -49,37 +47,29 @@ void Update_system::broadcast_fixed_update(double dt) {
     }
 }
 
-void Update_system::register_variable_update(Updatable* updatable,
-                                             std::int32_t priority) {
-    register_update(updatable, priority, variable_updatables_,
-                    iterators_to_variable_updatables_);
+void Update_system::register_variable_update(Updatable* updatable, std::int32_t priority) {
+    register_update(updatable, priority, variable_updatables_, iterators_to_variable_updatables_);
 }
 
 void Update_system::deregister_variable_update(Updatable* updatable) {
-    deregister_update(updatable, variable_updatables_,
-                      iterators_to_variable_updatables_);
+    deregister_update(updatable, variable_updatables_, iterators_to_variable_updatables_);
 }
 
-void Update_system::register_interpolation_update(Updatable* updatable,
-                                                  std::int32_t priority) {
+void Update_system::register_interpolation_update(Updatable* updatable, std::int32_t priority) {
     register_update(updatable, priority, interpolation_updatables_,
                     iterators_to_interpolation_updatables_);
 }
 
 void Update_system::deregister_interpolation_update(Updatable* updatable) {
-    deregister_update(updatable, interpolation_updatables_,
-                      iterators_to_interpolation_updatables_);
+    deregister_update(updatable, interpolation_updatables_, iterators_to_interpolation_updatables_);
 }
 
-void Update_system::register_fixed_update(Updatable* updatable,
-                                          std::int32_t priority) {
-    register_update(updatable, priority, fixed_updatables_,
-                    iterators_to_fixed_updatables_);
+void Update_system::register_fixed_update(Updatable* updatable, std::int32_t priority) {
+    register_update(updatable, priority, fixed_updatables_, iterators_to_fixed_updatables_);
 }
 
 void Update_system::deregister_fixed_update(Updatable* updatable) {
-    deregister_update(updatable, fixed_updatables_,
-                      iterators_to_fixed_updatables_);
+    deregister_update(updatable, fixed_updatables_, iterators_to_fixed_updatables_);
 }
 
 } // namespace engine

@@ -26,13 +26,9 @@ public:
 
     const std::string& name() const noexcept { return name_; }
 
-    const std::vector<std::string>& arguments() const noexcept {
-        return arguments_;
-    }
+    const std::vector<std::string>& arguments() const noexcept { return arguments_; }
 
-    Component_registry& component_registry() noexcept {
-        return component_registry_;
-    }
+    Component_registry& component_registry() noexcept { return component_registry_; }
 
     // References should not be used outside the lifetime of this instance.
     spdlog::logger& logger() noexcept { return *logger_; }

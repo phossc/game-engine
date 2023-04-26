@@ -36,8 +36,7 @@ std::vector<Uuid> Component_registry::dependencies(Uuid uuid) const {
             auto result = status.emplace(*first, Vertex_status::undiscovered);
             if (result.first->second == Vertex_status::undiscovered) {
                 processing.push_back(*first);
-            }
-            else if (result.first->second == Vertex_status::discovered) {
+            } else if (result.first->second == Vertex_status::discovered) {
                 // Circular dependency.
                 return false;
             }

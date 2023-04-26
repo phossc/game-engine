@@ -71,11 +71,9 @@ GLint Shader_program::link_status(GLuint program) {
         glGetProgramiv(program, GL_INFO_LOG_LENGTH, &log_length);
 
         std::vector<char> program_error(log_length >= 1 ? log_length : 1);
-        glGetProgramInfoLog(program, program_error.size(), NULL,
-                            program_error.data());
+        glGetProgramInfoLog(program, program_error.size(), NULL, program_error.data());
 
-        sys->logger().error("Shader program linkage failed: {}",
-                            program_error.data());
+        sys->logger().error("Shader program linkage failed: {}", program_error.data());
     }
 
     return link_status;

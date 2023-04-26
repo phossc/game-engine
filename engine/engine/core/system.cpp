@@ -13,8 +13,7 @@ System::System(int argc, const char** argv)
 
     if (argc <= 0) {
         name_ = "unnamed";
-    }
-    else {
+    } else {
         name_ = argv[0];
     }
 

@@ -16,12 +16,10 @@ Entity_store::Entity_range Entity_store::create(Array_view<Entry> components) {
         std::copy(std::begin(components), std::end(components),
                   std::begin(component_indices_) + insert_index);
         available_indices_.erase(iter);
-    }
-    else {
+    } else {
         result_range.first = component_indices_.size();
         result_range.second = component_indices_.size() + components.size();
-        component_indices_.reserve(component_indices_.size() +
-                                   components.size());
+        component_indices_.reserve(component_indices_.size() + components.size());
         std::copy(std::begin(components), std::end(components),
                   std::back_inserter(component_indices_));
     }
@@ -41,8 +39,7 @@ Entity_store::get_entity_components(Entity_range range) const noexcept {
     assert(range.first >= 0 && range.first < component_indices_.size());
     assert(range.second >= 0 && range.second <= component_indices_.size());
 
-    return Array_view<Entry>{component_indices_.data() + range.first,
-                             range.second - range.first};
+    return Array_view<Entry>{component_indices_.data() + range.first, range.second - range.first};
 }
 
 } // namespace engine::ecs

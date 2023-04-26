@@ -18,11 +18,7 @@ struct Renderer {
     using category_type = std::int32_t;
     using priority_type = std::int32_t;
 
-    enum class Category : category_type {
-        game_world = 1 << 0,
-        game_ui = 1 << 1,
-        overlay = 1 << 2
-    };
+    enum class Category : category_type { game_world = 1 << 0, game_ui = 1 << 1, overlay = 1 << 2 };
 
     enum class Priority : priority_type {
         game_world = 1000,

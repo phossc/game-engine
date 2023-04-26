@@ -19,10 +19,9 @@ Component* Component_entity::create(Uuid uuid) {
 
     auto dependencies = sys->component_registry().dependencies(uuid);
     if (dependencies.empty()) {
-        sys->logger().warn(
-                "Unable to create component from UUID {} because a component "
-                "is not registered for it or one of its dependencies",
-                uuid.str());
+        sys->logger().warn("Unable to create component from UUID {} because a component "
+                           "is not registered for it or one of its dependencies",
+                           uuid.str());
         return nullptr;
     }
 
@@ -60,8 +59,7 @@ Component* Component_entity::create(Uuid uuid) {
 
 Component* Component_entity::get(Uuid uuid) {
     auto component = components_.find(uuid);
-    return component != std::end(components_) ? component->second.get()
-                                              : nullptr;
+    return component != std::end(components_) ? component->second.get() : nullptr;
 }
 
 void Component_entity::update() {
@@ -82,18 +80,16 @@ void Component_entity::update() {
 
     case Task::activate_new_components:
         auto new_components_begin =
-                std::next(std::begin(component_creation_order_),
-                          new_components_start_index_);
+                std::next(std::begin(component_creation_order_), new_components_start_index_);
         auto new_components_end = std::end(component_creation_order_);
 
-        std::for_each(new_components_begin, new_components_end,
-                      [this](const auto& component_uuid) {
-                          auto component = get(component_uuid);
-                          assert(component != nullptr);
+        std::for_each(new_components_begin, new_components_end, [this](const auto& component_uuid) {
+            auto component = get(component_uuid);
+            assert(component != nullptr);
 
-                          component->activate();
-                          component->active_ = true;
-                      });
+            component->activate();
+            component->active_ = true;
+        });
         break;
     }
 }
@@ -115,8 +111,7 @@ void Component_entity::deactivate() {
 }
 
 void Component_entity::perform_activation() {
-    std::for_each(std::begin(component_creation_order_),
-                  std::end(component_creation_order_),
+    std::for_each(std::begin(component_creation_order_), std::end(component_creation_order_),
                   [this](const auto& component_uuid) {
                       auto component = get(component_uuid);
                       assert(component != nullptr);
@@ -131,8 +126,7 @@ void Component_entity::perform_activation() {
 }
 
 void Component_entity::perform_deactivation() {
-    std::for_each(std::rbegin(component_creation_order_),
-                  std::rend(component_creation_order_),
+    std::for_each(std::rbegin(component_creation_order_), std::rend(component_creation_order_),
                   [this](const auto& component_uuid) {
                       auto component = get(component_uuid);
                       assert(component != nullptr);

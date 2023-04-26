@@ -24,8 +24,7 @@ void Clock::step_once() noexcept {
         return;
     }
 
-    std::chrono::nanoseconds::rep scaled_step =
-            step_duration_.count() * timescale_;
+    std::chrono::nanoseconds::rep scaled_step = step_duration_.count() * timescale_;
 
     total_time_ += std::chrono::nanoseconds{scaled_step};
 }

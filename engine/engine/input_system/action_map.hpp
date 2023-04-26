@@ -50,18 +50,15 @@ public:
     void set_captures_mouse(bool flag) noexcept { captures_mouse_ = flag; }
 
     bool consumes_unhandled() const noexcept { return consumes_unhandled_; }
-    void set_consumes_unhandled(bool flag) noexcept {
-        consumes_unhandled_ = flag;
-    }
+    void set_consumes_unhandled(bool flag) noexcept { consumes_unhandled_ = flag; }
 
     //! Returns true if a handler consumes the input, false otherwise.
     bool process_input(input::Key input, input::Event event) noexcept;
-    bool process_input(input::Mouse input, input::Event event, double x,
-                       double y) noexcept;
+    bool process_input(input::Mouse input, input::Event event, double x, double y) noexcept;
 
 private:
-    using Handler = std::variant<Raw_handler, Digital_handler,
-                                 Single_axis_handler, Dual_axes_handler>;
+    using Handler =
+            std::variant<Raw_handler, Digital_handler, Single_axis_handler, Dual_axes_handler>;
 
     std::map<input::Key, std::string> key_action_map_;
     std::map<input::Mouse, std::string> mouse_action_map_;

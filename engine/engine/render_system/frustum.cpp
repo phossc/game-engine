@@ -30,8 +30,8 @@ void Frustum::set_aspect_ratio(float aspect_ratio) noexcept {
 }
 
 void Frustum::update_projection_matrix() noexcept {
-    projection_matrix_ = glm::perspective(glm::radians(fov_ / 2), aspect_ratio_,
-                                          near_clip_plane_, far_clip_plane_);
+    projection_matrix_ = glm::perspective(glm::radians(fov_ / 2), aspect_ratio_, near_clip_plane_,
+                                          far_clip_plane_);
     projection_matrix_[0][0] *= frustum_scale_;
     projection_matrix_[1][1] *= frustum_scale_;
 }

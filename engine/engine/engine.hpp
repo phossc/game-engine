@@ -17,9 +17,8 @@ namespace engine {
 //! DEPENDENCIES() macro.
 struct Engine : Component {
     COMPONENT("887587e4-b56b-4359-9e0f-d81b0b652ed6");
-    DEPENDENCIES(Camera_manager::uuid_s(), Glfw::uuid_s(),
-                 Input_system::uuid_s(), Physics_system::uuid_s(),
-                 Render_system::uuid_s(), Window::uuid_s());
+    DEPENDENCIES(Camera_manager::uuid_s(), Glfw::uuid_s(), Input_system::uuid_s(),
+                 Physics_system::uuid_s(), Render_system::uuid_s(), Window::uuid_s());
 };
 
 //! Register all components provided by the engine.

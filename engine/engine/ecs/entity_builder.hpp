@@ -47,22 +47,18 @@ public:
 
 private:
     using Lookup_table = std::unordered_map<Uuid, Component_index>;
-    using Grouping_creator_wrapper =
-            std::function<bool(EcsType&, const Lookup_table&)>;
+    using Grouping_creator_wrapper = std::function<bool(EcsType&, const Lookup_table&)>;
 
     template <typename ComponentType>
     class Grouping_creator {
     public:
-        bool operator()(EcsType& ecs,
-                        const Lookup_table& uuid_to_index) const noexcept {
+        bool operator()(EcsType& ecs, const Lookup_table& uuid_to_index) const noexcept {
             try {
                 typename ComponentType::Group_tuple grouping;
                 grouping = helper(grouping, uuid_to_index);
-                ecs.template component_grouping<ComponentType>().add_group(
-                        grouping);
+                ecs.template component_grouping<ComponentType>().add_group(grouping);
                 return true;
-            }
-            catch (...) {
+            } catch (...) {
                 return false;
             }
         }
@@ -93,30 +89,24 @@ template <typename EcsType>
 Array_view<Entity_store::Entry> Entity_builder<EcsType>::perform_build() {
     if (sort_components_) {
         std::sort(std::begin(components_), std::end(components_),
-                  [](const auto& lhs, const auto& rhs) {
-                      return lhs.first < rhs.first;
-                  });
+                  [](const auto& lhs, const auto& rhs) { return lhs.first < rhs.first; });
     }
 
     Lookup_table uuid_to_index;
     for (const auto& entry : components_) {
-        auto iter = uuid_to_index.emplace(ecs_.uuid_from(entry.first),
-                                          entry.second);
+        auto iter = uuid_to_index.emplace(ecs_.uuid_from(entry.first), entry.second);
 
         // Duplicate components in an entity.
         if (!iter.second) {
-            throw std::logic_error(
-                    "Components must be unique within an entity.");
+            throw std::logic_error("Components must be unique within an entity.");
         }
     }
 
-    auto success = std::all_of(
-            std::cbegin(grouping_creators_), std::cend(grouping_creators_),
-            [&](const auto& creator) { return creator(ecs_, uuid_to_index); });
+    auto success = std::all_of(std::cbegin(grouping_creators_), std::cend(grouping_creators_),
+                               [&](const auto& creator) { return creator(ecs_, uuid_to_index); });
 
     if (!success) {
-        throw std::logic_error(
-                "Some components are missing their dependencies.");
+        throw std::logic_error("Some components are missing their dependencies.");
     }
 
     return {components_.data(), components_.size()};

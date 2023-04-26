@@ -38,9 +38,7 @@ public:
 
     Ecs() : component_registrar_(*this) {}
 
-    [[nodiscard]] Entity_builder<Ecs> entity() {
-        return Entity_builder<Ecs>(*this);
-    }
+    [[nodiscard]] Entity_builder<Ecs> entity() { return Entity_builder<Ecs>(*this); }
 
     void delete_entity(Entity_id id) { entities_to_delete_.push_back(id); }
 
@@ -51,11 +49,9 @@ public:
     }
 
     template <typename ComponentType>
-    [[nodiscard]] Component_grouping<ComponentType, Ecs>&
-    component_grouping() const {
+    [[nodiscard]] Component_grouping<ComponentType, Ecs>& component_grouping() const {
         return static_cast<Component_grouping<ComponentType, Ecs>&>(
-                *component_groupings_.at(
-                        Component_traits<ComponentType>::uuid()));
+                *component_groupings_.at(Component_traits<ComponentType>::uuid()));
     }
 
     template <typename ComponentType>
@@ -67,9 +63,8 @@ public:
     /// the registration function. After registration is done, it is not
     /// possible to register more components. This limitation is likely to
     /// change in the future.
-    void
-    register_components(const std::function<void(const Component_registrar&)>&
-                                registration_function);
+    void register_components(
+            const std::function<void(const Component_registrar&)>& registration_function);
 
     /// Fully deletes and creates entities scheduled for it.
     /// Should be called at the beginning of every frame as it can invalidate
@@ -90,11 +85,9 @@ private:
     template <typename ComponentType>
     void register_component() {
         auto uuid = Component_traits<ComponentType>::uuid();
-        component_stores_.emplace(
-                uuid, std::make_unique<Component_store<ComponentType>>());
+        component_stores_.emplace(uuid, std::make_unique<Component_store<ComponentType>>());
         component_groupings_.emplace(
-                uuid, std::make_unique<Component_grouping<ComponentType, Ecs>>(
-                              *this));
+                uuid, std::make_unique<Component_grouping<ComponentType, Ecs>>(*this));
         dependency_graph_[uuid] = Component_traits<ComponentType>::deps();
     }
 
@@ -111,10 +104,8 @@ private:
     /// Deletes scheduled entities.
     void delete_scheduled_entities();
 
-    std::unordered_map<Uuid, std::unique_ptr<Component_store_base>>
-            component_stores_;
-    std::unordered_map<Uuid, std::unique_ptr<Component_grouping_base>>
-            component_groupings_;
+    std::unordered_map<Uuid, std::unique_ptr<Component_store_base>> component_stores_;
+    std::unordered_map<Uuid, std::unique_ptr<Component_grouping_base>> component_groupings_;
 
     std::unordered_map<Uuid, Array_view<Uuid>> dependency_graph_;
     std::unordered_map<Uuid, Dependency_order> dependency_ordering_;
@@ -122,8 +113,7 @@ private:
 
     Entity_store entity_store_;
     std::unordered_map<Entity_id, Entity_store::Entity_range> entities_;
-    std::vector<std::pair<Entity_id, Entity_builder<Ecs>>>
-            scheduled_entity_builders_;
+    std::vector<std::pair<Entity_id, Entity_builder<Ecs>>> scheduled_entity_builders_;
     std::vector<Entity_id> entities_to_delete_;
 
     /// The entity id used for the next entity being created.

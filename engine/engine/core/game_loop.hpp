@@ -17,13 +17,9 @@ public:
     void stop() noexcept { running_ = false; }
 
     //! Specifies the duration between each simulation update.
-    void set_simulation_rate(std::chrono::nanoseconds rate) noexcept {
-        simulation_rate_ = rate;
-    }
+    void set_simulation_rate(std::chrono::nanoseconds rate) noexcept { simulation_rate_ = rate; }
 
-    std::chrono::nanoseconds simulation_rate() const noexcept {
-        return simulation_rate_;
-    }
+    std::chrono::nanoseconds simulation_rate() const noexcept { return simulation_rate_; }
 
 private:
     std::chrono::nanoseconds simulation_rate_{16'666'666};

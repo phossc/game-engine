@@ -42,16 +42,13 @@ static void key_callback(GLFWwindow*, int key, int, int action, int) {
         return;
     }
 
-    process_until_consumed(input_system->action_maps(), [&](auto& am) {
-        return am.process_input(input_key, input_event);
-    });
+    process_until_consumed(input_system->action_maps(),
+                           [&](auto& am) { return am.process_input(input_key, input_event); });
 }
 
-static void mouse_button_callback(GLFWwindow* window, int button, int action,
-                                  int) {
+static void mouse_button_callback(GLFWwindow* window, int button, int action, int) {
     auto input_system = sys->component<Input_system>();
-    bool captures_mouse =
-            glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED;
+    bool captures_mouse = glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED;
 
     auto input_button = static_cast<input::Mouse>(button);
     input::Event input_event;
@@ -72,8 +69,7 @@ static void mouse_button_callback(GLFWwindow* window, int button, int action,
     process_until_consumed(input_system->action_maps(), [&](auto& am) {
         if (am.captures_mouse() == captures_mouse) {
             return am.process_input(input_button, input_event, 0.0, 0.0);
-        }
-        else {
+        } else {
             return true;
         }
     });
@@ -81,15 +77,12 @@ static void mouse_button_callback(GLFWwindow* window, int button, int action,
 
 static void cursor_position_callback(GLFWwindow* window, double x, double y) {
     auto input_system = sys->component<Input_system>();
-    bool captures_mouse =
-            glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED;
+    bool captures_mouse = glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED;
 
     process_until_consumed(input_system->action_maps(), [&](auto& am) {
         if (am.captures_mouse() == captures_mouse) {
-            return am.process_input(input::Mouse::delta_xy,
-                                    input::Event::dual_axes, x, y);
-        }
-        else {
+            return am.process_input(input::Mouse::delta_xy, input::Event::dual_axes, x, y);
+        } else {
             return true;
         }
     });
@@ -152,11 +145,9 @@ void Input_system::variable_update(double) {
     auto window = dependency<Window>()->handle();
     int cursor_value = glfwGetInputMode(window, GLFW_CURSOR);
     bool captures_mouse = cursor_value == GLFW_CURSOR_DISABLED;
-    if (!action_maps_.empty() &&
-        current_action_map().captures_mouse() != captures_mouse) {
-        cursor_value = cursor_value == GLFW_CURSOR_DISABLED
-                               ? GLFW_CURSOR_NORMAL
-                               : GLFW_CURSOR_DISABLED;
+    if (!action_maps_.empty() && current_action_map().captures_mouse() != captures_mouse) {
+        cursor_value =
+                cursor_value == GLFW_CURSOR_DISABLED ? GLFW_CURSOR_NORMAL : GLFW_CURSOR_DISABLED;
         glfwSetInputMode(window, GLFW_CURSOR, cursor_value);
     }
 }

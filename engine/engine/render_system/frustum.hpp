@@ -15,9 +15,7 @@ public:
     void set_near_clip_plane(float near) noexcept;
     void set_aspect_ratio(float aspect_ratio) noexcept;
 
-    const glm::dmat4& projection_matrix() const noexcept {
-        return projection_matrix_;
-    }
+    const glm::dmat4& projection_matrix() const noexcept { return projection_matrix_; }
 
     float frustum_scale() const noexcept { return frustum_scale_; }
     float aspect_ratio() const noexcept { return aspect_ratio_; }

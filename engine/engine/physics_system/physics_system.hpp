@@ -31,10 +31,9 @@ private:
     public:
         using btSoftRigidDynamicsWorld::btSoftRigidDynamicsWorld;
 
-        int stepSimulation(btScalar timeStep, int maxSubSteps,
-                           btScalar fixedTimeStep) override {
-            int num_steps = btDiscreteDynamicsWorld::stepSimulation(
-                    timeStep, maxSubSteps, fixedTimeStep);
+        int stepSimulation(btScalar timeStep, int maxSubSteps, btScalar fixedTimeStep) override {
+            int num_steps =
+                    btDiscreteDynamicsWorld::stepSimulation(timeStep, maxSubSteps, fixedTimeStep);
             m_localTime = 0.0;
             return num_steps;
         }

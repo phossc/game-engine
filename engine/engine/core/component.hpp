@@ -50,25 +50,23 @@ private:
 
 #define COMPONENT(uuid_string) UUID(uuid_string)
 
-#define DEPENDENCIES_IMPL(...)                                                 \
-    static std::array<engine::Uuid, std::tuple_size_v<decltype(                \
-                                            std::make_tuple(__VA_ARGS__))>>    \
-            uuids{__VA_ARGS__};                                                \
-                                                                               \
-    if (!uuids.empty()) {                                                      \
-        return {uuids.data(), uuids.size()};                                   \
-    }                                                                          \
-                                                                               \
+#define DEPENDENCIES_IMPL(...)                                                                     \
+    static std::array<engine::Uuid, std::tuple_size_v<decltype(std::make_tuple(__VA_ARGS__))>>     \
+            uuids{__VA_ARGS__};                                                                    \
+                                                                                                   \
+    if (!uuids.empty()) {                                                                          \
+        return {uuids.data(), uuids.size()};                                                       \
+    }                                                                                              \
+                                                                                                   \
     return {};
 
-#define DEPENDENCIES(...)                                                      \
-    static engine::Array_view<engine::Uuid> dependencies_s() noexcept {        \
-        DEPENDENCIES_IMPL(__VA_ARGS__);                                        \
-    }                                                                          \
-                                                                               \
-    virtual engine::Array_view<engine::Uuid> dependencies()                    \
-            const noexcept override {                                          \
-        return dependencies_s();                                               \
+#define DEPENDENCIES(...)                                                                          \
+    static engine::Array_view<engine::Uuid> dependencies_s() noexcept {                            \
+        DEPENDENCIES_IMPL(__VA_ARGS__);                                                            \
+    }                                                                                              \
+                                                                                                   \
+    virtual engine::Array_view<engine::Uuid> dependencies() const noexcept override {              \
+        return dependencies_s();                                                                   \
     }
 
 #endif /* ENGINE_CORE_COMPONENT_HPP */

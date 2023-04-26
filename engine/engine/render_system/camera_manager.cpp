@@ -20,8 +20,7 @@ void Camera_manager::remove_camera(Camera* camera) noexcept {
     cameras_.erase(camera);
     if (camera == active_camera_) {
         auto new_camera = std::begin(cameras_);
-        active_camera_ =
-                new_camera == std::end(cameras_) ? nullptr : *new_camera;
+        active_camera_ = new_camera == std::end(cameras_) ? nullptr : *new_camera;
     }
 }
 

@@ -13,8 +13,8 @@ Physics_system::Physics_system()
 }
 
 void Physics_system::activate() {
-    sys->update_system().register_fixed_update(
-            this, static_cast<std::int32_t>(Update_priority::physics));
+    sys->update_system().register_fixed_update(this,
+                                               static_cast<std::int32_t>(Update_priority::physics));
     sys->update_system().register_interpolation_update(
             this, static_cast<std::int32_t>(Update_priority::physics));
 }

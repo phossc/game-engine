@@ -14,8 +14,7 @@ int launch(int argc, const char** argv, std::function<void(System&)> setup) {
         System sys_instance(argc, argv);
         setup(sys_instance);
         sys_instance.run();
-    }
-    catch (const std::exception& e) {
+    } catch (const std::exception& e) {
         std::cerr << "Exception caught in launch: " << e.what() << '\n';
         return -1;
     }

@@ -45,8 +45,7 @@ public:
 
 private:
     std::map<Uuid, Array_view<Uuid>> dependency_graph_;
-    std::map<Uuid, std::function<std::unique_ptr<Component>()>>
-            component_creators_;
+    std::map<Uuid, std::function<std::unique_ptr<Component>()>> component_creators_;
 };
 
 template <typename ComponentType>
@@ -60,9 +59,7 @@ void Component_registry::register_component() {
     }
 
     dependency_graph_[dependent] = dependencies;
-    component_creators_[dependent] = []() {
-        return std::make_unique<ComponentType>();
-    };
+    component_creators_[dependent] = []() { return std::make_unique<ComponentType>(); };
 }
 
 } // namespace engine

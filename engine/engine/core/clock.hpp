@@ -20,9 +20,7 @@ public:
     std::chrono::nanoseconds update_dt() const noexcept { return update_dt_; }
 
     //! update_dt as a fraction of seconds.
-    std::chrono::duration<double> update_dt_seconds() const noexcept {
-        return update_dt_;
-    }
+    std::chrono::duration<double> update_dt_seconds() const noexcept { return update_dt_; }
 
     void set_timescale(double scale) noexcept { timescale_ = scale; }
     double timescale() const noexcept { return timescale_; };
@@ -31,9 +29,7 @@ public:
         step_duration_ = duration;
     };
 
-    std::chrono::nanoseconds step_duration() const noexcept {
-        return step_duration_;
-    }
+    std::chrono::nanoseconds step_duration() const noexcept { return step_duration_; }
 
 private:
     void refresh_update_dt() noexcept;

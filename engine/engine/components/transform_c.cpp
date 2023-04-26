@@ -15,8 +15,7 @@ const glm::mat4& Transform_c::transform() const noexcept {
     }
 
     transform_needs_update_ = false;
-    transform_ = glm::translate(glm::mat4(1.0f), position_) *
-                 glm::mat4_cast(orientation_) *
+    transform_ = glm::translate(glm::mat4(1.0f), position_) * glm::mat4_cast(orientation_) *
                  glm::scale(glm::mat4(1.0f), scale_);
 
     return transform_;
@@ -28,10 +27,9 @@ void Transform_c::getWorldTransform(btTransform& worldTrans) const {
 
     if (scale_ == glm::vec3{1, 1, 1}) {
         worldTrans.setFromOpenGLMatrix(glm::value_ptr(transform()));
-    }
-    else {
-        auto rigid_transform = glm::translate(glm::mat4(1.0f), position_) *
-                               glm::mat4_cast(orientation_);
+    } else {
+        auto rigid_transform =
+                glm::translate(glm::mat4(1.0f), position_) * glm::mat4_cast(orientation_);
 
         worldTrans.setFromOpenGLMatrix(glm::value_ptr(rigid_transform));
     }

@@ -8,8 +8,7 @@
 namespace engine::ecs {
 
 void Ecs::register_components(
-        const std::function<void(const Ecs::Component_registrar&)>&
-                registration_function) {
+        const std::function<void(const Ecs::Component_registrar&)>& registration_function) {
     if (registration_done_) {
         throw std::logic_error("Component registration can only happen once.");
     }
@@ -18,8 +17,7 @@ void Ecs::register_components(
 
     bool success = calculate_dependency_ordering();
     if (!success) {
-        throw std::logic_error(
-                "Missing or circular dependencies in the components.");
+        throw std::logic_error("Missing or circular dependencies in the components.");
     }
 
     registration_done_ = true;
@@ -59,8 +57,7 @@ bool Ecs::calculate_dependency_ordering() {
             auto result = status.emplace(*first, Vertex_status::undiscovered);
             if (result.first->second == Vertex_status::undiscovered) {
                 processing.push_back(*first);
-            }
-            else if (result.first->second == Vertex_status::discovered) {
+            } else if (result.first->second == Vertex_status::discovered) {
                 // Circular dependency.
                 return false;
             }
@@ -74,8 +71,7 @@ bool Ecs::calculate_dependency_ordering() {
         if (auto iter = status.emplace(uuid, Vertex_status::undiscovered);
             iter.first->second == Vertex_status::undiscovered) {
             processing.push_back(uuid);
-        }
-        else {
+        } else {
             continue;
         }
 
@@ -93,8 +89,7 @@ bool Ecs::calculate_dependency_ordering() {
                 processing.pop_back();
                 status_iter->second = Vertex_status::finished;
                 dependency_ordering_.emplace(current_vertex, dependency_order);
-                dependency_order_to_uuid_.emplace(dependency_order,
-                                                  current_vertex);
+                dependency_order_to_uuid_.emplace(dependency_order, current_vertex);
                 ++dependency_order;
                 break;
 
@@ -119,15 +114,13 @@ void Ecs::build_scheduled_entities() {
 
 void Ecs::delete_scheduled_entities() {
     for (auto id : entities_to_delete_) {
-        if (const auto iter = entities_.find(id);
-            iter != std::cend(entities_)) {
+        if (const auto iter = entities_.find(id); iter != std::cend(entities_)) {
             auto components = entity_store_.get_entity_components(iter->second);
             std::for_each(std::crbegin(components), std::crend(components),
                           [this](const auto& entry) {
                               const auto uuid = uuid_from(entry.first);
                               const auto index = entry.second;
-                              component_groupings_.at(uuid)->remove_group(
-                                      index);
+                              component_groupings_.at(uuid)->remove_group(index);
                               component_stores_.at(uuid)->remove(index);
                           });
             entity_store_.erase(iter->second);

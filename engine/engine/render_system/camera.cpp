@@ -9,8 +9,7 @@ namespace engine {
 
 const glm::dmat4& Camera::orientation() const {
     if (orientation_needs_update_) {
-        orientation_ =
-                glm::mat4_cast(glm::dquat(glm::dvec3{pitch_, yaw_, 0.0}));
+        orientation_ = glm::mat4_cast(glm::dquat(glm::dvec3{pitch_, yaw_, 0.0}));
 
         orientation_needs_update_ = false;
     }

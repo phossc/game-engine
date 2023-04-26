@@ -14,8 +14,7 @@ static void window_close_callback(GLFWwindow* window) {
     sys->game_loop().stop();
 }
 
-static void framebuffer_size_callback(GLFWwindow* window, int fb_width,
-                                      int fb_height) {
+static void framebuffer_size_callback(GLFWwindow* window, int fb_width, int fb_height) {
     assert(window == sys->component<Window>()->handle());
     glViewport(0, 0, fb_width, fb_height);
 }
@@ -51,8 +50,7 @@ void Window::swap_buffers() {
 
 void Window::set_size(int width, int height) noexcept {
     if (width <= 0 || height <= 0) {
-        sys->logger().debug("Invalid window size - width: {} height: {}", width,
-                            height);
+        sys->logger().debug("Invalid window size - width: {} height: {}", width, height);
         return;
     }
 

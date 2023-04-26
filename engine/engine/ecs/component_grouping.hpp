@@ -42,12 +42,11 @@ public:
     template <typename... Members>
     class Iter {
         static_assert(sizeof...(Members) >= 1);
-        static_assert(sizeof...(Members) <=
-                      std::tuple_size_v<typename ComponentType::Group_tuple>);
+        static_assert(sizeof...(Members) <= std::tuple_size_v<typename ComponentType::Group_tuple>);
 
     public:
-        using difference_type = typename std::iterator_traits<
-                typename Group_storage::iterator>::difference_type;
+        using difference_type =
+                typename std::iterator_traits<typename Group_storage::iterator>::difference_type;
         using reference = std::tuple<Members*...>;
         using value_type = reference;
         using pointer = value_type*;
@@ -55,8 +54,7 @@ public:
 
         class Member_of_pointer_proxy {
         public:
-            Member_of_pointer_proxy(value_type value)
-                : value_(std::move(value)) {}
+            Member_of_pointer_proxy(value_type value) : value_(std::move(value)) {}
             pointer operator->() noexcept { return &value_; }
 
         private:
@@ -72,8 +70,7 @@ public:
             value_type value_;
         };
 
-        Iter(typename Group_storage::iterator iter,
-             Component_store<Members>&... stores)
+        Iter(typename Group_storage::iterator iter, Component_store<Members>&... stores)
             : iter_(iter), stores_(std::ref(stores)...) {}
 
         /// Looks up the requested components in their component stores. The
@@ -81,10 +78,8 @@ public:
         /// current group tuple pointed to by the iterator.
         reference operator*() noexcept {
             return std::make_tuple(
-                    &std::get<std::reference_wrapper<Component_store<Members>>>(
-                             stores_)
-                             .get()[std::get<Typed_component_index<Members>>(
-                                     *iter_)]...);
+                    &std::get<std::reference_wrapper<Component_store<Members>>>(stores_)
+                             .get()[std::get<Typed_component_index<Members>>(*iter_)]...);
         }
 
         Member_of_pointer_proxy operator->() noexcept { return {operator*()}; }
@@ -103,16 +98,12 @@ public:
         /// Only compares the underlying iter_ as there is no way for stores_ to
         /// be different for iterators of the same type because there is only
         /// one of each component store.
-        bool operator==(const Iter<Members...>& rhs) const {
-            return iter_ == rhs.iter_;
-        }
+        bool operator==(const Iter<Members...>& rhs) const { return iter_ == rhs.iter_; }
 
         /// Only compares the underlying iter_ as there is no way for stores_ to
         /// be different for iterators of the same type because there is only
         /// one of each component store.
-        bool operator!=(const Iter<Members...>& rhs) const {
-            return iter_ != rhs.iter_;
-        }
+        bool operator!=(const Iter<Members...>& rhs) const { return iter_ != rhs.iter_; }
 
     private:
         typename Group_storage::iterator iter_;
@@ -128,13 +119,11 @@ public:
             : provider_(provider), first_(first), last_(last) {}
 
         Iter<Members...> begin() noexcept {
-            return Iter<Members...>(
-                    first_, provider_.template component_store<Members>()...);
+            return Iter<Members...>(first_, provider_.template component_store<Members>()...);
         }
 
         Iter<Members...> end() noexcept {
-            return Iter<Members...>(
-                    last_, provider_.template component_store<Members>()...);
+            return Iter<Members...>(last_, provider_.template component_store<Members>()...);
         }
 
     private:
@@ -143,8 +132,7 @@ public:
         typename Group_storage::iterator last_;
     };
 
-    Component_grouping(StoreProvider& store_provider)
-        : store_provider_(store_provider) {}
+    Component_grouping(StoreProvider& store_provider) : store_provider_(store_provider) {}
 
     /// Invalidates every view and iterator.
     /// Currently no exception guarantee.
@@ -153,8 +141,7 @@ public:
     /// time is not supported and one of them must be removed before the other
     /// can be added.
     void add_group(typename ComponentType::Group_tuple group) {
-        auto stable_index =
-                std::get<Typed_component_index<ComponentType>>(group);
+        auto stable_index = std::get<Typed_component_index<ComponentType>>(group);
         if (index_lookup_table_.count(stable_index) == 1) {
             throw std::logic_error("Multiple groups with the same identifier "
                                    "is not supported.");
@@ -176,8 +163,7 @@ public:
         if (index < groups_.size() - 1) {
             std::swap(groups_[index], groups_.back());
             auto stable_index_relocated =
-                    std::get<Typed_component_index<ComponentType>>(
-                            groups_[index]);
+                    std::get<Typed_component_index<ComponentType>>(groups_[index]);
             index_lookup_table_[stable_index_relocated] = index;
         }
 
@@ -187,20 +173,17 @@ public:
 
     /// Generic version of remove_group.
     void remove_group(Component_index stable_index) override {
-        remove_group(Typed_component_index<ComponentType>{
-                stable_index.underlying_value()});
+        remove_group(Typed_component_index<ComponentType>{stable_index.underlying_value()});
     }
 
     template <typename... Members>
     View<Members...> view() noexcept {
-        return View<Members...>(store_provider_, std::begin(groups_),
-                                std::end(groups_));
+        return View<Members...>(store_provider_, std::begin(groups_), std::end(groups_));
     }
 
 private:
     Group_storage groups_;
-    std::unordered_map<Typed_component_index<ComponentType>, std::size_t>
-            index_lookup_table_;
+    std::unordered_map<Typed_component_index<ComponentType>, std::size_t> index_lookup_table_;
 
     StoreProvider& store_provider_;
 };

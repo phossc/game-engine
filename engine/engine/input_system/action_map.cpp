@@ -26,13 +26,11 @@ void Action_map::register_handler(std::string action, Digital_handler handler) {
     action_handlers_.emplace(std::move(action), handler);
 }
 
-void Action_map::register_handler(std::string action,
-                                  Single_axis_handler handler) {
+void Action_map::register_handler(std::string action, Single_axis_handler handler) {
     action_handlers_.emplace(std::move(action), handler);
 }
 
-void Action_map::register_handler(std::string action,
-                                  Dual_axes_handler handler) {
+void Action_map::register_handler(std::string action, Dual_axes_handler handler) {
     action_handlers_.emplace(std::move(action), handler);
 }
 
@@ -42,8 +40,7 @@ void Action_map::deregister_handler(const std::string& action) {
 
 class Handler_invoker {
 public:
-    Handler_invoker(input::Event event, double x, double y,
-                    bool consumes_unhandled)
+    Handler_invoker(input::Event event, double x, double y, bool consumes_unhandled)
         : event_(event), axes_{x, y}, consumes_unhandled_(consumes_unhandled) {}
 
     bool operator()(Action_map::Raw_handler& handler) {

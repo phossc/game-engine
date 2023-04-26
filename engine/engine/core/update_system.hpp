@@ -33,8 +33,7 @@ public:
     void register_variable_update(Updatable* updatable, std::int32_t priority);
     void deregister_variable_update(Updatable* updatable);
 
-    void register_interpolation_update(Updatable* updatable,
-                                       std::int32_t priority);
+    void register_interpolation_update(Updatable* updatable, std::int32_t priority);
     void deregister_interpolation_update(Updatable* updatable);
 
     void register_fixed_update(Updatable* updatable, std::int32_t priority);
@@ -48,8 +47,7 @@ private:
     std::unordered_map<Updatable*, decltype(variable_updatables_)::iterator>
             iterators_to_variable_updatables_;
 
-    std::unordered_map<Updatable*,
-                       decltype(interpolation_updatables_)::iterator>
+    std::unordered_map<Updatable*, decltype(interpolation_updatables_)::iterator>
             iterators_to_interpolation_updatables_;
 
     std::unordered_map<Updatable*, decltype(fixed_updatables_)::iterator>

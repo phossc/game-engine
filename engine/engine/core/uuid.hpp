@@ -48,8 +48,7 @@ private:
     std::uint64_t lower_half_ = 0;
 };
 
-constexpr Uuid::Uuid(std::uint64_t upper_half,
-                     std::uint64_t lower_half) noexcept
+constexpr Uuid::Uuid(std::uint64_t upper_half, std::uint64_t lower_half) noexcept
     : upper_half_(upper_half), lower_half_(lower_half) {}
 
 constexpr Uuid::Uuid(std::string_view uuid) noexcept {
@@ -76,8 +75,7 @@ constexpr Uuid::Uuid(std::string_view uuid) noexcept {
             auto positioned_nibble = static_cast<std::uint64_t>(hex_value);
             positioned_nibble <<= 60 - 4 * nibble_index;
             upper_half_ |= positioned_nibble;
-        }
-        else {
+        } else {
             auto positioned_nibble = static_cast<std::uint64_t>(hex_value);
             positioned_nibble <<= 60 - 4 * (nibble_index - 16);
             lower_half_ |= positioned_nibble;
@@ -98,23 +96,19 @@ constexpr bool Uuid::is_hex_digit(char c) const noexcept {
 constexpr int Uuid::hex_digit_value(char c) const noexcept {
     if (c >= 0x30 && c <= 0x39) {
         return c - 0x30;
-    }
-    else if (c >= 0x61 && c <= 0x66) {
+    } else if (c >= 0x61 && c <= 0x66) {
         return c - 0x61 + 10;
-    }
-    else {
+    } else {
         return -1;
     }
 }
 
 constexpr bool operator==(const Uuid& lhs, const Uuid& rhs) noexcept {
-    return lhs.upper_half_ == rhs.upper_half_ &&
-           lhs.lower_half_ == rhs.lower_half_;
+    return lhs.upper_half_ == rhs.upper_half_ && lhs.lower_half_ == rhs.lower_half_;
 }
 
 constexpr bool operator!=(const Uuid& lhs, const Uuid& rhs) noexcept {
-    return lhs.upper_half_ != rhs.upper_half_ ||
-           lhs.lower_half_ != rhs.lower_half_;
+    return lhs.upper_half_ != rhs.upper_half_ || lhs.lower_half_ != rhs.lower_half_;
 }
 
 constexpr bool operator<(const Uuid& lhs, const Uuid& rhs) noexcept {
@@ -162,11 +156,13 @@ struct hash<engine::Uuid> {
 };
 } // namespace std
 
-#define UUID(uuid_string)                                                      \
-    virtual engine::Uuid uuid() const noexcept override {                      \
-        return {uuid_string};                                                  \
-    }                                                                          \
-                                                                               \
-    static engine::Uuid uuid_s() noexcept { return {uuid_string}; }
+#define UUID(uuid_string)                                                                          \
+    virtual engine::Uuid uuid() const noexcept override {                                          \
+        return {uuid_string};                                                                      \
+    }                                                                                              \
+                                                                                                   \
+    static engine::Uuid uuid_s() noexcept {                                                        \
+        return {uuid_string};                                                                      \
+    }
 
 #endif /* ENGINE_CORE_UUID_HPP */

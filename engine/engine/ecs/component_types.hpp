@@ -14,13 +14,9 @@ template <typename ComponentType>
 struct Component_traits {
     constexpr static Uuid uuid() noexcept { return ComponentType::uuid_s(); }
 
-    constexpr static Array_view<Uuid> deps() noexcept {
-        return ComponentType::dependencies_s();
-    }
+    constexpr static Array_view<Uuid> deps() noexcept { return ComponentType::dependencies_s(); }
 
-    constexpr static bool sort_deps() noexcept {
-        return ComponentType::sort_dependencies();
-    }
+    constexpr static bool sort_deps() noexcept { return ComponentType::sort_dependencies(); }
 };
 
 struct Base_component {};
@@ -36,8 +32,7 @@ struct Component : Base_component {
     constexpr static Array_view<Uuid> dependencies_s() noexcept {
         if constexpr (dependencies.empty()) {
             return {};
-        }
-        else {
+        } else {
             return {dependencies.data(), dependencies.size()};
         }
     }

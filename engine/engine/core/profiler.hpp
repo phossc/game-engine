@@ -43,7 +43,6 @@ private:
 
 } // namespace engine
 
-#define PROFILE(name, parent_name)                                             \
-    engine::Scope_profiler scope_profiler{name, parent_name};
+#define PROFILE(name, parent_name) engine::Scope_profiler scope_profiler{name, parent_name};
 
 #endif /* ENGINE_CORE_PROFILER_HPP */

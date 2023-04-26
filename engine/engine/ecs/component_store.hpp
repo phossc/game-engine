@@ -27,8 +27,7 @@ public:
         if (available_indicies_.empty()) {
             components_.push_back(std::move(component));
             return Typed_component_index<ComponentType>{components_.size() - 1};
-        }
-        else {
+        } else {
             auto index = available_indicies_.back();
             components_[index] = std::move(component);
             available_indicies_.pop_back();
@@ -53,15 +52,13 @@ public:
 
     /// Returns a reference to the component at the given index.
     /// The behavior is undefined if the index is invalid.
-    ComponentType&
-    operator[](Typed_component_index<ComponentType> index) noexcept {
+    ComponentType& operator[](Typed_component_index<ComponentType> index) noexcept {
         return *components_[index.underlying_value()];
     }
 
     /// Returns a read-only reference to the component at the given index.
     /// The behavior is undefined if the index is invalid.
-    const ComponentType&
-    operator[](Typed_component_index<ComponentType> index) const noexcept {
+    const ComponentType& operator[](Typed_component_index<ComponentType> index) const noexcept {
         return *components_[index.underlying_value()];
     }
 
@@ -77,8 +74,7 @@ public:
 
 private:
     std::deque<std::optional<ComponentType>> components_;
-    std::vector<typename Typed_component_index<
-            ComponentType>::underlying_value_type>
+    std::vector<typename Typed_component_index<ComponentType>::underlying_value_type>
             available_indicies_;
 };
 

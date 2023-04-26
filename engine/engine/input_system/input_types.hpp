@@ -5,12 +5,7 @@
 
 namespace engine::input {
 
-enum class Event {
-    release = GLFW_RELEASE,
-    press = GLFW_PRESS,
-    single_axis = -1,
-    dual_axes = -2
-};
+enum class Event { release = GLFW_RELEASE, press = GLFW_PRESS, single_axis = -1, dual_axes = -2 };
 
 enum class Mouse {
     primary = GLFW_MOUSE_BUTTON_LEFT,

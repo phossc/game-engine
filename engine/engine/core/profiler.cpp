@@ -22,14 +22,11 @@ void Profiler::add_sample(std::string_view name, std::string_view parent_name,
 
 Profiler::Result Profiler::result(std::string_view name) const noexcept {
     auto result_iter = results_.find(name);
-    return result_iter == std::end(results_) ? Result{name, {}, {}, 0}
-                                             : result_iter->second;
+    return result_iter == std::end(results_) ? Result{name, {}, {}, 0} : result_iter->second;
 }
 
-Scope_profiler::Scope_profiler(std::string_view name,
-                               std::string_view parent_name)
-    : name_(name), parent_name_(parent_name),
-      start_(std::chrono::high_resolution_clock::now()) {}
+Scope_profiler::Scope_profiler(std::string_view name, std::string_view parent_name)
+    : name_(name), parent_name_(parent_name), start_(std::chrono::high_resolution_clock::now()) {}
 
 Scope_profiler::~Scope_profiler() {
     auto duration = std::chrono::high_resolution_clock::now() - start_;

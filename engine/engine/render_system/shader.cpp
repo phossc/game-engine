@@ -59,11 +59,9 @@ GLint Shader::compile_status(GLuint shader) {
         glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &log_length);
 
         std::vector<char> shader_error(log_length >= 1 ? log_length : 1);
-        glGetShaderInfoLog(shader, shader_error.size(), NULL,
-                           shader_error.data());
+        glGetShaderInfoLog(shader, shader_error.size(), NULL, shader_error.data());
 
-        sys->logger().error("Shader compilation failed: {}",
-                            shader_error.data());
+        sys->logger().error("Shader compilation failed: {}", shader_error.data());
     }
 
     return compile_status;

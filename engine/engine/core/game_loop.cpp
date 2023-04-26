@@ -7,10 +7,8 @@
 
 namespace engine {
 
-Game_loop::Game_loop(Profiler& profiler, Clock& game_clock, Ecs& ecs,
-                     Update_system& update_system)
-    : profiler_(profiler), game_clock_(game_clock), ecs_(ecs),
-      update_system_(update_system) {}
+Game_loop::Game_loop(Profiler& profiler, Clock& game_clock, Ecs& ecs, Update_system& update_system)
+    : profiler_(profiler), game_clock_(game_clock), ecs_(ecs), update_system_(update_system) {}
 
 //! For a better understanding of how the game loop works, read this great
 //! article https://gafferongames.com/post/fix_your_timestep/ by Glenn Fiedler.
@@ -43,14 +41,12 @@ void Game_loop::run() {
         std::chrono::nanoseconds dt = game_clock_.update_dt();
         accumulated_dt += dt;
 
-        double simulation_rate_seconds =
-                std::chrono::duration<double>{simulation_rate_}.count();
+        double simulation_rate_seconds = std::chrono::duration<double>{simulation_rate_}.count();
 
         while (accumulated_dt >= simulation_rate_) {
             accumulated_dt -= simulation_rate_;
 
-            simulation_rate_seconds =
-                    std::chrono::duration<double>{simulation_rate_}.count();
+            simulation_rate_seconds = std::chrono::duration<double>{simulation_rate_}.count();
 
             {
                 PROFILE("Fixed update", "Frame");
@@ -67,8 +63,7 @@ void Game_loop::run() {
 
         {
             PROFILE("Variable update", "Frame");
-            update_system_.broadcast_variable_update(
-                    std::chrono::duration<double>{dt}.count());
+            update_system_.broadcast_variable_update(std::chrono::duration<double>{dt}.count());
         }
 
         previous = current;
