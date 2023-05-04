@@ -1,7 +1,9 @@
-Checks: 'clang-analyzer-*, cppcoreguidelines-*, misc-*, performance-*, portability-*, readability-*, cert-*, modernize-*, -modernize-use-trailing-return-type, -readability-identifier-length'
+Checks: 'clang-analyzer-*, cppcoreguidelines-*, misc-*, performance-*, portability-*, readability-*, cert-*, modernize-*, -modernize-use-trailing-return-type, -readability-identifier-length, -cert-dcl21-cpp'
 CheckOptions:
   - key:             readability-identifier-naming.VariableCase
     value:           lower_case
   - key:             modernize-use-default-member-init.UseAssignment
+    value:           1
+  - key:             cppcoreguidelines-special-member-functions.AllowSoleDefaultDtor
     value:           1
 
