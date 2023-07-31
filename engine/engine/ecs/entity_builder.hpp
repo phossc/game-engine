@@ -1,7 +1,7 @@
 #ifndef ENGINE_ECS_ENTITY_BUILDER_HPP
 #define ENGINE_ECS_ENTITY_BUILDER_HPP
 
-#include "engine/ecs/component_types.hpp"
+#include "engine/ecs/component_traits.hpp"
 #include "engine/ecs/entity_store.hpp"
 
 #include <algorithm>

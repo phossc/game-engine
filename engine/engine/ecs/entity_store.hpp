@@ -29,7 +29,7 @@ public:
     /// Provides a view into the entity described by range, exposing its
     /// components. The range must denote an entity. Entity creation can
     /// invalidate the returned array view.
-    Array_view<Entry> get_entity_components(Entity_range range) const noexcept;
+    [[nodiscard]] Array_view<Entry> get_entity_components(Entity_range range) const noexcept;
 
 private:
     std::vector<Entry> component_indices_;

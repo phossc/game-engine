@@ -36,6 +36,7 @@ target_sources(engine
         "engine/core/uuid.hpp"
         "engine/ecs/component_grouping.hpp"
         "engine/ecs/component_store.hpp"
+        "engine/ecs/component_traits.hpp"
         "engine/ecs/component_types.hpp"
         "engine/ecs/ecs.cpp"
         "engine/ecs/ecs.hpp"

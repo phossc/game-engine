@@ -4,7 +4,7 @@
 #include "engine/core/uuid.hpp"
 #include "engine/ecs/component_grouping.hpp"
 #include "engine/ecs/component_store.hpp"
-#include "engine/ecs/component_types.hpp"
+#include "engine/ecs/component_traits.hpp"
 #include "engine/ecs/entity_builder.hpp"
 #include "engine/ecs/entity_store.hpp"
 #include "engine/ecs/handle_types.hpp"
@@ -41,6 +41,31 @@ public:
     [[nodiscard]] Entity_builder<Ecs> entity() { return Entity_builder<Ecs>(*this); }
 
     void delete_entity(Entity_id id) { entities_to_delete_.push_back(id); }
+
+    /// Attempts to get a component of specified type residing in the entity with the given id. An
+    /// empty optional is returned in the case where the entity does not contain a component of that
+    /// type, or in the case where no entity with that id exists.
+    template <typename ComponentType>
+    std::optional<std::reference_wrapper<ComponentType>> try_get_component(Entity_id id) {
+        auto range_iter = entities_.find(id);
+        if (range_iter == std::end(entities_)) {
+            return {};
+        }
+
+        auto components = entity_store_.get_entity_components(range_iter->second);
+        auto component_iter = std::find_if(
+                std::cbegin(components), std::cend(components), [this](const auto& entry) {
+                    return uuid_from(entry.first) == Component_traits<ComponentType>::uuid();
+                });
+
+        if (component_iter == std::cend(components)) {
+            return {};
+        }
+
+        auto handle = component_iter->second;
+        auto& store = component_store<ComponentType>();
+        return std::ref(store[handle]);
+    }
 
     template <typename ComponentType>
     [[nodiscard]] Component_store<ComponentType>& component_store() const {
@@ -89,6 +114,7 @@ private:
         component_groupings_.emplace(
                 uuid, std::make_unique<Component_grouping<ComponentType, Ecs>>(*this));
         dependency_graph_[uuid] = Component_traits<ComponentType>::deps();
+        component_to_behavioral_[uuid] = Component_traits<ComponentType>::behavioral();
     }
 
     /// A number indicating the order of dependencies will be assigned to every
@@ -101,6 +127,9 @@ private:
     /// call.
     void build_scheduled_entities();
 
+    void activate_if_behavior_component(const Entity_store::Entry& entry);
+    void deactivate_if_behavior_component(const Entity_store::Entry& entry);
+
     /// Deletes scheduled entities.
     void delete_scheduled_entities();
 
@@ -110,6 +139,9 @@ private:
     std::unordered_map<Uuid, Array_view<Uuid>> dependency_graph_;
     std::unordered_map<Uuid, Dependency_order> dependency_ordering_;
     std::unordered_map<Dependency_order, Uuid> dependency_order_to_uuid_;
+
+    std::unordered_map<Uuid, bool> component_to_behavioral_;
+    std::unordered_map<Dependency_order, bool> dependency_order_to_behavioral_;
 
     Entity_store entity_store_;
     std::unordered_map<Entity_id, Entity_store::Entity_range> entities_;

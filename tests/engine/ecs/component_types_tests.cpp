@@ -1,12 +1,13 @@
 #include "engine/ecs/component_types.hpp"
 
 #include "engine/core/uuid.hpp"
+#include "engine/ecs/component_traits.hpp"
 
 #include "catch/catch.hpp"
 
 using engine::Uuid;
 using engine::ecs::Behavior_component;
-using engine::ecs::Behavior_component_interface;
+using engine::ecs::Behavior_interface;
 using engine::ecs::Component_traits;
 using engine::ecs::Data_component;
 
@@ -39,14 +40,11 @@ TEST_CASE("Component template instantiations", "[component]") {
     REQUIRE(Component_traits<Transform>::deps().empty());
 
     REQUIRE(Component_traits<Render>::deps().size() == 1);
-    REQUIRE(Component_traits<Render>::deps().data()[0] ==
-            Component_traits<Transform>::uuid());
+    REQUIRE(Component_traits<Render>::deps().data()[0] == Component_traits<Transform>::uuid());
 
     REQUIRE(Component_traits<Player>::deps().size() == 2);
-    REQUIRE(Component_traits<Player>::deps().data()[0] ==
-            Component_traits<Render>::uuid());
-    REQUIRE(Component_traits<Player>::deps().data()[1] ==
-            Component_traits<Transform>::uuid());
+    REQUIRE(Component_traits<Player>::deps().data()[0] == Component_traits<Render>::uuid());
+    REQUIRE(Component_traits<Player>::deps().data()[1] == Component_traits<Transform>::uuid());
 }
 
 namespace {
@@ -65,8 +63,8 @@ TEST_CASE("Behavior component interface", "[component]") {
     Window_manager wm;
     Render_system rs;
 
-    Behavior_component_interface* wm_ptr = &wm;
-    Behavior_component_interface* rs_ptr = &rs;
+    Behavior_interface* wm_ptr = &wm;
+    Behavior_interface* rs_ptr = &rs;
 
     REQUIRE(Component_traits<Window_manager>::uuid() == wm_ptr->get_uuid());
     REQUIRE(Component_traits<Render_system>::uuid() == rs_ptr->get_uuid());

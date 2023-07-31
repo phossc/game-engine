@@ -1,7 +1,9 @@
 #ifndef ENGINE_ECS_COMPONENT_GROUPING_HPP
 #define ENGINE_ECS_COMPONENT_GROUPING_HPP
 
+#include "engine/core/uuid.hpp"
 #include "engine/ecs/component_store.hpp"
+#include "engine/ecs/handle_types.hpp"
 
 #include <cstddef>
 #include <functional>
@@ -13,7 +15,10 @@
 
 namespace engine::ecs {
 
+struct Component_base;
+
 struct Component_grouping_base {
+    virtual ~Component_grouping_base() = default;
     virtual void remove_group(Component_index stable_index) = 0;
 };
 
@@ -174,6 +179,16 @@ public:
     /// Generic version of remove_group.
     void remove_group(Component_index stable_index) override {
         remove_group(Typed_component_index<ComponentType>{stable_index.underlying_value()});
+    }
+
+    typename ComponentType::Group_tuple
+    get_group(Typed_component_index<ComponentType> stable_index) noexcept {
+        auto index = index_lookup_table_.at(stable_index);
+        return groups_[index];
+    }
+
+    typename ComponentType::Group_tuple get_group(Component_index stable_index) noexcept {
+        return get_group(Typed_component_index<ComponentType>{stable_index.underlying_value()});
     }
 
     template <typename... Members>

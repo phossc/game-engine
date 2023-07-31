@@ -1,5 +1,7 @@
 #include "engine/ecs/ecs.hpp"
 
+#include "engine/ecs/component_types.hpp"
+
 #include <algorithm>
 #include <cassert>
 #include <unordered_map>
@@ -90,6 +92,8 @@ bool Ecs::calculate_dependency_ordering() {
                 status_iter->second = Vertex_status::finished;
                 dependency_ordering_.emplace(current_vertex, dependency_order);
                 dependency_order_to_uuid_.emplace(dependency_order, current_vertex);
+                dependency_order_to_behavioral_.emplace(
+                        dependency_order, component_to_behavioral_.find(current_vertex)->second);
                 ++dependency_order;
                 break;
 
@@ -102,11 +106,40 @@ bool Ecs::calculate_dependency_ordering() {
     return true;
 }
 
+void Ecs::activate_if_behavior_component(const Entity_store::Entry& entry) {
+    auto order = entry.first;
+    auto handle = entry.second;
+    auto is_behavioral = dependency_order_to_behavioral_.find(order)->second;
+    if (is_behavioral) {
+        auto& store = *component_stores_.find(uuid_from(order))->second;
+        auto& behavior_component = static_cast<Behavior_interface&>(store.get(handle));
+        behavior_component.initialize(this, handle);
+        behavior_component.activate();
+        behavior_component.set_active(true);
+    }
+}
+
+void Ecs::deactivate_if_behavior_component(const Entity_store::Entry& entry) {
+    auto order = entry.first;
+    auto handle = entry.second;
+    auto is_behavioral = dependency_order_to_behavioral_.find(order)->second;
+    if (is_behavioral) {
+        auto& store = *component_stores_.find(uuid_from(order))->second;
+        auto& behavior_component = static_cast<Behavior_interface&>(store.get(handle));
+        behavior_component.deactivate();
+        behavior_component.set_active(false);
+    }
+}
+
 void Ecs::build_scheduled_entities() {
     for (auto& builder_entry : scheduled_entity_builders_) {
         auto components = builder_entry.second.perform_build();
         auto range = entity_store_.create(components);
         entities_.emplace(builder_entry.first, range);
+
+        auto inserted_components = entity_store_.get_entity_components(range);
+        std::for_each(std::cbegin(inserted_components), std::cend(inserted_components),
+                      [this](const auto& entry) { activate_if_behavior_component(entry); });
     }
 
     scheduled_entity_builders_.clear();
@@ -116,13 +149,18 @@ void Ecs::delete_scheduled_entities() {
     for (auto id : entities_to_delete_) {
         if (const auto iter = entities_.find(id); iter != std::cend(entities_)) {
             auto components = entity_store_.get_entity_components(iter->second);
+
+            std::for_each(std::crbegin(components), std::crend(components),
+                          [this](const auto& entry) { deactivate_if_behavior_component(entry); });
+
             std::for_each(std::crbegin(components), std::crend(components),
                           [this](const auto& entry) {
                               const auto uuid = uuid_from(entry.first);
-                              const auto index = entry.second;
-                              component_groupings_.at(uuid)->remove_group(index);
-                              component_stores_.at(uuid)->remove(index);
+                              const auto handle = entry.second;
+                              component_groupings_.at(uuid)->remove_group(handle);
+                              component_stores_.at(uuid)->remove(handle);
                           });
+
             entity_store_.erase(iter->second);
         }
     }

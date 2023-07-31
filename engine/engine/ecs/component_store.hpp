@@ -10,7 +10,11 @@
 namespace engine::ecs {
 
 struct Component_store_base {
+    virtual ~Component_store_base() = default;
     virtual void remove(Component_index index) = 0;
+    [[nodiscard]] virtual struct Component_base& get(Component_index index) noexcept = 0;
+    [[nodiscard]] virtual const struct Component_base&
+    get(Component_index index) const noexcept = 0;
 };
 
 /// The Component_store class is responsible for storing components of the same
@@ -48,6 +52,14 @@ public:
     /// Generic component index version of remove.
     void remove(Component_index index) override {
         remove(Typed_component_index<ComponentType>{index.underlying_value()});
+    }
+
+    [[nodiscard]] struct Component_base& get(Component_index index) noexcept override {
+        return operator[](index);
+    }
+
+    [[nodiscard]] const struct Component_base& get(Component_index index) const noexcept override {
+        return operator[](index);
     }
 
     /// Returns a reference to the component at the given index.
