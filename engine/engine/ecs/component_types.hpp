@@ -8,6 +8,7 @@
 #include "engine/ecs/handle_types.hpp"
 
 #include <array>
+#include <cassert>
 #include <tuple>
 
 namespace engine::ecs {
@@ -87,15 +88,15 @@ struct Behavior_component : Component<ComponentType, Dependencies...>, Behavior_
     /// fully added, the activate method is called.
     template <typename DependencyType>
     [[nodiscard]] DependencyType& get_dependency() const {
-        assert(ecs_);
+        assert(ecs_ != nullptr);
         auto group = ecs_->component_grouping<ComponentType>().get_group(handle_);
         auto dependency_handle = std::get<Typed_component_index<DependencyType>>(group);
         return ecs_->component_store<DependencyType>()[dependency_handle];
     }
 
 private:
-     void initialize(Ecs* ecs, Component_index handle) final {
-        assert(!ecs_);
+    void initialize(Ecs* ecs, Component_index handle) final {
+        assert(ecs_ == nullptr);
         ecs_ = ecs;
         handle_ = Typed_component_index<ComponentType>{handle.underlying_value()};
     }
